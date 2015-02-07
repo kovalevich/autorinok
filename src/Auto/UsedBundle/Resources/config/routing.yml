@@ -1,0 +1,3 @@
+used_homepage:
+    path:     /cars
+    defaults: { _controller: AutoUsedBundle:Default:index }

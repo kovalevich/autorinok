@@ -1,0 +1,19 @@
+home:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+
+ajax_categories:
+    path:     /ajax/get/categories
+    defaults: { _controller: AppBundle:Ajax:categories }
+
+ajax_publications:
+    path:     /ajax/get/publications
+    defaults: { _controller: AppBundle:Ajax:publications }
+
+ajax_themes:
+    path:     /ajax/get/themes
+    defaults: { _controller: AppBundle:Ajax:themes }
+
+ajax_tags:
+    path:     /ajax/get/tags
+    defaults: { _controller: AppBundle:Ajax:tags }

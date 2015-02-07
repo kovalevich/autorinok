@@ -1,0 +1,9 @@
+services:
+#    blog_blog.example:
+#        class: Blog\BlogBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    blog_publications.admin.category:
+        class: Blog\PublicationsBundle\Controller\CategoryAdminController
+        arguments: [~, Blog\PublicationsBundle\Entity\Category, BlogPublicationsBundle:Controller:CategoryAdminController]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Category}

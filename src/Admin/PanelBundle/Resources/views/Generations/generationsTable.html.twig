@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th colspan="2">Поколение</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if items|length > 0 %}
+        {% for item in items %}
+            <tr>
+                <td>
+                    <a href="{{ path('admin_catalog_generation_edit', { 'id': item.id }) }}" title="Редактировать поколение"><b>{{ item.name }}</b></a>
+                </td>
+                <td>
+                    <div class="progress" style="width: 100px; margin-bottom: 0px;">
+                        <div class="progress-bar progress-bar-{% if item.filling < 25 %}danger{% elseif item.filling < 60 %}warning{% else %}success{% endif %}" data-transitiongoal="{{ item.filling }}"></div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="3">Нет поколений</td>
+        </tr>
+    {% endif %}
+
+    </tbody>
+</table>

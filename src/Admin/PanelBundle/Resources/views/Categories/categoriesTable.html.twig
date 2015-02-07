@@ -1,0 +1,39 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Заголовок</th>
+            <th>Алиас</th>
+            <th>Описание</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if items|length > 0 %}
+        {% for item in items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>
+                    <a href="#" id="title" data-type="text" class="editable editable-title" data-pk="{{ item.id }}" data-title="Введите заголовок категориии">{{ item.title }}</a>
+                </td>
+                <td>
+                    <a href="#" id="slug" data-type="text" class="editable editable-alias" data-pk="{{ item.id }}" data-title="Введите алиас категориии">{{ item.slug }}</a>
+                </td>
+                <td><a href="#" id="description" data-type="textarea" class="editable" data-pk="{{ item.id }}" data-title="Служебное описание категории">{{ item.description }}</a></td>
+                <td>
+                    <a href="#" id="isPublic" data-type="select" data-value="{{ item.isPublic }}" class="editable-ispublic" data-pk="{{ item.id }}" data-title="Отображать материалы этой категории на сайте??"></a>
+                </td>
+                <td>
+                    <a href="{{ path('admin_category_delete', {'id': item.id}) }}" class="mod-delete" title="удалить категорию?"><i class="fa fa-trash-o"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4">Нет категорий</td>
+        </tr>
+    {% endif %}
+
+    </tbody>
+</table>

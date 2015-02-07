@@ -1,0 +1,130 @@
+{% extends 'AdminPanelBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <ul class="breadcrumb">
+                <li><i class="fa fa-home"></i>
+                    <a href="/adminpanel">AdminPanel</a>
+                </li>
+                <li class="active">Управление каталогом автомобилей</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    <div class="content">
+        <div class="main-header">
+            <h2>Управление каталогом</h2>
+            <em>марки и модели автомобилей</em>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="easy-pie-chart {% if all_avg_filling < 25 %}red{% elseif all_avg_filling < 60 %}yellow{% else %}green{% endif %}" data-percent="{{ all_avg_filling|round(2, 'floor') }}">
+                    <span class="percent">{{ all_avg_filling|round(2, 'floor') }}</span>
+                </div>
+                <p class="text-center">Заполнение каталога</p>
+            </div>
+            <div class="col-sm-3">
+                <div class="easy-pie-chart {% if brands_avg_filling < 25 %}red{% elseif brands_avg_filling < 60 %}yellow{% else %}green{% endif %}" data-percent="{{ brands_avg_filling|round(2, 'floor') }}">
+                    <span class="percent">{{ brands_avg_filling|round(2, 'floor') }}</span>
+                </div>
+                <p class="text-center">Заполнение марок</p>
+            </div>
+            <div class="col-sm-3">
+                <div class="easy-pie-chart {% if models_avg_filling < 25 %}red{% elseif models_avg_filling < 60 %}yellow{% else %}green{% endif %}" data-percent="{{ models_avg_filling|round(2, 'floor') }}">
+                    <span class="percent">{{ models_avg_filling|round(2, 'floor') }}</span>
+                </div>
+                <p class="text-center">Заполнение моделей</p>
+            </div>
+            <div class="col-sm-3">
+                <div class="easy-pie-chart {% if generations_avg_filling < 25 %}red{% elseif generations_avg_filling < 60 %}yellow{% else %}green{% endif %}" data-percent="{{ generations_avg_filling|round(2, 'floor') }}">
+                    <span class="percent">{{ generations_avg_filling|round(2, 'floor') }}</span>
+                </div>
+                <p class="text-center">Заполнение поколений</p>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="widget widget-table">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-star"></i> Популярные марки</h3>
+                    </div>
+                    <div class="widget-content no-padding">
+                        {{ include('AdminPanelBundle:Brands:brandsTable.html.twig', { 'items': popular_brands }) }}
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+
+            <div class="col-sm-4">
+                <div class="widget widget-table">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-star-o"></i> Все марки</h3>
+                    </div>
+                    <div class="widget-content no-padding">
+                        {{ include('AdminPanelBundle:Brands:brandsTable.html.twig', { 'items': unpopular_brands }) }}
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+
+            <div class="col-sm-4">
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-plus"></i> Добавить модель</h3>
+                    </div>
+                    <div class="widget-content">
+                        Название: <a href="#" class="create-new editable editable-title" data-pk="0" id="name" data-type="text" data-name="name" data-original-title="Введите название марки">Ласточка</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/app/js/plugins/bootstrap-editable/bootstrap-editable.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/bootstrap-progressbar/bootstrap-progressbar.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/stat/jquery.easypiechart.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".progress .progress-bar").progressbar({display_text:"fill"});
+            $(".progress.no-percentage .progress-bar").progressbar({display_text:"fill",use_percentage:!1});
+            $(".progress.custom-format .progress-bar").progressbar({
+                display_text:"fill",
+                use_percentage:!1,
+                amount_format: function(e,a){
+                    return e+" of "+a
+                }
+            });
+            $(".progress.vertical .progress-bar").progressbar();
+            $(".progress.vertical .progress-bar").progressbar({display_text:"fill"});
+
+            if($(".easy-pie-chart").length>0){
+                var f = {
+                    animate:3e3,
+                    trackColor:"#ccc",
+                    scaleColor:"#ddd",
+                    lineCap:"square",
+                    lineWidth:5,
+                    barColor:"#ef1e25",
+                    onStep:function(t,e,a){
+                        $(this.el).find(".percent").text(Math.round(a))
+                    }
+                };
+                f.barColor="#3E9C1A";
+                $(".easy-pie-chart.green").easyPieChart(f);
+                f.barColor="#FFB800";
+                $(".easy-pie-chart.yellow").easyPieChart(f);
+                f.barColor="#E60404";
+                $(".easy-pie-chart.red").easyPieChart(f);
+            }
+        });
+    </script>
+{% endblock %}

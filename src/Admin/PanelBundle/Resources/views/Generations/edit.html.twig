@@ -1,0 +1,105 @@
+{% extends 'AdminPanelBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <ul class="breadcrumb">
+                <li><i class="fa fa-home"></i>
+                    <a href="{{ path('admin_panel_homepage') }}">AdminPanel</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_panel_brands') }}">Каталог</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_catalog_brand_edit', { 'id': generation.model.brand.id }) }}">{{ generation.model.brand.name }}</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_catalog_model_edit', { 'id': generation.model.id }) }}">{{ generation.model.name }}</a>
+                </li>
+                <li class="active">Редактирование поколения</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    <div class="content">
+        <div class="main-header">
+            <h2>Редактировать поколение</h2>
+            <em>{{ generation.model.brand.name }} / {{ generation.model.name }} / {{ generation.name }}</em>
+        </div>
+
+        <div class="main-content">
+            <h3>
+                Название: <a href="#" id="name" data-type="text" class="editable editable-title" data-pk="{{ generation.id }}" data-title="Введите название поколения">{{ generation.name }}</a>
+            </h3>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3><i class="fa fa-edit"></i> Описание страницы</h3>
+                            <div class="widget-header-toolbar"  style="line-height: 35px;">
+                                <i class="fa fa-save save-indicator"></i>
+                            </div>
+                            <div class="widget-header-toolbar" style="line-height: 35px;">
+                                Заполнение: <span id="filling">{{ generation.filling }}</span> %
+                            </div>
+                        </div>
+                        <div class="widget-content no-padding">
+                            <textarea class="form-control" id="editor" name="text" rows="15">
+                                {{ generation.text }}
+                            </textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3><i class="fa fa-cog"></i> Настройки</h3>
+                        </div>
+                        <div class="widget-content no-padding table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">Основные</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Период выпуска:</td>
+                                    <td>
+                                        <a href="#" id="firstYear" data-type="select" class="editable-year" data-pk="{{ generation.id }}" data-title="Введите первый год поколения">{{ generation.firstYear }}</a> -
+                                        <a href="#" id="lastYear" data-type="select" class="editable-year" data-pk="{{ generation.id }}" data-title="Введите последний год поколения">{{ generation.lastYear }}</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- /main-content -->
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var admin_edit_brand_url = '{{ path('admin_edit_entity', {'entity_name': 'generation'}) }}';
+        var upload_image = '{{ path('upload_image') }}';
+        var admin_edit_brand_auto_save_url = '{{ path('admin_edit_entity', {'entity_name': 'generation'}) }}?pk={{ generation.id }}&name=text';
+    </script>
+    <script src="{{ asset('bundles/app/js/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/bootstrap-editable/bootstrap-editable.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/redactor.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/lang/ru.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/video/video.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/table/table.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/fullscreen/fullscreen.js') }}"></script>
+    <script src="{{ asset('bundles/adminpanel/js/brand-edit.js') }}"></script>
+{% endblock %}

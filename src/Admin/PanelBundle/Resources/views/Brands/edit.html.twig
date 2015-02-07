@@ -1,0 +1,192 @@
+{% extends 'AdminPanelBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <ul class="breadcrumb">
+                <li><i class="fa fa-home"></i>
+                    <a href="{{ path('admin_panel_homepage') }}">AdminPanel</a>
+                </li>
+                <li>
+                    <a href="{{ path('admin_panel_brands') }}">Каталог</a>
+                </li>
+                <li class="active">Редактирование марки</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    <div class="content">
+        <div class="main-header">
+            <h2>Редактировать марку</h2>
+            <em>{{ brand.name }}</em>
+        </div>
+
+        <div class="main-content">
+            <h3>
+                Название: <a href="#" id="name" data-type="text" class="editable editable-title" data-pk="{{ brand.id }}" data-title="Введите название бренда">{{ brand.name }}</a>
+            </h3>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3><i class="fa fa-edit"></i> Описание страницы</h3>
+                            <div class="widget-header-toolbar" style="line-height: 35px;">
+                                <i class="fa fa-save save-indicator"></i>
+                            </div>
+                            <div class="widget-header-toolbar" style="line-height: 35px;">
+                                Заполнение: <span id="filling">{{ brand.filling }}</span> %
+                            </div>
+                        </div>
+                        <div class="widget-content no-padding">
+                            <textarea class="form-control" id="editor" name="text" rows="15">
+                                {{ brand.text }}
+                            </textarea>
+                        </div>
+                        <div class="widget-footer">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3><i class="fa fa-cog"></i> Настройки</h3>
+                        </div>
+                        <div class="widget-content no-padding table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">Основные</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Алиас:</td>
+                                    <td><a href="#" id="alias" data-type="text" class="editable editable-alias" data-pk="{{ brand.id }}" data-title="Введите алиас марки">{{ brand.alias }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Синонимы:</td>
+                                    <td><a href="#" id="synonyms" data-type="select2" data-pk="{{ brand.id }}" data-title="Введите синонимы марки">{{ brand.synonyms }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Логотип:</td>
+                                    <td>
+                                        <div id="jquery-wrapped-fine-uploader"></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3><i class="fa fa-sitemap"></i> Модельный ряд</h3>
+                            <div class="btn-group widget-header-toolbar">
+                                <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                                <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content no-padding">
+                            {{ include('AdminPanelBundle:Models:modelsTable.html.twig', { 'items': brand.models, 'sub': false }) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /main-content -->
+        </div>
+
+    </div>
+
+    <script type="text/template" id="qq-template">
+        <div class="qq-uploader-selector qq-uploader">
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span>Drop files here to upload</span>
+            </div>
+            <div class="qq-upload-button-selector">
+            {% if brand.logo %}
+            <div>
+                <img src="{{ brand.logo.image.path }}" class="img-responsive" height="40" id="brand-logo"/>
+            </div>
+            {% else %}
+                <div class="btn btn-sm btn-info">загрузить</div>
+            {% endif %}
+            </div>
+    <span class="qq-drop-processing-selector qq-drop-processing">
+      <span>Processing dropped files...</span>
+      <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+    </span>
+            <ul class="qq-upload-list-selector qq-upload-list">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon"></span>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <a class="qq-upload-cancel-selector qq-upload-cancel" href="#">Cancel</a>
+                    <a class="qq-upload-retry-selector qq-upload-retry" href="#">Retry</a>
+                    <a class="qq-upload-delete-selector qq-upload-delete" href="#">Delete</a>
+                    <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+        </div>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var admin_edit_brand_url = '{{ path('admin_edit_brand') }}';
+        var upload_image = '{{ path('upload_image') }}';
+        var admin_edit_brand_auto_save_url = '{{ path('admin_edit_brand') }}?pk={{ brand.id }}&name=text';
+    </script>
+    <script src="{{ asset('bundles/app/js/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/bootstrap-editable/bootstrap-editable.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/redactor.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/lang/ru.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/video/video.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/table/table.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/fullscreen/fullscreen.js') }}"></script>
+    <script src="{{ asset('bundles/adminpanel/js/brand-edit.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/jquery.fine-uploader.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/bootstrap-progressbar/bootstrap-progressbar.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/stat/jquery.easypiechart.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#jquery-wrapped-fine-uploader').fineUploader({
+                request: {
+                    endpoint: '{{ path('upload_brand_logo', {id: brand.id}) }}'
+                },
+                callbacks: {
+                    onComplete: function(id, name, responseJSON){
+                        $("#brand-logo").attr('src', responseJSON.src);
+                    }
+                },
+                classes: {
+                    success: 'alert alert-success',
+                    fail: 'alert alert-error'
+                }
+            });
+
+            $(".progress .progress-bar").progressbar({display_text:"fill"});
+            $(".progress.no-percentage .progress-bar").progressbar({display_text:"fill",use_percentage:!1});
+            $(".progress.custom-format .progress-bar").progressbar({
+                display_text:"fill",
+                use_percentage:!1,
+                amount_format: function(e,a){
+                    return e+" of "+a
+                }
+            });
+            $(".progress.vertical .progress-bar").progressbar();
+            $(".progress.vertical .progress-bar").progressbar({display_text:"fill"});
+        });
+    </script>
+{% endblock %}

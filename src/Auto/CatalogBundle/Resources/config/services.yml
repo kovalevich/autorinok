@@ -1,0 +1,4 @@
+services:
+#    auto_catalog.example:
+#        class: Auto\CatalogBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

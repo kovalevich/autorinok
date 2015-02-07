@@ -1,0 +1,60 @@
+{% extends 'AdminPanelBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <ul class="breadcrumb">
+            <li><i class="fa fa-home"></i>
+                <a href="/adminpanel">AdminPanel</a>
+            </li>
+            <li class="active">Управление категориями публикаций</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+<div class="content">
+    <div class="main-header">
+        <h2>Управление категориями публикаций</h2>
+        <em>можно включить режим редактирования</em>
+    </div>
+
+    <div class="main-content">
+        <div class="widget">
+            <div class="widget-header">
+                <h3><i class="fa fa-folder-o"></i> Список категорий</h3>
+                <div class="btn-group widget-header-toolbar">
+                    <div class="control-inline toolbar-item-group">
+                        <span class="control-title">Быстрое редактирование</span>
+                        <div class="control-inline onoffswitch">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-editable">
+                            <label class="onoffswitch-label" for="switch-editable">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content no-padding table-responsive">
+                {{ include('AdminPanelBundle:Categories:categoriesTable.html.twig', { 'items': categories }) }}
+            </div>
+            <div class="widget-footer">
+                <a href="{{ path('admin_category_create_new_catecory') }}" class="btn btn-primary" title="Добавление новой категории"><i class="fa fa-plus"></i> Добавить категорию</a>
+            </div>
+        </div>
+        <!-- /main-content -->
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var admin_edit_category_url = '{{ path('admin_edit_category') }}';
+    </script>
+    <script src="{{ asset('bundles/app/js/plugins/bootstrap-editable/bootstrap-editable.min.js') }}"></script>
+    <script src="{{ asset('bundles/adminpanel/js/categories-edit.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/ply.js') }}"></script>
+{% endblock %}

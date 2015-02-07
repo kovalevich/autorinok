@@ -1,0 +1,3 @@
+auto_catalog_homepage:
+    path:     /hello1/{name}
+    defaults: { _controller: AutoCatalogBundle:Default:index }

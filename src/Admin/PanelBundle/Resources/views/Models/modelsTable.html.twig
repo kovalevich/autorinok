@@ -1,0 +1,47 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th colspan="2">Модель</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if items|length > 0 %}
+        {% for item in items %}
+            {% if item.parent == null or sub %}
+            <tr class="warning">
+                <td>{{ item.id }}</td>
+                <td>
+                    <a href="{{ path('admin_catalog_model_edit', { 'id': item.id }) }}" title="Редактировать модель"><b>{{ item.name }}</b></a>
+                </td>
+                <td>
+                    <div class="progress" style="width: 100px; margin-bottom: 0px;">
+                        <div class="progress-bar progress-bar-{% if item.filling < 25 %}danger{% elseif item.filling < 60 %}warning{% else %}success{% endif %}" data-transitiongoal="{{ item.filling }}"></div>
+                    </div>
+                </td>
+            </tr>
+                {% if item.models|length > 0 %}
+                    {% for child in item.models %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>
+                                <a href="{{ path('admin_catalog_model_edit', { 'id': child.id }) }}" title="Редактировать модель">{{ child.name }}</a>
+                            </td>
+                            <td>
+                                <div class="progress" style="width: 100px; margin-bottom: 0px;">
+                                    <div class="progress-bar progress-bar-{% if child.filling < 25 %}danger{% elseif child.filling < 60 %}warning{% else %}success{% endif %}" data-transitiongoal="{{ child.filling }}"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="3">Нет моделей</td>
+        </tr>
+    {% endif %}
+
+    </tbody>
+</table>

@@ -1,0 +1,7 @@
+upload_brand_logo:
+    path:     /files/upload/logo/brand/{id}
+    defaults: { _controller: FilesImagesBundle:Default:uploadBrandLogo }
+
+upload_image:
+    path:     /files/upload/image
+    defaults: { _controller: FilesImagesBundle:Default:uploadImage }

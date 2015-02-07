@@ -1,0 +1,35 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    app.twig_extension:
+        class: AppBundle\Twig\AppFilters
+        tags:
+            - { name: twig.extension }
+
+    admin.twig.extension.variables:
+        class: Admin\PanelBundle\Twig\Variables
+        tags:
+            - { name: twig.extension }
+
+    get_set_method_normalizer:
+          class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+          tags:
+             - { name: serializer.normalizer }
+
+    hwi_auth.oauth_user_provider:
+          class: HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider
+          arguments:
+              userManager: "@fos_user.user_manager"
+              properties: ["vk,username,password"]
+
+imports:
+    - { resource: @BlogPublicationsBundle/Resources/config/services.yml }
+    - { resource: @AdminPanelBundle/Resources/config/services.yml }
+    - { resource: @ProfileUserBundle/Resources/config/services.yml }

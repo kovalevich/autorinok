@@ -1,0 +1,4 @@
+services:
+#    files_images.example:
+#        class: Files\ImagesBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

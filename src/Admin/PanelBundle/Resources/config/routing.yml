@@ -1,0 +1,89 @@
+admin_panel_homepage:
+    path:     /dashboard
+    defaults: { _controller: AdminPanelBundle:Default:index }
+
+admin_panel_blog:
+    path:     /blog
+    defaults: { _controller: AdminPanelBundle:Categories:index }
+
+admin_panel_categories:
+    path:     /blog/categories
+    defaults: { _controller: AdminPanelBundle:Categories:index }
+
+admin_panel_themes:
+    path:     /blog/themes
+    defaults: { _controller: AdminPanelBundle:Themes:index }
+
+admin_panel_publications:
+    path:     /blog/publications
+    defaults: { _controller: AdminPanelBundle:Publications:index }
+
+admin_panel_brands:
+    path:     /catalog
+    defaults: { _controller: AdminPanelBundle:Brands:index }
+
+admin_edit_category:
+    path:     /edit/category
+    defaults: { _controller: AdminPanelBundle:Edit:category }
+    methods:  [POST]
+    requirements: { _format: json|xml }
+
+admin_edit_publication:
+    path:     /edit/publications
+    defaults: { _controller: AdminPanelBundle:Edit:publication }
+    methods:  [POST]
+    requirements: { _format: json|xml }
+
+admin_edit_brand:
+    path:     /edit/brand
+    defaults: { _controller: AdminPanelBundle:Edit:brand }
+    methods:  [POST]
+    requirements: { _format: json|xml }
+
+admin_edit_entity:
+    path:     /edit/{entity_name}
+    defaults: { _controller: AdminPanelBundle:Edit:entity }
+    methods:  [POST]
+    requirements: { _format: json|xml }
+
+admin_edit_themes:
+    path:     /edit/themes
+    defaults: { _controller: AdminPanelBundle:Edit:theme }
+    methods:  [POST]
+    requirements: { _format: json|xml }
+
+admin_category_edit_exist_catecory:
+    path:     /category/edit/{id}
+    defaults: { _controller: AdminPanelBundle:Categories:edit }
+
+admin_category_create_new_catecory:
+    path:     /category/create
+    defaults: { _controller: AdminPanelBundle:Categories:create }
+
+admin_category_delete:
+    path:     /category/delete/{id}
+    defaults: { _controller: AdminPanelBundle:Categories:delete }
+
+admin_publication_edit_exist_publication:
+    path:     /publications/edit/{id}
+    defaults: { _controller: AdminPanelBundle:Publications:edit, id: '' }
+
+admin_article_delete:
+    path:     /article/delete/{id}
+    defaults: { _controller: AdminPanelBundle:Publications:delete }
+
+admin_theme_delete:
+    path:     /theme/delete/{id}
+    defaults: { _controller: AdminPanelBundle:Themes:delete }
+
+admin_catalog_brand_edit:
+    path: /catalog/brand/{id}
+    defaults: { _controller: AdminPanelBundle:Brands:edit, id: '' }
+
+admin_catalog_model_edit:
+    path: /catalog/model/{id}
+    defaults: { _controller: AdminPanelBundle:Models:edit, id: '' }
+
+admin_catalog_generation_edit:
+    path: /catalog/generation/{id}
+    defaults: { _controller: AdminPanelBundle:Generations:edit, id: '' }

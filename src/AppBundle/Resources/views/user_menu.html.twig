@@ -1,0 +1,47 @@
+<!-- logged user and the menu -->
+<div class="logged-user">
+    <div class="btn-group">
+{% if not is_granted('ROLE_USER') %}
+    login
+{% else %}
+        <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+            <img src="{{ app.user.picture }}" width="22px" alt="Фото пользователя {{ app.user.username }}">
+            <span class="name">{{ app.user.username }}</span>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="{{ path('admin_panel_homepage') }}">
+                    <i class="fa fa-cogs"></i>
+                    <span class="text">Панель администратора</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profile" class="tab-checker">
+                    <i class="fa fa-user"></i>
+                    <span class="text">Личный кабинет</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profile#activity-tab" class="tab-checker">
+                    <i class="fa fa-car"></i>
+                    <span class="text">Мои объявления</span>
+                </a>
+            </li>
+            <li>
+                <a href="/profile#settings-tab" class="tab-checker">
+                    <i class="fa fa-cog"></i>
+                    <span class="text">Настройки</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('fos_user_security_logout') }}">
+                    <i class="fa fa-power-off"></i>
+                    <span class="text">Выйти</span>
+                </a>
+            </li>
+        </ul>
+{% endif %}
+    </div>
+</div>
+<!-- end logged user and the menu -->

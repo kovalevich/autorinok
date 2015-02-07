@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="ru" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="ru" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    {% block head_meta %}{% endblock %}
+
+    <!-- CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" media="screen">
+    <link href="{{ asset('bundles/app/css/main.min.css') }}" rel="stylesheet" type="text/css" media="screen">
+    <link href="{{ asset('bundles/app/css/style.css') }}" rel="stylesheet" type="text/css" media="screen">
+    <link href="{{ asset('bundles/app/css/ply.css') }}" rel="stylesheet" type="text/css" media="screen">
+    <link href="{{ asset('bundles/app/css/redactor.css') }}" rel="stylesheet" type="text/css" media="screen">
+    <link href="{{ asset('bundles/app/css/fine-uploader.min.css') }}" rel="stylesheet" type="text/css" media="screen">
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <!--[if lte IE 9]>
+    <link href="{{ asset('/css/main-ie.min.css') }}" rel="stylesheet" type="text/css" media="screen" />
+    <link href="{{ asset('/css/main-ie-part2.min.css') }}" rel="stylesheet" type="text/css" media="screen" />
+    <![endif]-->
+
+</head>
+
+<body class="dashboard">
+    <!-- WRAPPER -->
+    <div class="wrapper">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <!-- logo -->
+                    <div class="col-md-2 logo">
+                        <a href="{{ path('home') }}">
+                            <i class="fa fa-car"></i> AUTORINOK.by
+                        </a>                        <h1 class="sr-only">Онлайн авторынок Беларуси</h1>
+                    </div>
+                    <!-- end logo -->
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a href="{{ path('home') }}" target="_blank" class="btn btn-sm btn-default">Перейти на сайт</a>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="top-bar-right">
+                                    <!-- responsive menu bar icon -->
+                                    <a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
+                                    <!-- end responsive menu bar icon -->
+
+                                </div>
+                                <!-- /top-bar-right -->
+                            </div>
+                        </div>
+                        <!-- /row -->
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /top -->
+
+        <!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+        <div class="bottom">
+            <div class="container">
+                <div class="row">
+                    <!-- left sidebar -->
+                    <div class="col-md-2 left-sidebar">
+
+                        <!-- main-nav -->
+                        <nav class="main-nav">
+                            {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active', 'template': '::menu.html.twig'}) }}
+                        </nav>
+                        <!-- /main-nav -->
+
+                        <div class="sidebar-minified js-toggle-minified">
+                            <i class="fa fa-angle-left"></i>
+                        </div>
+
+                        <!-- sidebar content -->
+                        <div class="sidebar-content">
+
+                        </div>
+                        <!-- end sidebar content -->
+                    </div>
+                    <!-- end left sidebar -->
+
+                    <!-- top general alert -->
+
+                    <div id="dyn-alert"></div>
+                    <!-- end top general alert -->
+
+                    <!-- content-wrapper -->
+                    <div class="col-md-10 content-wrapper">
+                        {% block content %}{% endblock %}
+                    </div>
+                    <!-- /content-wrapper -->
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- END BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+        <div class="push-sticky-footer"></div>
+    </div>
+    <!-- /wrapper -->
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        &copy; 2015 100auto.by
+    </footer>
+    <!-- END FOOTER -->
+
+    <!-- Javascript -->
+    {% block javascripts %}
+        <script src="{{ asset('bundles/app/js/jquery/jquery-2.1.0.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/bootstrap/bootstrap.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/plugins/modernizr/modernizr.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/king-common.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/king-components.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/plugins/datatable/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/plugins/datatable/dataTables.bootstrap.js') }}"></script>
+    {% endblock %}
+
+</body>
+</html>
+

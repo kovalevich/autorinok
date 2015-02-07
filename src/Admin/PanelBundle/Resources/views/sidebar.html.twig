@@ -1,0 +1,14 @@
+<h5 class="label label-default"><i class="fa fa-server"></i> О сервере</h5>
+<ul class="list-unstyled list-info-sidebar bottom-30px">
+    <li class="data-row">
+        <div class="data-name">Диск</div>
+        <div class="data-value">
+            {{ disk_free_space|memorySize }} / {{ disk_total_space|memorySize }}
+            <div class="progress progress-xs">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ disk_free_space }}" aria-valuemin="0" aria-valuemax="{{ disk_total_space }}" style="width: {{ disk_free_space_percent }}%">
+                    <span class="sr-only">{{ disk_free_space_percent|number }}%</span>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

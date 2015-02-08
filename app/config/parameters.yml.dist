@@ -18,3 +18,12 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    vk_client_id:           ~
+    vk_client_secret:       ~
+
+    google_client_id:       ~
+    google_client_secret:   ~
+
+    facebook_client_id:     ~
+    facebook_client_secret: ~

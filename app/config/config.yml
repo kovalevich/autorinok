@@ -33,6 +33,8 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources: ['bootstrap_3_horizontal_layout.html.twig']
+    globals:
+        facebook_client_id: "%facebook_client_id%"
 
 # Assetic Configuration
 assetic:
@@ -136,19 +138,19 @@ hwi_oauth:
     resource_owners:
         vkontakte:
             type: vkontakte
-            client_id: "32121"
-            client_secret: "321232"
+            client_id: "%vk_client_id%"
+            client_secret: "%vk_client_secret%"
             scope: "email"
         facebook:
             type:                facebook
-            client_id:           "32323"
-            client_secret:       "3223"
-            scope:               ""
+            client_id:           "%facebook_client_id%"
+            client_secret:       "%facebook_client_secret%"
+            scope:               "email"
             options:
                 display: popup
         google:
             type:                google
-            client_id:           "664479709681-lv0gpi9psc478uski58sc1673cjh19eu.apps.googleusercontent.com"
-            client_secret:       "nbJjlu5c3oAykxDolZcUudrB"
+            client_id:           "%google_client_id%"
+            client_secret:       "%google_client_secret%"
             scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
     # here you will add one (or more) configurations for resource owners

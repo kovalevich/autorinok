@@ -2,7 +2,45 @@
 
 
 {% block content %}
-<div class="wrapper full-page-wrapper page-login text-center">
+
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId      : '{{ facebook_client_id }}',                        // App ID from the app dashboard
+                status     : true,                                 // Check Facebook Login status
+                xfbml      : true                                  // Look for social plugins on the page
+            });
+        };
+
+        // Load the SDK asynchronously
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function fb_login() {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                } else {
+                    // not_authorized
+                    FB.login(function(response) {
+                        if (response.authResponse) {
+                            document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                        } else {
+                        }
+                    }, {scope: 'email'});
+                }
+            });
+        }
+    </script>
+
+    <div class="wrapper full-page-wrapper page-login text-center">
     <div class="inner-page">
         <div class="logo">
             <a href="{{ path('home') }}">logo
@@ -10,7 +48,11 @@
         </div>
         <div class="social_auth">
             {% for owner in hwi_oauth_resource_owners() %}
+                {% if owner == 'facebook' %}
+                    <a href="#" onclick="fb_login();" class="btn btn-social btn-{{ owner }}"><i class="fa fa-{% if owner == 'vkontakte' %}vk{% else %}{{ owner }}{% endif %}"></i> {{ owner | trans({}, 'HWIOAuthBundle') }}</span></a>
+                {% else %}
                 <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-social btn-{{ owner }}"><i class="fa fa-{% if owner == 'vkontakte' %}vk{% else %}{{ owner }}{% endif %}"></i> {{ owner | trans({}, 'HWIOAuthBundle') }}</span></a>
+                {% endif %}
             {% endfor %}
         </div>
 

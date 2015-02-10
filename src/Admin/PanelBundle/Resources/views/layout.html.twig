@@ -39,7 +39,7 @@
                 <div class="row">
                     <!-- logo -->
                     <div class="col-md-2 logo">
-                        <a href="/adminpanel">
+                        <a href="{{ path('admin_panel_homepage') }}">
                             <i class="fa fa-cogs"></i> AdminPanel
                         </a>                        <h1 class="sr-only">Онлайн авторынок Беларуси</h1>
                     </div>
@@ -54,7 +54,7 @@
                                     <!-- responsive menu bar icon -->
                                     <a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
                                     <!-- end responsive menu bar icon -->
-
+                                    {{ include('AppBundle::user_menu.html.twig') }}
                                 </div>
                                 <!-- /top-bar-right -->
                             </div>

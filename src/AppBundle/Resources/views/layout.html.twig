@@ -47,14 +47,14 @@
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-md-3">
-                                <a href="{{ path('home') }}" target="_blank" class="btn btn-sm btn-default">Перейти на сайт</a>
+
                             </div>
                             <div class="col-md-9">
                                 <div class="top-bar-right">
                                     <!-- responsive menu bar icon -->
                                     <a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
                                     <!-- end responsive menu bar icon -->
-
+                                    {{ include('AppBundle::user_menu.html.twig') }}
                                 </div>
                                 <!-- /top-bar-right -->
                             </div>

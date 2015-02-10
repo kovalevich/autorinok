@@ -27,6 +27,7 @@
             <h3>
                 Название: <a href="#" id="name" data-type="text" class="editable editable-title" data-pk="{{ brand.id }}" data-title="Введите название бренда">{{ brand.name }}</a>
             </h3>
+            Страница марки на сайте: <a href="{{ path('pages_automobile', {'brand_alias': brand.alias}) }}" target="_blank">http://autorinok.by{{ path('pages_automobile', {'brand_alias': brand.alias}) }}</a>
             <div class="row">
                 <div class="col-sm-8">
                     <div class="widget">

@@ -33,6 +33,15 @@
             <h3>
                 Название: <a href="#" id="name" data-type="text" class="editable editable-title" data-pk="{{ generation.id }}" data-title="Введите название поколения">{{ generation.name }}</a>
             </h3>
+            Страница поколения на сайте: <a href="{{ path('pages_automobile', {
+            'brand_alias': generation.model.brand.alias,
+            'model_alias': generation.model.alias,
+            'generation_id': generation.id
+            }) }}" target="_blank">http://autorinok.by{{ path('pages_automobile', {
+                'brand_alias': generation.model.brand.alias,
+                'model_alias': generation.model.alias,
+                'generation_id': generation.id
+                }) }}</a>
             <div class="row">
                 <div class="col-sm-8">
                     <div class="widget">

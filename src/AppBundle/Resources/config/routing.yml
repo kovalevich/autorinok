@@ -17,3 +17,7 @@ ajax_themes:
 ajax_tags:
     path:     /ajax/get/tags
     defaults: { _controller: AppBundle:Ajax:tags }
+
+pages_automobile:
+    path: /auto/{brand_alias}/{model_alias}/{generation_id}
+    defaults: { _controller: AppBundle:Pages:automobile, brand_alias: ~, model_alias: ~, generation_id: ~ }

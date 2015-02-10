@@ -1,0 +1,6 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <h2>{% if model.brand.logo.image %}<img src="{{ model.brand.logo.image.path }}" title="Логотип {{ model.brand.name }}"> {% endif %}{{ model.brand.name }} {{ model.name }}</h2>
+    {{ model.text|raw }}
+{% endblock %}

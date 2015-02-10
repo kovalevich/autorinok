@@ -1,6 +1,6 @@
 set :application, "set your application name here"
 set :domain,      "88.208.26.26"
-set :user,        "root"
+set :user,        "evgen"
 set :use_sudo,    false
 set :deploy_to,   "/home/evgen/autorinok.by"
 set :app_path,    "app"

@@ -1,3 +1,7 @@
 used_homepage:
     path:     /cars
     defaults: { _controller: AutoUsedBundle:Default:index }
+
+block_brands:
+    path: /auto/used/block/brands/{popular}
+    defaults: { _controller: AutoUsedBundle:Block:brands, popular: true }

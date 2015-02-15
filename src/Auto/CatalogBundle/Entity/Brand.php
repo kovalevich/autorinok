@@ -247,7 +247,7 @@ class Brand
     public function setText($text)
     {
         $this->text = urldecode($text);
-        $this->filling = strlen(strip_tags($this->text)) / 2000 * 100;
+        $this->setFilling(strlen(strip_tags($this->text)) / 2000 * 100);
         return $this;
     }
 
@@ -293,7 +293,7 @@ class Brand
      */
     public function setFilling($filling)
     {
-        $this->filling = $filling;
+        $this->filling = $filling <= 100 ? $filling : 100;
 
         return $this;
     }

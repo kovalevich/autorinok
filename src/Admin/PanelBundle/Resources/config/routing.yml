@@ -6,6 +6,10 @@ admin_panel_blog:
     path:     /blog
     defaults: { _controller: AdminPanelBundle:Categories:index }
 
+admin_panel_regions:
+    path:     /regions
+    defaults: { _controller: AdminPanelBundle:Regions:index }
+
 admin_panel_categories:
     path:     /blog/categories
     defaults: { _controller: AdminPanelBundle:Categories:index }
@@ -87,3 +91,7 @@ admin_catalog_model_edit:
 admin_catalog_generation_edit:
     path: /catalog/generation/{id}
     defaults: { _controller: AdminPanelBundle:Generations:edit, id: '' }
+
+admin_app_region_edit:
+    path: /regions/{id}
+    defaults: { _controller: AdminPanelBundle:Regions:edit, id: '' }

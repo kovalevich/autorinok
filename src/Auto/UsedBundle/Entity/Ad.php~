@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Ad
  *
- * @ORM\Table()
+ * @ORM\Table(name="used_ads")
  * @ORM\Entity(repositoryClass="Auto\UsedBundle\Entity\AdRepository")
  */
 class Ad
@@ -153,9 +153,9 @@ class Ad
     /**
      * @var string
      *
-     * @ORM\Column(name="persone", type="string", length=255)
+     * @ORM\Column(name="seller", type="string", length=255)
      */
-    private $persone;
+    private $seller;
 
     /**
      * @var string
@@ -370,9 +370,9 @@ class Ad
     /**
      * @var integer
      *
-     * @ORM\Column(name="condit", type="integer")
+     * @ORM\Column(name="condition", type="integer")
      */
-    private $condit;
+    private $condition;
 
     /**
      * @var integer
@@ -738,26 +738,26 @@ class Ad
     }
 
     /**
-     * Set persone
+     * Set seller
      *
-     * @param string $persone
+     * @param string $seller
      * @return Ad
      */
-    public function setPersone($persone)
+    public function setSeller($seller)
     {
-        $this->persone = $persone;
+        $this->seller = $seller;
 
         return $this;
     }
 
     /**
-     * Get persone
+     * Get seller
      *
      * @return string 
      */
-    public function getPersone()
+    public function getSeller()
     {
-        return $this->persone;
+        return $this->seller;
     }
 
     /**
@@ -1037,26 +1037,26 @@ class Ad
     }
 
     /**
-     * Set condit
+     * Set condition
      *
-     * @param integer $condit
+     * @param integer $condition
      * @return Ad
      */
-    public function setCondit($condit)
+    public function setCondition($condition)
     {
-        $this->condit = $condit;
+        $this->condition = $condition;
 
         return $this;
     }
 
     /**
-     * Get condit
+     * Get condition
      *
      * @return integer 
      */
-    public function getCondit()
+    public function getCondition()
     {
-        return $this->condit;
+        return $this->condition;
     }
 
     /**
@@ -1080,5 +1080,511 @@ class Ad
     public function getCleared()
     {
         return $this->cleared;
+    }
+
+    /**
+     * Set option3
+     *
+     * @param boolean $option3
+     * @return Ad
+     */
+    public function setOption3($option3)
+    {
+        $this->option3 = $option3;
+
+        return $this;
+    }
+
+    /**
+     * Get option3
+     *
+     * @return boolean 
+     */
+    public function getOption3()
+    {
+        return $this->option3;
+    }
+
+    /**
+     * Set option4
+     *
+     * @param boolean $option4
+     * @return Ad
+     */
+    public function setOption4($option4)
+    {
+        $this->option4 = $option4;
+
+        return $this;
+    }
+
+    /**
+     * Get option4
+     *
+     * @return boolean 
+     */
+    public function getOption4()
+    {
+        return $this->option4;
+    }
+
+    /**
+     * Set option5
+     *
+     * @param boolean $option5
+     * @return Ad
+     */
+    public function setOption5($option5)
+    {
+        $this->option5 = $option5;
+
+        return $this;
+    }
+
+    /**
+     * Get option5
+     *
+     * @return boolean 
+     */
+    public function getOption5()
+    {
+        return $this->option5;
+    }
+
+    /**
+     * Set option6
+     *
+     * @param boolean $option6
+     * @return Ad
+     */
+    public function setOption6($option6)
+    {
+        $this->option6 = $option6;
+
+        return $this;
+    }
+
+    /**
+     * Get option6
+     *
+     * @return boolean 
+     */
+    public function getOption6()
+    {
+        return $this->option6;
+    }
+
+    /**
+     * Set option7
+     *
+     * @param boolean $option7
+     * @return Ad
+     */
+    public function setOption7($option7)
+    {
+        $this->option7 = $option7;
+
+        return $this;
+    }
+
+    /**
+     * Get option7
+     *
+     * @return boolean 
+     */
+    public function getOption7()
+    {
+        return $this->option7;
+    }
+
+    /**
+     * Set option8
+     *
+     * @param boolean $option8
+     * @return Ad
+     */
+    public function setOption8($option8)
+    {
+        $this->option8 = $option8;
+
+        return $this;
+    }
+
+    /**
+     * Get option8
+     *
+     * @return boolean 
+     */
+    public function getOption8()
+    {
+        return $this->option8;
+    }
+
+    /**
+     * Set option9
+     *
+     * @param boolean $option9
+     * @return Ad
+     */
+    public function setOption9($option9)
+    {
+        $this->option9 = $option9;
+
+        return $this;
+    }
+
+    /**
+     * Get option9
+     *
+     * @return boolean 
+     */
+    public function getOption9()
+    {
+        return $this->option9;
+    }
+
+    /**
+     * Set option10
+     *
+     * @param boolean $option10
+     * @return Ad
+     */
+    public function setOption10($option10)
+    {
+        $this->option10 = $option10;
+
+        return $this;
+    }
+
+    /**
+     * Get option10
+     *
+     * @return boolean 
+     */
+    public function getOption10()
+    {
+        return $this->option10;
+    }
+
+    /**
+     * Set option11
+     *
+     * @param boolean $option11
+     * @return Ad
+     */
+    public function setOption11($option11)
+    {
+        $this->option11 = $option11;
+
+        return $this;
+    }
+
+    /**
+     * Get option11
+     *
+     * @return boolean 
+     */
+    public function getOption11()
+    {
+        return $this->option11;
+    }
+
+    /**
+     * Set option12
+     *
+     * @param boolean $option12
+     * @return Ad
+     */
+    public function setOption12($option12)
+    {
+        $this->option12 = $option12;
+
+        return $this;
+    }
+
+    /**
+     * Get option12
+     *
+     * @return boolean 
+     */
+    public function getOption12()
+    {
+        return $this->option12;
+    }
+
+    /**
+     * Set option13
+     *
+     * @param boolean $option13
+     * @return Ad
+     */
+    public function setOption13($option13)
+    {
+        $this->option13 = $option13;
+
+        return $this;
+    }
+
+    /**
+     * Get option13
+     *
+     * @return boolean 
+     */
+    public function getOption13()
+    {
+        return $this->option13;
+    }
+
+    /**
+     * Set option14
+     *
+     * @param boolean $option14
+     * @return Ad
+     */
+    public function setOption14($option14)
+    {
+        $this->option14 = $option14;
+
+        return $this;
+    }
+
+    /**
+     * Get option14
+     *
+     * @return boolean 
+     */
+    public function getOption14()
+    {
+        return $this->option14;
+    }
+
+    /**
+     * Set option15
+     *
+     * @param boolean $option15
+     * @return Ad
+     */
+    public function setOption15($option15)
+    {
+        $this->option15 = $option15;
+
+        return $this;
+    }
+
+    /**
+     * Get option15
+     *
+     * @return boolean 
+     */
+    public function getOption15()
+    {
+        return $this->option15;
+    }
+
+    /**
+     * Set option16
+     *
+     * @param boolean $option16
+     * @return Ad
+     */
+    public function setOption16($option16)
+    {
+        $this->option16 = $option16;
+
+        return $this;
+    }
+
+    /**
+     * Get option16
+     *
+     * @return boolean 
+     */
+    public function getOption16()
+    {
+        return $this->option16;
+    }
+
+    /**
+     * Set option17
+     *
+     * @param boolean $option17
+     * @return Ad
+     */
+    public function setOption17($option17)
+    {
+        $this->option17 = $option17;
+
+        return $this;
+    }
+
+    /**
+     * Get option17
+     *
+     * @return boolean 
+     */
+    public function getOption17()
+    {
+        return $this->option17;
+    }
+
+    /**
+     * Set option18
+     *
+     * @param boolean $option18
+     * @return Ad
+     */
+    public function setOption18($option18)
+    {
+        $this->option18 = $option18;
+
+        return $this;
+    }
+
+    /**
+     * Get option18
+     *
+     * @return boolean 
+     */
+    public function getOption18()
+    {
+        return $this->option18;
+    }
+
+    /**
+     * Set option19
+     *
+     * @param boolean $option19
+     * @return Ad
+     */
+    public function setOption19($option19)
+    {
+        $this->option19 = $option19;
+
+        return $this;
+    }
+
+    /**
+     * Get option19
+     *
+     * @return boolean 
+     */
+    public function getOption19()
+    {
+        return $this->option19;
+    }
+
+    /**
+     * Set option20
+     *
+     * @param boolean $option20
+     * @return Ad
+     */
+    public function setOption20($option20)
+    {
+        $this->option20 = $option20;
+
+        return $this;
+    }
+
+    /**
+     * Get option20
+     *
+     * @return boolean 
+     */
+    public function getOption20()
+    {
+        return $this->option20;
+    }
+
+    /**
+     * Set brand
+     *
+     * @param \Auto\CatalogBundle\Entity\Brand $brand
+     * @return Ad
+     */
+    public function setBrand(\Auto\CatalogBundle\Entity\Brand $brand = null)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \Auto\CatalogBundle\Entity\Brand 
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Set model
+     *
+     * @param \Auto\CatalogBundle\Entity\Model $model
+     * @return Ad
+     */
+    public function setModel(\Auto\CatalogBundle\Entity\Model $model = null)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return \Auto\CatalogBundle\Entity\Model 
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set generation
+     *
+     * @param \Auto\CatalogBundle\Entity\Generation $generation
+     * @return Ad
+     */
+    public function setGeneration(\Auto\CatalogBundle\Entity\Generation $generation = null)
+    {
+        $this->generation = $generation;
+
+        return $this;
+    }
+
+    /**
+     * Get generation
+     *
+     * @return \Auto\CatalogBundle\Entity\Generation 
+     */
+    public function getGeneration()
+    {
+        return $this->generation;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Profile\UserBundle\Entity\User $user
+     * @return Ad
+     */
+    public function setUser(\Profile\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Profile\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

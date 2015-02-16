@@ -12,11 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class BrandRepository extends EntityRepository
 {
+
     public function getPopularBrands()
     {
         return $this->getEntityManager()
             ->createQuery(
-                'SELECT p FROM AutoCatalogBundle:Brand p WHERE p.popular = true ORDER BY p.name ASC'
+                'SELECT b, l FROM AutoCatalogBundle:Brand b
+                JOIN b.logo l
+                WHERE b.popular = true
+                ORDER BY b.name ASC'
             )
             ->getResult();
     }

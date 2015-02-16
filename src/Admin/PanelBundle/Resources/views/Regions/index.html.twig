@@ -1,0 +1,97 @@
+{% extends 'AdminPanelBundle::layout.html.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <ul class="breadcrumb">
+            <li><i class="fa fa-home"></i>
+                <a href="{{ path('admin_panel_homepage') }}">AdminPanel</a>
+            </li>
+            <li class="active">Управление регионами</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+<div class="content">
+    <div class="main-header">
+        <h2>Управление регионами</h2>
+        <em>введите название, что бы добавить в базу</em>
+    </div>
+
+    <div class="main-content">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="widget widget-table">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-file-word-o"></i> Список регионов</h3>
+                    </div>
+                    <div class="widget-content">
+                        <table id="publications-table" class="table table-sorting table-striped table-hover datatable dataTable no-footer">
+                            <thead>
+                            <th>#</th>
+                            <th>Название</th>
+                            <th>Регион</th>
+                            <th></th>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-file-text-o"></i> Создание региона</h3>
+                    </div>
+                    <div class="widget-content">
+                        Название: <a href="#" class="create-new editable editable-title" data-pk="0" id="title" data-type="text" data-name="title" data-original-title="Введите название">Новый регион</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/plugins/bootstrap-editable/bootstrap-editable.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/ply.js') }}"></script>
+    <script type="text/javascript">
+        $('.create-new').on('shown', function(e, editable) {
+            editable.input.$input.val('');
+        });
+        $('.create-new').on('save', function(e, params) {
+            window.location.href = '{{ path('admin_app_region_edit') }}/' + params.response.id;
+        });
+        $('.editable').editable({
+            url: '{{ path('admin_edit_entity', {entity_name: }) }}',
+            ajaxOptions: {
+                type: 'post',
+                dataType: 'json'
+            }
+        });
+        $('#publications-table').dataTable( {
+            serverSide: true,
+            ajax: '{{ path('ajax_publications') }}',
+            order: [ 4, 'desc' ],
+            columns: [
+                { "data": "id", "orderable": false },
+                { "data": "title" },
+                { "data": "user" },
+                { "data": "category" },
+                { "data": "created" },
+                { "data": "delete", "orderable": false },
+            ]
+        });
+
+        $('#publications-table').on('click', 'a.mod-delete',function(e){
+            Ply.dialog("confirm", "Удалить публикацию навсегда?")
+                    .done(function (ui) {
+                        document.location.href = e.currentTarget.href;
+                    })
+            return false;
+        });
+    </script>
+{% endblock %}

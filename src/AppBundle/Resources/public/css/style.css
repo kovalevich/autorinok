@@ -7,6 +7,10 @@ body ul {
     top: 0px;
 }
 
+.top-bar .logo {
+    top: 0px;
+}
+
 .top-bar {
     min-height: 40px;
 }

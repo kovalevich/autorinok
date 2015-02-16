@@ -1,0 +1,138 @@
+{% extends 'AdminPanelBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <ul class="breadcrumb">
+                <li><i class="fa fa-home"></i>
+                    <a href="/adminpanel">AdminPanel</a>
+                </li>
+                <li>
+                    <a href="/adminpanel/publications">Публикации</a>
+                </li>
+                <li class="active">Редактирование публикации</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    <div class="content">
+        <div class="main-header">
+            <h2>Редиктировать публикацию</h2>
+            <em>{{ publication.title }}</em>
+        </div>
+
+        <div class="main-content">
+            <h3>
+                Заголовок: <a href="#" id="title" data-type="text" class="editable editable-title" data-pk="{{ publication.id }}" data-title="Введите заголовок публикации">{{ publication.title }}</a>
+            </h3>
+            Ссылка на статью: <a href="#" target="_blank">http://100auto.by/</a> *
+            <br><em><small>* Пока не работает</small></em>
+            <form class="" method="post" action="#">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="widget">
+                            <div class="widget-header">
+                                <h3><i class="fa fa-edit"></i> Текст публикации</h3>
+                                <div class="widget-header-toolbar"  style="line-height: 35px;">
+                                    <i class="fa fa-save save-indicator"></i>
+                                </div>
+                            </div>
+                            <div class="widget-content no-padding">
+                                <textarea class="form-control" id="editor" name="text" rows="15">
+                                    {{ publication.text }}
+                                </textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="widget">
+                            <div class="widget-header">
+                                <h3><i class="fa fa-cog"></i> Настройки</h3>
+                            </div>
+                            <div class="widget-content no-padding table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2">Основные</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Ссылка:</td>
+                                        <td><a href="#" id="slug" data-type="text" class="editable editable-alias" data-pk="{{ publication.id }}" data-title="Введите алиас публикации">{{ publication.slug }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Категория:</td>
+                                        <td><a href="#" id="category" data-type="select" data-value="{% if publication.category != null %}{{ publication.category.id }}{%  endif %}" class="editable-category" data-pk="{{ publication.id }}" data-title="Выберите категорию">{% if publication.category != null %}{{ publication.category.title }}{% endif %}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Тип публикации:</td>
+                                        <td><a href="#" id="type" data-type="select" data-value="{{ publication.type }}" class="editable-type" data-pk="{{ publication.id }}" data-title="Выберите тип"></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Важная новость?</td>
+                                        <td>
+                                            <a href="#" id="showInHome" data-type="select" data-value="{{ publication.showInHome }}" class="editable-home" data-pk="{{ publication.id }}" data-title="Это важная новость?"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Темы <a href="{{ path('admin_panel_themes') }}" class="sm" target="_blank" title="Добавить тему"><i class="fa fa-cog"></i> </a> :</td>
+                                        <td>
+                                            <a href="#" id="tags" data-type="select2" data-pk="{{ publication.id }}" data-title="Введите темы публикации">{{ publication.tags }}</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2">SEO</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Мета заголовок:</td>
+                                        <td><a href="#" id="metaTitle" data-type="text" class="editable editable-title" data-pk="{{ publication.id }}" data-title="Введите meta-title публикации">{{ publication.metaTitle }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ключевые слова:</td>
+                                        <td>
+                                            <a href="#" id="metaKeywords" data-type="text" data-pk="{{ publication.id }}" class="editable editable-title" data-title="Введите ключевые слова через запятую">{{ publication.metaKeywords }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Описание:</td>
+                                        <td><a href="#" id="metaDescription" data-type="textarea" class="editable editable-title" data-pk="{{ publication.id }}" data-title="Введите описание страницы">{{ publication.metaDescription }}</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- /main-content -->
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var admin_edit_article_url = '{{ path('admin_edit_publication') }}';
+        var admin_edit_article_auto_save_url = '{{ path('admin_edit_publication') }}?pk={{ publication.id }}&name=text';
+        var ajax_categories = '{{ path('ajax_categories') }}';
+        var ajax_tags = '{{ path('ajax_tags') }}';
+    </script>
+    <script src="{{ asset('bundles/app/js/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/bootstrap-editable/bootstrap-editable.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/redactor.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/lang/ru.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/video/video.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/table/table.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/fullscreen/fullscreen.js') }}"></script>
+    <script src="{{ asset('bundles/adminpanel/js/article-edit.js') }}"></script>
+{% endblock %}

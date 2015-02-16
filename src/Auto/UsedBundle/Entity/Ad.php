@@ -153,9 +153,9 @@ class Ad
     /**
      * @var string
      *
-     * @ORM\Column(name="persone", type="string", length=255)
+     * @ORM\Column(name="seller", type="string", length=255)
      */
-    private $persone;
+    private $seller;
 
     /**
      * @var string
@@ -370,9 +370,9 @@ class Ad
     /**
      * @var integer
      *
-     * @ORM\Column(name="condit", type="integer")
+     * @ORM\Column(name="condition", type="integer")
      */
-    private $condit;
+    private $condition;
 
     /**
      * @var integer
@@ -738,26 +738,26 @@ class Ad
     }
 
     /**
-     * Set persone
+     * Set seller
      *
-     * @param string $persone
+     * @param string $seller
      * @return Ad
      */
-    public function setPersone($persone)
+    public function setSeller($seller)
     {
-        $this->persone = $persone;
+        $this->seller = $seller;
 
         return $this;
     }
 
     /**
-     * Get persone
+     * Get seller
      *
      * @return string 
      */
-    public function getPersone()
+    public function getSeller()
     {
-        return $this->persone;
+        return $this->seller;
     }
 
     /**
@@ -1037,26 +1037,26 @@ class Ad
     }
 
     /**
-     * Set condit
+     * Set condition
      *
-     * @param integer $condit
+     * @param integer $condition
      * @return Ad
      */
-    public function setCondit($condit)
+    public function setCondition($condition)
     {
-        $this->condit = $condit;
+        $this->condition = $condition;
 
         return $this;
     }
 
     /**
-     * Get condit
+     * Get condition
      *
      * @return integer 
      */
-    public function getCondit()
+    public function getCondition()
     {
-        return $this->condit;
+        return $this->condition;
     }
 
     /**

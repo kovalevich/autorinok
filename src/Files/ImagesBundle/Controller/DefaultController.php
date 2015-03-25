@@ -18,8 +18,16 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $brand = $em->getRepository('AutoCatalogBundle:Brand')->find($id);
-        $photo = new BrandLogo();
 
+        if($brand->getLogo()) {
+            $logo = $em->getRepository('FilesImagesBundle:BrandLogo')->find($brand->getLogo()->getId());
+            $em->remove($logo);
+            $brand->setLogo(null);
+            $em->persist($brand);
+            $em->flush();
+        }
+
+        $photo = new BrandLogo();
         $files = $this->getFiles($request->files);
 
         if(count($files)) {

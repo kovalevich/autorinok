@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@AutoUsedBundle/Resources/config/config.yml" }
 
 framework:
     #esi:             ~
@@ -77,6 +78,7 @@ stof_doctrine_extensions:
         default:
             sluggable: true
             tree: true
+            timestampable: true
 
 # Swiftmailer Configuration
 swiftmailer:

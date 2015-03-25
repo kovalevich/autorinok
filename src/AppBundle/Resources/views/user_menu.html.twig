@@ -1,48 +1,31 @@
 <!-- logged user and the menu -->
+<ul class="nav navbar-nav navbar-right">
 {% if not is_granted('ROLE_USER') %}
-    <a href="{{ path('fos_user_security_login') }}" class="btn btn-sm btn-success" title="Войти в кабинет">Вход</a>
-    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-sm btn-default" title="Зарегистрироваться">Регистрация</a>
+    <li><a href="{{ path('fos_user_security_login') }}"><span class="fa fa-login"></span> Войти</a></li>
+    <li><a href="{{ path('fos_user_registration_register') }}"><span class="fa fa-sign"></span> Регистрация</a></li>
 {% else %}
-<div class="logged-user">
-    <div class="btn-group">
-        <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-            <img src="{{ app.user.picture }}" width="22px" alt="Фото пользователя {{ app.user.username }}">
-            <span class="name">{{ app.user.username }}</span>
-            <span class="caret"></span>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <img src="{{ app.user.picture }}" width="22px" alt="Фото пользователя {{ app.user.username }}"> {{ app.user.username }} <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" role="menu">
             <li>
                 <a href="{{ path('admin_panel_homepage') }}">
-                    <i class="fa fa-cogs"></i>
-                    <span class="text">Панель администратора</span>
+                    <i class="fa fa-cogs"></i> <span class="text">Панель администратора</span>
                 </a>
             </li>
-            <li>
-                <a href="/profile" class="tab-checker">
-                    <i class="fa fa-user"></i>
-                    <span class="text">Личный кабинет</span>
-                </a>
-            </li>
-            <li>
-                <a href="/profile#activity-tab" class="tab-checker">
-                    <i class="fa fa-car"></i>
-                    <span class="text">Мои объявления</span>
-                </a>
-            </li>
-            <li>
-                <a href="/profile#settings-tab" class="tab-checker">
-                    <i class="fa fa-cog"></i>
-                    <span class="text">Настройки</span>
-                </a>
-            </li>
+            <li><a href="#"><i class="fa fa-user"></i> <span class="text">Личный кабинет</span></a></li>
+            <li><a href="#"><i class="fa fa-car"></i> <span class="text">Мои объявления</span></a></li>
+            <li><a href="#"><i class="fa fa-cog"></i> <span class="text">Настройки</span></a></li>
+            <li class="divider"></li>
             <li>
                 <a href="{{ path('fos_user_security_logout') }}">
                     <i class="fa fa-power-off"></i>
-                    <span class="text">Выйти</span>
+                    Выйти
                 </a>
             </li>
         </ul>
-    </div>
-</div>
+    </li>
 {% endif %}
+</ul>
 <!-- end logged user and the menu -->

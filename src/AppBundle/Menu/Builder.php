@@ -11,17 +11,16 @@ class Builder extends ContainerAware
     {
         $menu = $factory->createItem('root', array(
             'childrenAttributes'    => array(
-                'class'             => 'main-menu',
+                'class'             => 'nav navbar-nav',
             )
         ));
 
-        $menu->addChild('Главная', array('route' => 'home'))
-            ->setAttribute('icon', 'fa fa-home');
+        $menu->addChild('Главная', array('route' => 'home'));
 
-        $menu->addChild('Поиск объявлений', array('route' => 'used_homepage'))
-            ->setAttribute('icon', 'fa fa-car');
-
-
+        $menu->addChild('Объявления', array('route' => 'auto_used_index'));
+        $menu->addChild('Лента', array('route' => 'app_lenta'));
+        $menu->addChild('Каталог', array('route' => 'auto_catalog_index'));
+        $menu->addChild('Подать объвление', array('uri' => '#'));
         return $menu;
     }
 }

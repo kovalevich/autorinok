@@ -1,0 +1,14 @@
+<ul class="brands-menu">
+    {% if items|length > 0 %}
+    {% for item in items %}
+    <li>
+        <a href="{{ path('pages_automobile', {brand_alias: item.alias}) }}">
+            {% if item.logo %}
+                <img src="{{ item.logo.image.path }}" width="20px">
+            {% endif %}
+            <span class="text">{{ item.name }}</span>
+        </a>
+    </li>
+    {% endfor %}
+    {% endif %}
+</ul>

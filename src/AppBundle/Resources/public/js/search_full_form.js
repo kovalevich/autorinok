@@ -1,26 +1,29 @@
 $(document).ready(function() {
 
-    var form = new Form('search-full', search_params);
+    var form = new Form('search-full');
+
     form.loadBrands();
-    form.slide();
-    form.populate();
+
     $('input.control').change(function(){
         form.checkInput(this);
     });
     $('.select').change(function(){
         form.checkInput(this);
     });
-
-    $(".fixed-container").popover({
-        trigger:"manual",
-        container: '.container-for-button',
-        html: true
-    });
-
-    $.lockfixed(".container-for-button",{offset: {top: 150, bottom: 500}});
 });
 
-var Form = function(form_id, params)
+function formatResult(item) {
+    if(!item.id) {
+        // return `text` for optgroup
+        return item.text;
+    }
+    var picture = item.element[0].getAttribute('data-picture') !== 'null' ?
+        '<img src="' + item.element[0].getAttribute('data-picture') + '" width="25px"/> ' : '';
+    // return item template
+    return '<span>' + picture + item.text + '</span>';
+}
+
+var Form = function(form_id)
 {
     this.id = form_id;
     this.brand = $('#' + this.id  + ' #brand');
@@ -28,8 +31,12 @@ var Form = function(form_id, params)
     this.price = $('#' + this.id  + ' #price');
     this.year = $('#' + this.id  + ' #year');
     this.volume = $('#' + this.id  + ' #volume');
-    this.params = params;
     this.a = $('#go_search');
+
+    this.disableModels();
+    this.model.select2({
+        language: 'ru'
+    });
 };
 
 Form.prototype.populate = function()
@@ -199,55 +206,49 @@ Form.prototype.loadBrands = function()
     $.ajax({
         type: 'get',
         dataType: 'json',
-        url: '/ajax/api/brands',
+        url: auto_catalog_ajax_brands,
         beforeSend: function() {
             form.brand.prop('disabled', true);
         },
         success: function(data) {
-            popular = data['popular'];
-            all = data['unpopular'];
-            options = '<optgroup label="популярные">';
-            for (var i = 0; i < popular.length; i++) {
-                sel = form.params.brand == popular[i]['alias'] ? ' selected' : '';
-                options += '<option value="' + popular[i]['alias'] + '" ' + sel + ' id="' + popular[i]['id'] + '">' + popular[i]['name'] + '</option>';
+            options = '';
+            for (var i = 0; i < data.length; i++) {
+                sel = '';
+                options += '<option value="' + data[i]['alias'] + '" ' + sel + ' id="' + data[i]['id'] + '" data-picture="' + data[i]['picture'] + '">' + data[i]['name'] + '</option>';
             }
-            options += '</optgroup>';
-            options += '<optgroup label="все">';
-            for (var i = 0; i < all.length; i++) {
-                sel = form.params.brand == all[i]['alias'] ? ' selected' : '';
-                options += '<option value="' + all[i]['alias'] + '"  ' + sel + ' id="' + all[i]['id'] + '">' + all[i]['name'] + '</option>';
-            }
-            options += '</optgroup>';
             form.brand.html(
-                '<option value="-1">любая</option>' +
+                '<option value="-1" data-picture="null">любая</option>' +
                     options
             );
+            form.brand.select2({
+                formatResult: formatResult,
+                language: 'ru'
+            });
             form.brand.prop('disabled', false);
         }
     });
 };
 
-Form.prototype.loadModels = function(brand_id)
+Form.prototype.loadModels = function(brand)
 {
     var form = this;
     $.ajax({
         type: 'get',
         dataType: 'json',
-        url: '/ajax/api/models/alias/' + brand_id,
+        url: auto_catalog_ajax_models + '/' + brand,
         beforeSend: function() {
             form.model.prop('disabled', true);
         },
         success: function(data) {
-            form.models = data;
             var options = '';
             for (var i in data) {
-                sel = form.params.model == data[i]['alias'] ? ' selected' : '';
-                if(Object.keys(data[i]['submodels']).length > 0) {
+                sel = '';
+                if(Object.keys(data[i]['models']).length > 0) {
                     options += '<option value="' + data[i]['alias'] + '"' + sel + '>' + data[i]['name'] + '</option>';
-                    for (var j in data[i]['submodels'])
+                    for (var j in data[i]['models'])
                     {
-                        sel = form.params.model == data[i]['submodels'][j]['alias'] ? ' selected' : '';
-                        options += '<option value="' + data[i]['submodels'][j]['alias'] + '" class="child-model"' + sel + '> &nbsp; &nbsp; &nbsp;' + data[i]['submodels'][j]['name'] + '</option>';
+                        sel = '';
+                        options += '<option value="' + data[i]['models'][j]['alias'] + '" class="child-model"' + sel + '> &nbsp; &nbsp; &nbsp;' + data[i]['models'][j]['name'] + '</option>';
                     }
 
                 }
@@ -265,7 +266,7 @@ Form.prototype.loadModels = function(brand_id)
 
 Form.prototype.disableModels = function()
 {
-    this.model.html('<option value="-1">все</option>');
+    this.model.html('<option value="-1">любая</option>');
     this.model.prop('disabled', true);
 };
 

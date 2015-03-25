@@ -15,6 +15,7 @@
         {{ include('AppBundle::access-confirm.html.twig') }}
     {% endif %}
 
+    {% block stylesheets %}
     <!-- CSS -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" media="screen">
@@ -23,7 +24,7 @@
     <link href="{{ asset('bundles/app/css/ply.css') }}" rel="stylesheet" type="text/css" media="screen">
     <link href="{{ asset('bundles/app/css/redactor.css') }}" rel="stylesheet" type="text/css" media="screen">
     <link href="{{ asset('bundles/app/css/fine-uploader.min.css') }}" rel="stylesheet" type="text/css" media="screen">
-    {% block stylesheets %}{% endblock %}
+    {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     <!--[if lte IE 9]>
@@ -37,40 +38,24 @@
     <!-- WRAPPER -->
     <div class="wrapper">
 
-        <!-- TOP BAR -->
-        <div class="top-bar">
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
-                <div class="row">
-                    <!-- logo -->
-                    <div class="col-md-2 logo">
-                        <a href="{{ path('home') }}" title="Онлайн авторынок Беларуси - autorinok.by">
-                            <img src="{{ asset('bundles/app/img/logo.png') }}" alt="Онлайн авторынок Беларуси - autorinok.by" height="30px"/>
-                        </a>
-                    </div>
-                    <!-- end logo -->
-                    <div class="col-md-10">
-                        <div class="row">
-                            <div class="col-md-3">
-
-                            </div>
-                            <div class="col-md-9">
-                                <div class="top-bar-right">
-                                    <!-- responsive menu bar icon -->
-                                    <a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
-                                    <!-- end responsive menu bar icon -->
-                                    {{ include('AppBundle::user_menu.html.twig') }}
-                                </div>
-                                <!-- /top-bar-right -->
-                            </div>
-                        </div>
-                        <!-- /row -->
-                    </div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('home') }}"><img src="{{ asset('bundles/app/img/logo.png') }}" height="35px"></a>
                 </div>
-                <!-- /row -->
+                <div class="collapse navbar-collapse">
+                    {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'AppBundle::menu.html.twig'}) }}
+
+                    {{ include('AppBundle::user_menu.html.twig') }}
+                </div><!--/.nav-collapse -->
             </div>
-            <!-- /container -->
         </div>
-        <!-- /top -->
 
         <!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
         <div class="bottom">
@@ -79,11 +64,8 @@
                     <!-- left sidebar -->
                     <div class="col-md-2 left-sidebar">
 
-                        <!-- main-nav -->
-                        <nav class="main-nav">
-                            {{ knp_menu_render('AppBundle:Builder:mainMenu', {'currentClass': 'active', 'template': '::menu.html.twig'}) }}
-                        </nav>
-                        <!-- /main-nav -->
+                        {% block sidebar_top %}
+                        {% endblock sidebar_top %}
 
                         <div class="sidebar-minified js-toggle-minified">
                             <i class="fa fa-angle-left"></i>
@@ -91,7 +73,8 @@
 
                         <!-- sidebar content -->
                         <div class="sidebar-content">
-
+                            {% block sidebar_bottom %}
+                            {% endblock sidebar_bottom %}
                         </div>
                         <!-- end sidebar content -->
                     </div>

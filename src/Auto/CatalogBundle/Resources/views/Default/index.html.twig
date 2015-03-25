@@ -1,5 +1,5 @@
-{% extends '::base.html.twig' %}
+{% extends 'AppBundle::layout.html.twig' %}
 
- {% block body %}
-     Hello {{ name }}
- {% endblock %}
+{% block content %}
+    {{ include('AutoCatalogBundle::brands-list.html.twig', {items: brands}) }}
+{% endblock %}

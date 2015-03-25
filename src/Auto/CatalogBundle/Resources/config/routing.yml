@@ -1,3 +1,15 @@
-auto_catalog_homepage:
-    path:     /hello1/{name}
+auto_catalog_index:
+    path:     /catalog
     defaults: { _controller: AutoCatalogBundle:Default:index }
+
+auto_catalog_brands_list:
+    path: /auto/catalog/block/brands/{popular}
+    defaults: { _controller: AutoCatalogBundle:Block:brands, popular: true }
+
+auto_catalog_ajax_brands:
+    path: /auto/catalog/ajax/brands
+    defaults: { _controller: AutoCatalogBundle:Ajax:brands }
+
+auto_catalog_ajax_models:
+    path: /auto/catalog/ajax/models/{brand}
+    defaults: { _controller: AutoCatalogBundle:Ajax:models, brand: '' }

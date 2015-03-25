@@ -3,16 +3,89 @@ body ul {
     list-style: none outside none;
 }
 
-.top-bar .top-bar-right {
-    top: 0px;
+ul.brands-menu {
+    padding-left: 0;
+    list-style-type: none;
 }
 
-.top-bar .logo {
-    top: 0px;
+ul.brands-menu>li a {
+    display: block;
+    position: relative;
+    padding: 10px 0 10px 15px;
+    color: #555;
+    background-color: #ececec;
+    border-top: 1px solid #dfdfdf;
 }
 
-.top-bar {
-    min-height: 40px;
+.left-sidebar.minified .brands-menu>li>a>.text {
+    position: absolute;
+    display: none;
+}
+
+ul.brands-menu>li .text {
+    padding-left: 8px;
+    font-size: 0.9em;
+}
+
+.left-sidebar.minified .brands-menu>li>a {
+    padding-left: 0;
+}
+
+ul.brands-menu-menu>li.active>a {
+    font-weight: 700;
+    background-color: #dfdfdf;
+}
+
+ul.brands-menu > li a:hover {
+    text-decoration: none;
+    background-color: #F1F1F1;
+}
+
+.left-sidebar.minified .brands-menu>li img {
+    width: 40px;
+    text-align: center;
+}
+
+.navbar-default {
+    background-color: #3e3f3a;
+    border-color: #3e3f3a;
+}
+
+.navbar{
+    margin-bottom: 0px;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+    color: #ffffff;
+    background-color: #393a35;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+    color: #ffffff;
+    background-color: #393a35;
+}
+.navbar .nav>li>a {
+    font-size: 11px;
+    line-height: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.navbar-brand {
+    padding: 9px 15px;
+}
+
+.navbar-brand img {
+   height: 35px;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #FFF;
+    background-color: transparent;
+}
+
+.dropdown-menu>li>a {
+    color: #555;
+    font-size: 0.9em;
 }
 
 .container{
@@ -1510,5 +1583,14 @@ a.tag {
 }
 a.tag:hover {
     color: #555555;
+}
+
+.sidebar-form {
+    padding: 10px;
+}
+
+.sidebar-form label {
+    margin: 5px 0 2px 0;
+    font-weight: bold;
 }
 

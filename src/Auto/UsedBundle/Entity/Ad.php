@@ -3,6 +3,7 @@
 namespace Auto\UsedBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Ad
@@ -35,13 +36,13 @@ class Ad
 
     /**
      * @ORM\ManyToOne(targetEntity="Auto\CatalogBundle\Entity\Generation")
-     * @ORM\JoinColumn(name="generation_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="generation_id", referencedColumnName="id", nullable=true)
      */
     protected $generation;
 
     /**
      * @ORM\ManyToOne(targetEntity="Profile\UserBundle\Entity\User", inversedBy="used_ads")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     protected $user;
 
@@ -55,7 +56,7 @@ class Ad
     /**
      * @var string
      *
-     * @ORM\Column(name="modification", type="string", length=255)
+     * @ORM\Column(name="modification", type="string", length=255, nullable=true)
      */
     private $modification;
 
@@ -83,13 +84,14 @@ class Ad
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
@@ -97,6 +99,7 @@ class Ad
     /**
      * @var \DateTime
      *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="upped", type="datetime")
      */
     private $upped;
@@ -104,282 +107,279 @@ class Ad
     /**
      * @var integer
      *
-     * @ORM\Column(name="millage", type="integer")
+     * @ORM\Column(name="millage", type="integer", nullable=true)
      */
     private $millage;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="engine", type="integer")
+     * @ORM\Column(name="engine", type="integer", nullable=true)
      */
     private $engine;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="transmission", type="integer")
+     * @ORM\Column(name="transmission", type="integer", nullable=true)
      */
     private $transmission;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="volume", type="integer")
+     * @ORM\Column(name="volume", type="integer", nullable=true)
      */
     private $volume;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="road", type="integer")
+     * @ORM\Column(name="road", type="integer", nullable=true)
      */
     private $road;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="color", type="integer")
+     * @ORM\Column(name="color", type="integer", nullable=true)
      */
     private $color;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="body", type="integer")
+     * @ORM\Column(name="body", type="integer", nullable=true)
      */
     private $body;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="seller", type="string", length=255)
+     * @ORM\Column(name="seller", type="string", length=255, nullable=true)
      */
     private $seller;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=255)
-     */
-    private $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="country", type="string", length=255)
-     */
-    private $country;
-
-    /**
      * @var integer
      *
-     * @ORM\Column(name="cylinders", type="integer")
+     * @ORM\Column(name="cylinders", type="integer", nullable=true)
      */
     private $cylinders;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vin", type="string", length=255)
+     * @ORM\Column(name="vin", type="string", length=255, nullable=true)
      */
     private $vin;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="phone", type="string", length=255)
+     * @ORM\Column(name="phones", type="array")
      */
-    private $phone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone2", type="string", length=255)
-     */
-    private $phone2;
+    private $phones;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_1", type="boolean")
+     * @ORM\Column(name="option_1", type="boolean", nullable=true, options={"default"=0})
      */
     private $option1;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_2", type="boolean")
+     * @ORM\Column(name="option_2", type="boolean", nullable=true, options={"default"=0})
      */
     private $option2;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_3", type="boolean")
+     * @ORM\Column(name="option_3", type="boolean", nullable=true, options={"default"=0})
      */
     private $option3;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_4", type="boolean")
+     * @ORM\Column(name="option_4", type="boolean", nullable=true, options={"default"=0})
      */
     private $option4;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_5", type="boolean")
+     * @ORM\Column(name="option_5", type="boolean", nullable=true, options={"default"=0})
      */
     private $option5;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_6", type="boolean")
+     * @ORM\Column(name="option_6", type="boolean", nullable=true, options={"default"=0})
      */
     private $option6;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_7", type="boolean")
+     * @ORM\Column(name="option_7", type="boolean", nullable=true, options={"default"=0})
      */
     private $option7;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_8", type="boolean")
+     * @ORM\Column(name="option_8", type="boolean", nullable=true, options={"default"=0})
      */
     private $option8;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_9", type="boolean")
+     * @ORM\Column(name="option_9", type="boolean", nullable=true, options={"default"=0})
      */
     private $option9;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_10", type="boolean")
+     * @ORM\Column(name="option_10", type="boolean", nullable=true, options={"default"=0})
      */
     private $option10;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_11", type="boolean")
+     * @ORM\Column(name="option_11", type="boolean", nullable=true, options={"default"=0})
      */
     private $option11;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_12", type="boolean")
+     * @ORM\Column(name="option_12", type="boolean", nullable=true, options={"default"=0})
      */
     private $option12;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_13", type="boolean")
+     * @ORM\Column(name="option_13", type="boolean", nullable=true, options={"default"=0})
      */
     private $option13;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_14", type="boolean")
+     * @ORM\Column(name="option_14", type="boolean", nullable=true, options={"default"=0})
      */
     private $option14;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_15", type="boolean")
+     * @ORM\Column(name="option_15", type="boolean", nullable=true, options={"default"=0})
      */
     private $option15;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_16", type="boolean")
+     * @ORM\Column(name="option_16", type="boolean", nullable=true, options={"default"=0})
      */
     private $option16;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_17", type="boolean")
+     * @ORM\Column(name="option_17", type="boolean", nullable=true, options={"default"=0})
      */
     private $option17;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_18", type="boolean")
+     * @ORM\Column(name="option_18", type="boolean", nullable=true, options={"default"=0})
      */
     private $option18;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_19", type="boolean")
+     * @ORM\Column(name="option_19", type="boolean", nullable=true, options={"default"=0})
      */
     private $option19;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="option_20", type="boolean")
+     * @ORM\Column(name="option_20", type="boolean", nullable=true, options={"default"=0})
      */
     private $option20;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\Column(name="status", type="integer", nullable=true, options={"default"=0})
      */
     private $status;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="parse_site", type="string", length=255)
+     * @ORM\Column(name="parse_site", type="string", length=255, nullable=true)
      */
     private $parseSite;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="parse_id", type="integer")
+     * @ORM\Column(name="parse_id", type="integer", nullable=true)
      */
     private $parseId;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="images", type="text")
+     * @ORM\Column(name="images", type="array", nullable=true)
      */
     private $images;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="condition", type="integer")
+     * @ORM\Column(name="car_condition", type="integer", nullable=true)
      */
     private $condition;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="cleared", type="integer")
+     * @ORM\Column(name="cleared", type="integer", nullable=true)
      */
     private $cleared;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="LocationBundle\Entity\Country")
+     * @ORM\JoinColumn(name="location_country_id", referencedColumnName="id", nullable=true)
+     */
+    protected $country;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="LocationBundle\Entity\Region")
+     * @ORM\JoinColumn(name="location_region_id", referencedColumnName="id", nullable=true)
+     */
+    protected $region;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="LocationBundle\Entity\City")
+     * @ORM\JoinColumn(name="location_city_id", referencedColumnName="id", nullable=true)
+     */
+    protected $city;
 
 
     /**
@@ -447,6 +447,7 @@ class Ad
     public function setPrice($price)
     {
         $this->price = $price;
+        $this->setPriceView($price);
 
         return $this;
     }
@@ -761,52 +762,6 @@ class Ad
     }
 
     /**
-     * Set city
-     *
-     * @param string $city
-     * @return Ad
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string 
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set country
-     *
-     * @param string $country
-     * @return Ad
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return string 
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
      * Set cylinders
      *
      * @param integer $cylinders
@@ -853,49 +808,26 @@ class Ad
     }
 
     /**
-     * Set phone
+     * Set phones
      *
-     * @param string $phone
+     * @param array $phones
      * @return Ad
      */
-    public function setPhone($phone)
+    public function setPhones($phones)
     {
-        $this->phone = $phone;
+        $this->phones = $phones;
 
         return $this;
     }
 
     /**
-     * Get phone
+     * Get phones
      *
-     * @return string 
+     * @return array 
      */
-    public function getPhone()
+    public function getPhones()
     {
-        return $this->phone;
-    }
-
-    /**
-     * Set phone2
-     *
-     * @param string $phone2
-     * @return Ad
-     */
-    public function setPhone2($phone2)
-    {
-        $this->phone2 = $phone2;
-
-        return $this;
-    }
-
-    /**
-     * Get phone2
-     *
-     * @return string 
-     */
-    public function getPhone2()
-    {
-        return $this->phone2;
+        return $this->phones;
     }
 
     /**
@@ -914,7 +846,7 @@ class Ad
     /**
      * Get option1
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOption1()
     {
@@ -937,11 +869,425 @@ class Ad
     /**
      * Get option2
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOption2()
     {
         return $this->option2;
+    }
+
+    /**
+     * Set option3
+     *
+     * @param boolean $option3
+     * @return Ad
+     */
+    public function setOption3($option3)
+    {
+        $this->option3 = $option3;
+
+        return $this;
+    }
+
+    /**
+     * Get option3
+     *
+     * @return boolean
+     */
+    public function getOption3()
+    {
+        return $this->option3;
+    }
+
+    /**
+     * Set option4
+     *
+     * @param boolean $option4
+     * @return Ad
+     */
+    public function setOption4($option4)
+    {
+        $this->option4 = $option4;
+
+        return $this;
+    }
+
+    /**
+     * Get option4
+     *
+     * @return boolean
+     */
+    public function getOption4()
+    {
+        return $this->option4;
+    }
+
+    /**
+     * Set option5
+     *
+     * @param boolean $option5
+     * @return Ad
+     */
+    public function setOption5($option5)
+    {
+        $this->option5 = $option5;
+
+        return $this;
+    }
+
+    /**
+     * Get option5
+     *
+     * @return boolean
+     */
+    public function getOption5()
+    {
+        return $this->option5;
+    }
+
+    /**
+     * Set option6
+     *
+     * @param boolean $option6
+     * @return Ad
+     */
+    public function setOption6($option6)
+    {
+        $this->option6 = $option6;
+
+        return $this;
+    }
+
+    /**
+     * Get option6
+     *
+     * @return boolean
+     */
+    public function getOption6()
+    {
+        return $this->option6;
+    }
+
+    /**
+     * Set option7
+     *
+     * @param boolean $option7
+     * @return Ad
+     */
+    public function setOption7($option7)
+    {
+        $this->option7 = $option7;
+
+        return $this;
+    }
+
+    /**
+     * Get option7
+     *
+     * @return boolean
+     */
+    public function getOption7()
+    {
+        return $this->option7;
+    }
+
+    /**
+     * Set option8
+     *
+     * @param boolean $option8
+     * @return Ad
+     */
+    public function setOption8($option8)
+    {
+        $this->option8 = $option8;
+
+        return $this;
+    }
+
+    /**
+     * Get option8
+     *
+     * @return boolean
+     */
+    public function getOption8()
+    {
+        return $this->option8;
+    }
+
+    /**
+     * Set option9
+     *
+     * @param boolean $option9
+     * @return Ad
+     */
+    public function setOption9($option9)
+    {
+        $this->option9 = $option9;
+
+        return $this;
+    }
+
+    /**
+     * Get option9
+     *
+     * @return boolean
+     */
+    public function getOption9()
+    {
+        return $this->option9;
+    }
+
+    /**
+     * Set option10
+     *
+     * @param boolean $option10
+     * @return Ad
+     */
+    public function setOption10($option10)
+    {
+        $this->option10 = $option10;
+
+        return $this;
+    }
+
+    /**
+     * Get option10
+     *
+     * @return boolean
+     */
+    public function getOption10()
+    {
+        return $this->option10;
+    }
+
+    /**
+     * Set option11
+     *
+     * @param boolean $option11
+     * @return Ad
+     */
+    public function setOption11($option11)
+    {
+        $this->option11 = $option11;
+
+        return $this;
+    }
+
+    /**
+     * Get option11
+     *
+     * @return boolean
+     */
+    public function getOption11()
+    {
+        return $this->option11;
+    }
+
+    /**
+     * Set option12
+     *
+     * @param boolean $option12
+     * @return Ad
+     */
+    public function setOption12($option12)
+    {
+        $this->option12 = $option12;
+
+        return $this;
+    }
+
+    /**
+     * Get option12
+     *
+     * @return boolean
+     */
+    public function getOption12()
+    {
+        return $this->option12;
+    }
+
+    /**
+     * Set option13
+     *
+     * @param boolean $option13
+     * @return Ad
+     */
+    public function setOption13($option13)
+    {
+        $this->option13 = $option13;
+
+        return $this;
+    }
+
+    /**
+     * Get option13
+     *
+     * @return boolean
+     */
+    public function getOption13()
+    {
+        return $this->option13;
+    }
+
+    /**
+     * Set option14
+     *
+     * @param boolean $option14
+     * @return Ad
+     */
+    public function setOption14($option14)
+    {
+        $this->option14 = $option14;
+
+        return $this;
+    }
+
+    /**
+     * Get option14
+     *
+     * @return boolean
+     */
+    public function getOption14()
+    {
+        return $this->option14;
+    }
+
+    /**
+     * Set option15
+     *
+     * @param boolean $option15
+     * @return Ad
+     */
+    public function setOption15($option15)
+    {
+        $this->option15 = $option15;
+
+        return $this;
+    }
+
+    /**
+     * Get option15
+     *
+     * @return boolean
+     */
+    public function getOption15()
+    {
+        return $this->option15;
+    }
+
+    /**
+     * Set option16
+     *
+     * @param boolean $option16
+     * @return Ad
+     */
+    public function setOption16($option16)
+    {
+        $this->option16 = $option16;
+
+        return $this;
+    }
+
+    /**
+     * Get option16
+     *
+     * @return boolean
+     */
+    public function getOption16()
+    {
+        return $this->option16;
+    }
+
+    /**
+     * Set option17
+     *
+     * @param boolean $option17
+     * @return Ad
+     */
+    public function setOption17($option17)
+    {
+        $this->option17 = $option17;
+
+        return $this;
+    }
+
+    /**
+     * Get option17
+     *
+     * @return boolean
+     */
+    public function getOption17()
+    {
+        return $this->option17;
+    }
+
+    /**
+     * Set option18
+     *
+     * @param boolean $option18
+     * @return Ad
+     */
+    public function setOption18($option18)
+    {
+        $this->option18 = $option18;
+
+        return $this;
+    }
+
+    /**
+     * Get option18
+     *
+     * @return boolean
+     */
+    public function getOption18()
+    {
+        return $this->option18;
+    }
+
+    /**
+     * Set option19
+     *
+     * @param boolean $option19
+     * @return Ad
+     */
+    public function setOption19($option19)
+    {
+        $this->option19 = $option19;
+
+        return $this;
+    }
+
+    /**
+     * Get option19
+     *
+     * @return boolean
+     */
+    public function getOption19()
+    {
+        return $this->option19;
+    }
+
+    /**
+     * Set option20
+     *
+     * @param boolean $option20
+     * @return Ad
+     */
+    public function setOption20($option20)
+    {
+        $this->option20 = $option20;
+
+        return $this;
+    }
+
+    /**
+     * Get option20
+     *
+     * @return boolean
+     */
+    public function getOption20()
+    {
+        return $this->option20;
     }
 
     /**
@@ -1016,7 +1362,7 @@ class Ad
     /**
      * Set images
      *
-     * @param string $images
+     * @param array $images
      * @return Ad
      */
     public function setImages($images)
@@ -1029,7 +1375,7 @@ class Ad
     /**
      * Get images
      *
-     * @return string 
+     * @return array 
      */
     public function getImages()
     {
@@ -1080,420 +1426,6 @@ class Ad
     public function getCleared()
     {
         return $this->cleared;
-    }
-
-    /**
-     * Set option3
-     *
-     * @param boolean $option3
-     * @return Ad
-     */
-    public function setOption3($option3)
-    {
-        $this->option3 = $option3;
-
-        return $this;
-    }
-
-    /**
-     * Get option3
-     *
-     * @return boolean 
-     */
-    public function getOption3()
-    {
-        return $this->option3;
-    }
-
-    /**
-     * Set option4
-     *
-     * @param boolean $option4
-     * @return Ad
-     */
-    public function setOption4($option4)
-    {
-        $this->option4 = $option4;
-
-        return $this;
-    }
-
-    /**
-     * Get option4
-     *
-     * @return boolean 
-     */
-    public function getOption4()
-    {
-        return $this->option4;
-    }
-
-    /**
-     * Set option5
-     *
-     * @param boolean $option5
-     * @return Ad
-     */
-    public function setOption5($option5)
-    {
-        $this->option5 = $option5;
-
-        return $this;
-    }
-
-    /**
-     * Get option5
-     *
-     * @return boolean 
-     */
-    public function getOption5()
-    {
-        return $this->option5;
-    }
-
-    /**
-     * Set option6
-     *
-     * @param boolean $option6
-     * @return Ad
-     */
-    public function setOption6($option6)
-    {
-        $this->option6 = $option6;
-
-        return $this;
-    }
-
-    /**
-     * Get option6
-     *
-     * @return boolean 
-     */
-    public function getOption6()
-    {
-        return $this->option6;
-    }
-
-    /**
-     * Set option7
-     *
-     * @param boolean $option7
-     * @return Ad
-     */
-    public function setOption7($option7)
-    {
-        $this->option7 = $option7;
-
-        return $this;
-    }
-
-    /**
-     * Get option7
-     *
-     * @return boolean 
-     */
-    public function getOption7()
-    {
-        return $this->option7;
-    }
-
-    /**
-     * Set option8
-     *
-     * @param boolean $option8
-     * @return Ad
-     */
-    public function setOption8($option8)
-    {
-        $this->option8 = $option8;
-
-        return $this;
-    }
-
-    /**
-     * Get option8
-     *
-     * @return boolean 
-     */
-    public function getOption8()
-    {
-        return $this->option8;
-    }
-
-    /**
-     * Set option9
-     *
-     * @param boolean $option9
-     * @return Ad
-     */
-    public function setOption9($option9)
-    {
-        $this->option9 = $option9;
-
-        return $this;
-    }
-
-    /**
-     * Get option9
-     *
-     * @return boolean 
-     */
-    public function getOption9()
-    {
-        return $this->option9;
-    }
-
-    /**
-     * Set option10
-     *
-     * @param boolean $option10
-     * @return Ad
-     */
-    public function setOption10($option10)
-    {
-        $this->option10 = $option10;
-
-        return $this;
-    }
-
-    /**
-     * Get option10
-     *
-     * @return boolean 
-     */
-    public function getOption10()
-    {
-        return $this->option10;
-    }
-
-    /**
-     * Set option11
-     *
-     * @param boolean $option11
-     * @return Ad
-     */
-    public function setOption11($option11)
-    {
-        $this->option11 = $option11;
-
-        return $this;
-    }
-
-    /**
-     * Get option11
-     *
-     * @return boolean 
-     */
-    public function getOption11()
-    {
-        return $this->option11;
-    }
-
-    /**
-     * Set option12
-     *
-     * @param boolean $option12
-     * @return Ad
-     */
-    public function setOption12($option12)
-    {
-        $this->option12 = $option12;
-
-        return $this;
-    }
-
-    /**
-     * Get option12
-     *
-     * @return boolean 
-     */
-    public function getOption12()
-    {
-        return $this->option12;
-    }
-
-    /**
-     * Set option13
-     *
-     * @param boolean $option13
-     * @return Ad
-     */
-    public function setOption13($option13)
-    {
-        $this->option13 = $option13;
-
-        return $this;
-    }
-
-    /**
-     * Get option13
-     *
-     * @return boolean 
-     */
-    public function getOption13()
-    {
-        return $this->option13;
-    }
-
-    /**
-     * Set option14
-     *
-     * @param boolean $option14
-     * @return Ad
-     */
-    public function setOption14($option14)
-    {
-        $this->option14 = $option14;
-
-        return $this;
-    }
-
-    /**
-     * Get option14
-     *
-     * @return boolean 
-     */
-    public function getOption14()
-    {
-        return $this->option14;
-    }
-
-    /**
-     * Set option15
-     *
-     * @param boolean $option15
-     * @return Ad
-     */
-    public function setOption15($option15)
-    {
-        $this->option15 = $option15;
-
-        return $this;
-    }
-
-    /**
-     * Get option15
-     *
-     * @return boolean 
-     */
-    public function getOption15()
-    {
-        return $this->option15;
-    }
-
-    /**
-     * Set option16
-     *
-     * @param boolean $option16
-     * @return Ad
-     */
-    public function setOption16($option16)
-    {
-        $this->option16 = $option16;
-
-        return $this;
-    }
-
-    /**
-     * Get option16
-     *
-     * @return boolean 
-     */
-    public function getOption16()
-    {
-        return $this->option16;
-    }
-
-    /**
-     * Set option17
-     *
-     * @param boolean $option17
-     * @return Ad
-     */
-    public function setOption17($option17)
-    {
-        $this->option17 = $option17;
-
-        return $this;
-    }
-
-    /**
-     * Get option17
-     *
-     * @return boolean 
-     */
-    public function getOption17()
-    {
-        return $this->option17;
-    }
-
-    /**
-     * Set option18
-     *
-     * @param boolean $option18
-     * @return Ad
-     */
-    public function setOption18($option18)
-    {
-        $this->option18 = $option18;
-
-        return $this;
-    }
-
-    /**
-     * Get option18
-     *
-     * @return boolean 
-     */
-    public function getOption18()
-    {
-        return $this->option18;
-    }
-
-    /**
-     * Set option19
-     *
-     * @param boolean $option19
-     * @return Ad
-     */
-    public function setOption19($option19)
-    {
-        $this->option19 = $option19;
-
-        return $this;
-    }
-
-    /**
-     * Get option19
-     *
-     * @return boolean 
-     */
-    public function getOption19()
-    {
-        return $this->option19;
-    }
-
-    /**
-     * Set option20
-     *
-     * @param boolean $option20
-     * @return Ad
-     */
-    public function setOption20($option20)
-    {
-        $this->option20 = $option20;
-
-        return $this;
-    }
-
-    /**
-     * Get option20
-     *
-     * @return boolean 
-     */
-    public function getOption20()
-    {
-        return $this->option20;
     }
 
     /**
@@ -1586,5 +1518,74 @@ class Ad
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \LocationBundle\Entity\Country $country
+     * @return Ad
+     */
+    public function setCountry(\LocationBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \LocationBundle\Entity\Country 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set region
+     *
+     * @param \LocationBundle\Entity\Region $region
+     * @return Ad
+     */
+    public function setRegion(\LocationBundle\Entity\Region $region = null)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return \LocationBundle\Entity\Region 
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * Set city
+     *
+     * @param \LocationBundle\Entity\City $city
+     * @return Ad
+     */
+    public function setCity(\LocationBundle\Entity\City $city = null)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return \LocationBundle\Entity\City 
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }

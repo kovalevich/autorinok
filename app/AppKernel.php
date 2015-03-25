@@ -30,6 +30,7 @@ class AppKernel extends Kernel
             new Iphp\FileStoreBundle\IphpFileStoreBundle(),
             new Files\ImagesBundle\FilesImagesBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new LocationBundle\LocationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

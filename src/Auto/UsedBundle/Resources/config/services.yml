@@ -1,4 +1,8 @@
 services:
-#    used.example:
-#        class: Auto\UsedBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    used.parser.tut:
+        class: Auto\UsedBundle\Parser\TutParserManager
+        arguments: ["url"]
+
+    used.parser:
+            class: Auto\UsedBundle\Parser\ParserManager
+            arguments: [ @doctrine.orm.entity_manager ]

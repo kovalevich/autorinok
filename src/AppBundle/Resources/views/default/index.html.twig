@@ -3,10 +3,7 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
-            {{ render(controller(
-            'AutoUsedBundle:Block:brands',
-            { 'popular': true }
-            )) }}
+
         </div>
         <div class="col-sm-8">
 
@@ -16,4 +13,12 @@
         </div>
     </div>
 {% endblock %}
+
+{% block sidebar_top %}
+    {{ parent() }}
+    {{ render(controller(
+    'AutoCatalogBundle:Block:brands',
+    { 'popular': true }
+    )) }}
+{% endblock sidebar_top %}
 

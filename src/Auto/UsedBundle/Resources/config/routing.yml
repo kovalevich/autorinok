@@ -1,7 +1,11 @@
-used_homepage:
-    path:     /cars
+auto_used_index:
+    path:     /automobili
     defaults: { _controller: AutoUsedBundle:Default:index }
 
-block_brands:
-    path: /auto/used/block/brands/{popular}
-    defaults: { _controller: AutoUsedBundle:Block:brands, popular: true }
+auto_used_parser_parse_list:
+    path: /parser/get-parse-list
+    defaults: { _controller: AutoUsedBundle:Parser:parselist }
+
+auto_used_parser_parse_ad:
+    path: /parser/parse-ad
+    defaults: { _controller: AutoUsedBundle:Parser:parsead }

@@ -33,3 +33,4 @@ imports:
     - { resource: @BlogPublicationsBundle/Resources/config/services.yml }
     - { resource: @AdminPanelBundle/Resources/config/services.yml }
     - { resource: @ProfileUserBundle/Resources/config/services.yml }
+    - { resource: @AutoUsedBundle/Resources/config/services.yml }

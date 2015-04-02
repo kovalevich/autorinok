@@ -1,11 +1,147 @@
 <div id="search-full" class="sidebar-form form-group">
-    <label for="brand">Марка</label>
-    <select class="brand select" id="brand">
-
-    </select>
-
-    <label for="brand">Модель</label>
-    <select class="model select" id="model">
-
-    </select>
+    <div class="row">
+        <div class="col-sm-6">
+            <label for="brand">Марка</label>
+            <select class="brand select" id="brand">
+            </select>
+        </div>
+        <div class="col-sm-6">
+            <label for="model">Модель</label>
+            <select class="model select" id="model">
+            </select>
+        </div>
+    </div>
+    <br/>
+    <div class="row form-group">
+        <div class="col-md-12" id="slider-year">
+            <input type="text" id="year" name="year" value="" />
+        </div>
+    </div>
+    <hr/>
+    <div class="row form-group">
+        <div class="col-md-12" id="slider-price">
+            <input type="text" id="price" name="price" value="" />
+        </div>
+    </div>
+    <hr/>
+    <h3>Двигатель</h3>
+    <div class="row form-group" id="engine-box">
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="engine_1" name="engine[]" value="3">
+                дизель                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="engine_2" name="engine[]" value="2">
+                бензин                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="engine_3" name="engine[]" value="1">
+                газ-бензин                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="engine_4" name="engine[]" value="4">
+                гибрид                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="engine_5" name="engine[]" value="5">
+                электро                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="engine_6" name="engine[]" value="6">
+                турбодизель                    </label>
+        </div>
+        <div class="col-md-12" id="slider-volume">
+            <input type="text" id="volume" name="volume" value="" />
+        </div>
+    </div>
+    <hr/>
+    <h3>Кузов</h3>
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_1" name="body[]" value="1">
+                седан                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_2" name="body[]" value="2">
+                универсал                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_3" name="body[]" value="3">
+                купе                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_4" name="body[]" value="4">
+                хетчбэк                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_5" name="body[]" value="5">
+                минивен
+            </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_6" name="body[]" value="6">
+                внедорожник                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_7" name="body[]" value="7">
+                кроссовер
+            </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_8" name="body[]" value="8">
+                кабриолет                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_9" name="body[]" value="9">
+                пикап                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_10" name="body[]" value="10">
+                лимузин                    </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="body_11" name="body[]" value="11">
+                микроавтобус                    </label>
+        </div>
+    </div>
+    <hr/>
+    <h3>Коробка передач</h3>
+    <div class="row form-group" id="transmission-box">
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="transmission_1" name="transmission[]" value="1">
+                механика
+            </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="transmission_2" name="transmission[]" value="2">
+                автомат
+            </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                <input type="checkbox" class="input-checkbox control" id="transmission_3" name="transmission[]" value="3">
+                вариатор
+            </label>
+        </div>
+    </div>
+    <hr/>
 </div>

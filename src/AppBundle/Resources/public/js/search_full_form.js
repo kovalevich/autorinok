@@ -2,7 +2,9 @@ $(document).ready(function() {
 
     var form = new Form('search-full');
 
+    form.slide();
     form.loadBrands();
+    form.update();
 
     $('input.control').change(function(){
         form.checkInput(this);
@@ -132,28 +134,7 @@ Form.prototype.checkInput = function (element)
 
 Form.prototype.update = function()
 {
-    var href = [], url = '/cars/1';
-    if(this.brand.find('option:selected').val() != -1) {
-        url += '/' + this.brand.find('option:selected').val();
-    }
-    if(this.model.find('option:selected').val() != -1) {
-        url += '/' + this.model.find('option:selected').val();
-    }
-    if(this.price.val() != -1) {
-        href.push('price=' + this.price.val());
-    }
-    if(this.year.val() != -1) {
-        href.push('year=' + this.year.val());
-    }
-    if(this.volume.val() != -1) {
-        href.push('volume=' + this.volume.val());
-    }
-    if(get_checked('engine[]') !== '') href.push(get_checked('engine[]'));
-    if(get_checked('transmission[]') !== '') href.push(get_checked('transmission[]'));
-    if(get_checked('body[]') !== '') href.push(get_checked('body[]'));
-    if(get_checked('options[]') !== '') href.push(get_checked('options[]'));
-
-    this.a.attr('href', url + '?' + href.join('&'));
+    this.updateList();
     this.updateCounter();
 }
 
@@ -190,14 +171,51 @@ Form.prototype.updateCounter = function()
     $.ajax({
         type: 'get',
         dataType: 'json',
-        url: '/ajax/api/getcount?' + href.join('&'),
+        url: auto_used_ajax_count + '?' + href.join('&'),
         beforeSend: function() {
-            $('#counter').html('<img src="/assets/img/loading.gif" alt="загрузка"/>');
+            $('#count-indicator').html('<span class="fa fa-cog fa-spin"></span>');
         },
         success: function(data) {
-            $('#counter').html(data.count + ' авто');
+            $('#count-indicator').html('Найдено ' + data.count['1'] + ' авто');
         }
     });
+}
+
+Form.prototype.updateList = function()
+{
+    var href = [];
+    if(this.brand.find('option:selected').val() && this.brand.find('option:selected').val() != -1) {
+        href.push('brand=' + this.brand.find('option:selected').val());
+    }
+    if(this.model.find('option:selected').val() && this.model.find('option:selected').val() != -1) {
+        href.push('model=' + this.model.find('option:selected').val());
+    }
+    if(get_checked('engine[]') !== '') href.push(get_checked('engine[]'));
+    if(this.price.val() != -1) {
+        href.push('price=' + this.price.val());
+    }
+    if(this.year.val() != -1) {
+        href.push('year=' + this.year.val());
+    }
+    if(this.volume.val() != -1) {
+        href.push('volume=' + this.volume.val());
+    }
+    if(get_checked('transmission[]') !== '') href.push(get_checked('transmission[]'));
+    if(get_checked('body[]') !== '') href.push(get_checked('body[]'));
+
+    window.location.href = '#' + href.join('&');
+
+    $.ajax({
+        type: 'get',
+        dataType: 'text',
+        url: auto_used_ajax_ads + '?' + href.join('&'),
+        beforeSend: function() {
+
+        },
+        success: function(data) {
+            $('#search-result').html(data);
+        }
+    })
 }
 
 Form.prototype.loadBrands = function()
@@ -256,7 +274,7 @@ Form.prototype.loadModels = function(brand)
                     options += '<option value="' + data[i]['alias'] + '"' + sel +'>' + data[i]['name'] + '</option>';
             }
             form.model.html(
-                '<option value="-1">все</option>' +
+                '<option value="-1">любая</option>' +
                     options
             );
             form.model.prop('disabled', false);
@@ -276,12 +294,15 @@ Form.prototype.slide = function()
     this.price.ionRangeSlider({
         min: 500,
         max: 60000,
-        from: 1000,
+        from: 5000,
         to: 15000,
         type: 'double',
         step: 500,
         postfix: " $",
+        prefix: "Цена: ",
+        decorate_both: false,
         grid: true,
+        max_postfix: "+",
         onFinish: function (obj) {
             form.update();
         },
@@ -298,26 +319,30 @@ Form.prototype.slide = function()
     });
     this.year.ionRangeSlider({
         min: 1969,
-        max: 2014,
-        from: 1989,
+        max: 2015,
+        from: 1985,
         to: 2009,
         type: 'double',
         step: 1,
         postfix: " г.",
         grid: true,
+        prefix: "год выпуска: ",
+        decorate_both: false,
         onFinish: function (obj) {
             form.update();
         }
     });
     this.volume.ionRangeSlider({
-        min: 1,
+        min: 0.8,
         max: 7,
         from: 1.5,
-        to: 3.0,
+        to: 5.0,
         type: 'double',
-        step: 0.5,
+        step: 0.1,
         postfix: " л.",
         grid: true,
+        prefix: "Объем: ",
+        decorate_both: false,
         onFinish: function (obj) {
             form.update();
         }
@@ -328,7 +353,7 @@ get_checked = function(name)
 {
     listCheck = [];
     $('input:checkbox[name="' + name + '"]:checked').each(function() {
-        listCheck .push(name + '=' + $(this).val());
+        listCheck.push(name + '=' + $(this).val());
     });
     return listCheck.join('&');
 }

@@ -72,6 +72,9 @@ class ParserController extends Controller
 
         $ad = null;
         if($most_parsed = $repo_most_parsed->findOne()){
+            $most_parsed->setIsParsed(true);
+            $em->persist($most_parsed);
+            $em->flush();
             switch($most_parsed->getSite()){
                 case 'a.tut.by': $ad = $this->container->get('used.parser.tut')->parse($most_parsed->getParseId()); break;
                 default: break;
@@ -105,9 +108,22 @@ class ParserController extends Controller
                     ));
 
                 $new_ad->setPhones($ad['phones']);
-                $new_ad->setPrice($ad['price']);
+                $new_ad->setPrice($ad['price'], $ad['currency'], 14800); # нужно отхаркордить курс доллара
+                $new_ad->setCurrency($ad['currency']);
                 $new_ad->setImages($parser->uploadImages($ad['images']));
                 $new_ad->setYear($ad['year']);
+                if(isset($ad['volume']))
+                    $new_ad->setVolume($ad['volume']);
+                if(isset($ad['engine']))
+                    $new_ad->setEngine($ad['engine']);
+                if(isset($ad['transmission']))
+                    $new_ad->setTransmission($ad['transmission']);
+                if(isset($ad['road']))
+                    $new_ad->setRoad($ad['road']);
+                if(isset($ad['body']))
+                    $new_ad->setBody($ad['body']);
+                if(isset($ad['millage']))
+                    $new_ad->setMillage($ad['millage']);
                 $new_ad->setParseId($most_parsed->getParseId());
                 $new_ad->setDescription($ad['description']);
 

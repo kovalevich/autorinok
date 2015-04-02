@@ -57,4 +57,5 @@ class AjaxController extends Controller
         }
         return new JsonResponse($return_arr);
     }
+
 }

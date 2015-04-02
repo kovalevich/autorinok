@@ -19,9 +19,10 @@ class TutParserManager
         );
 
         $crawler = new Crawler($html);
-        $ad['name'] = $crawler->filter('#title_h1')->text();
+        $ad['name'] = preg_replace('/([\d]{4,})(?!.+\d{4}.+).+$/', '', $crawler->filter('#title_h1')->text());
         $ad['price'] = preg_replace('/\D/', '', $crawler->filter('div.b-info > div.price')->text());
-        $ad['currency'] = $crawler->filter('div.b-info > div.price > meta[itemprop="priceCurrency"]')->attr('content');
+        #$ad['currency'] = $crawler->filter('div.b-info > div.price > meta[itemprop="priceCurrency"]')->attr('content');
+        $ad['currency'] = 'б.р.';
         $ad['phones'] = array();
 
         $phones_codes = $crawler->filter('span.phone-code');
@@ -52,11 +53,14 @@ class TutParserManager
         if(preg_match('/(\d+) год/', $info, $matches))
             $ad['year'] = $matches[1];
 
+        if(preg_match('/(седан|универсал|хетчбэк|минивэн|купе|внедорожник|кроссовер|кабриолет|пикап|лимузин)/', $crawler->filter('#title_h1')->text(), $matches))
+            $ad['body'] = $matches[1];
+
         if(preg_match('/пробег ([0-9 ]+) км/', $info, $matches))
             $ad['millage'] = str_replace(' ', '', $matches[1]);
 
-        if(preg_match('/(\d+?.\d+) л,/', $info, $matches))
-            $ad['volume'] = $matches[1];
+        if(preg_match('/(\d{1,}\.\d{1,})\sл/', $info, $matches))
+            $ad['volume'] = $matches[1] * 1000;
 
         if(preg_match('/(механика|автомат|вариатор)/', $info, $matches))
             $ad['transmission'] = $matches[1];
@@ -105,6 +109,7 @@ class TutParserManager
         preg_match('/(\d+).html/', $url, $matches);
         $ad['parse_id'] = $matches[1];
 
+        #var_dump($ad);
         return $ad;
     }
 

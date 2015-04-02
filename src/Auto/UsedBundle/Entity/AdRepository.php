@@ -12,4 +12,222 @@ use Doctrine\ORM\EntityRepository;
  */
 class AdRepository extends EntityRepository
 {
+
+    public function findAdsByParams($request = null)
+    {
+        $where = array();
+        $params = array();
+
+        if($request) {
+            if($brand = $request->get('brand')) {
+                $where[] = 'b.alias = :brand';
+                $params['brand'] = $brand;
+            }
+            if($model = $request->get('model')) {
+                $where[] = 'm.alias = :model';
+                $params['model'] = $model;
+            }
+            if($engine = $request->get('engine')){
+                if(count($engine) > 0) {
+                    $temp = 'a.engine = :engine_0';
+                    $params['engine_0'] = $engine[0];
+                    foreach($engine as $k => $eng){
+                        if($k > 0){
+                            $temp .= ' OR a.engine = :engine_' . $k;
+                            $params['engine_' . $k] = $eng;
+                        }
+                    }
+                    $where[] = $temp;
+                }
+            }
+            if($body = $request->get('body')){
+                if(count($body) > 0) {
+                    $temp = 'a.body = :body_0';
+                    $params['body_0'] = $body[0];
+                    foreach($body as $k => $bod){
+                        if($k > 0){
+                            $temp .= ' OR a.body = :body_' . $k;
+                            $params['body_' . $k] = $bod;
+                        }
+                    }
+                    $where[] = $temp;
+                }
+            }
+            if($transmission = $request->get('transmission')){
+                if(count($transmission) > 0) {
+                    $temp = 'a.transmission = :transmission_0';
+                    $params['transmission_0'] = $transmission[0];
+                    foreach($transmission as $k => $value){
+                        if($k > 0){
+                            $temp .= ' OR a.transmission = :transmission_' . $k;
+                            $params['transmission_' . $k] = $value;
+                        }
+                    }
+                    $where[] = $temp;
+                }
+            }
+            if($price = $request->get('price')) {
+                $price = explode(';', $price);
+                if($price[0] > 0) {
+                    $where[] = 'a.price >= :price_from';
+                    $params['price_from'] = $price[0];
+                }
+                if($price[1] > 0){
+                    $where[] = 'a.price <= :price_to';
+                    $params['price_to'] = $price[1];
+                }
+            }
+            if($year = $request->get('year')) {
+                $year = explode(';', $year);
+                if($year[0] > 0) {
+                    $where[] = 'a.year >= :year_from';
+                    $params['year_from'] = $year[0];
+                }
+                if($year[1] > 0){
+                    $where[] = 'a.year <= :year_to';
+                    $params['year_to'] = $year[1];
+                }
+            }
+            if($volume = $request->get('volume')) {
+                $volume = explode(';', $volume);
+                if($volume[0] > 0) {
+                    $where[] = 'a.volume >= :volume_from';
+                    $params['volume_from'] = $volume[0]*1000;
+                }
+                if($volume[1] > 0){
+                    $where[] = 'a.volume <= :volume_to';
+                    $params['volume_to'] = $volume[1]*1000;
+                }
+            }
+        }
+        $where_string = count($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT a, b, m FROM AutoUsedBundle:Ad a
+                JOIN a.brand b
+                JOIN a.model m
+                ' . $where_string . '
+                ORDER BY a.upped DESC'
+            );
+
+        foreach($params as $key => $value)
+        {
+            $query->setParameter($key, $value);
+        }
+
+        try {
+            return $query->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
+    public function getCount($request = null)
+    {
+        $where = array();
+        $params = array();
+
+        if($request) {
+            if($brand = $request->get('brand')) {
+                $where[] = 'b.alias = :brand';
+                $params['brand'] = $brand;
+            }
+            if($model = $request->get('model')) {
+                $where[] = 'm.alias = :model';
+                $params['model'] = $model;
+            }
+            if($engine = $request->get('engine')){
+                if(count($engine) > 0) {
+                    $temp = 'a.engine = :engine_0';
+                    $params['engine_0'] = $engine[0];
+                    foreach($engine as $k => $eng){
+                        if($k > 0){
+                            $temp .= ' OR a.engine = :engine_' . $k;
+                            $params['engine_' . $k] = $eng;
+                        }
+                    }
+                    $where[] = $temp;
+                }
+            }
+            if($body = $request->get('body')){
+                if(count($body) > 0) {
+                    $temp = 'a.body = :body_0';
+                    $params['body_0'] = $body[0];
+                    foreach($body as $k => $bod){
+                        if($k > 0){
+                            $temp .= ' OR a.body = :body_' . $k;
+                            $params['body_' . $k] = $bod;
+                        }
+                    }
+                    $where[] = $temp;
+                }
+            }
+            if($transmission = $request->get('transmission')){
+                if(count($transmission) > 0) {
+                    $temp = 'a.transmission = :transmission_0';
+                    $params['transmission_0'] = $transmission[0];
+                    foreach($transmission as $k => $value){
+                        if($k > 0){
+                            $temp .= ' OR a.transmission = :transmission_' . $k;
+                            $params['transmission_' . $k] = $value;
+                        }
+                    }
+                    $where[] = $temp;
+                }
+            }
+            if($price = $request->get('price')) {
+                $price = explode(';', $price);
+                if($price[0] > 0) {
+                    $where[] = 'a.price >= :price_from';
+                    $params['price_from'] = $price[0];
+                }
+                if($price[1] > 0){
+                    $where[] = 'a.price <= :price_to';
+                    $params['price_to'] = $price[1];
+                }
+            }
+            if($year = $request->get('year')) {
+                $year = explode(';', $year);
+                if($year[0] > 0) {
+                    $where[] = 'a.year >= :year_from';
+                    $params['year_from'] = $year[0];
+                }
+                if($year[1] > 0){
+                    $where[] = 'a.year <= :year_to';
+                    $params['year_to'] = $year[1];
+                }
+            }
+            if($volume = $request->get('volume')) {
+                $volume = explode(';', $volume);
+                if($volume[0] > 0) {
+                    $where[] = 'a.volume >= :volume_from';
+                    $params['volume_from'] = $volume[0]*1000;
+                }
+                if($volume[1] > 0){
+                    $where[] = 'a.volume <= :volume_to';
+                    $params['volume_to'] = $volume[1]*1000;
+                }
+            }
+        }
+        $where_string = count($where) ? 'WHERE ' . implode(' AND ', $where) : '';
+
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT COUNT(a.id) FROM AutoUsedBundle:Ad a
+                ' . $where_string
+            );
+
+        foreach($params as $key => $value)
+        {
+            $query->setParameter($key, $value);
+        }
+
+        try {
+            return $query->getOneOrNullResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
 }

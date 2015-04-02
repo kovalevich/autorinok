@@ -352,4 +352,9 @@ class Model
     {
         return $this->filling;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

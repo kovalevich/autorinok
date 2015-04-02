@@ -1,10 +1,32 @@
 {% extends 'AppBundle::layout.html.twig' %}
-
+{% block title %}
+    Поиск объявлений | {{ parent() }}
+{% endblock %}
 {% block content %}
     <div class="row">
         <div class="col-sm-8">
-            <div id="ads">
+            <div class="widget">
+                <div class="widget-header">
+                    <h3 id="count-indicator"></h3>
+                    <div class="btn-group widget-header-toolbar" id="control">
+                        <div class="control-inline toolbar-item-group" style="line-height: 24px; margin-right: 0;">
+                            <a href="#" id="add-subsc" class="label label-warning add-subscription" data-type="ad" data-brand-name="<?= $this->brand ?>" data-model-name="<?= $this->model ?>" data-brand="<?= $this->brand_id?>" data-model="<?= $this->model_id ?>" data-year="<?= $this->getparams('year')?>" data-price="<?= $this->getparams('price')?>"><i class="fa fa-clock-o"></i> добавить в ленту</a>
+                        </div>
+                    </div>
+                    <div class="btn-group widget-header-toolbar">
+                        <div class="control-inline toolbar-item-group"  style="line-height: 24px; margin-right: 0;">
 
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="row" id="search-result">
+
+                    </div>
+                </div>
+                <div class="widget-footer text-center">
+                    paginator
+                </div>
             </div>
         </div>
         <div class="col-sm-4">
@@ -21,14 +43,19 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/ion.rangeSlider.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/ion.rangeSlider.skinNice.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/app/js/slider.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/plugins/select2/select2.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/search_full_form.js') }}"></script>
     <script type="text/javascript">
         var auto_catalog_ajax_brands = '{{ path('auto_catalog_ajax_brands') }}';
         var auto_catalog_ajax_models = '{{ path('auto_catalog_ajax_models', {brand: ''}) }}';
+        var auto_used_ajax_ads = '{{ path('auto_used_ajax_ads') }}';
+        var auto_used_ajax_count = '{{ path('auto_used_ajax_count') }}';
     </script>
 {% endblock %}

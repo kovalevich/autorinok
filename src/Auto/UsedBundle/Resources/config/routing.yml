@@ -9,3 +9,11 @@ auto_used_parser_parse_list:
 auto_used_parser_parse_ad:
     path: /parser/parse-ad
     defaults: { _controller: AutoUsedBundle:Parser:parsead }
+
+auto_used_ajax_ads:
+    path: /auto/used/ajax/ads
+    defaults: { _controller: AutoUsedBundle:Ajax:ads }
+
+auto_used_ajax_count:
+    path: /auto/used/ajax/count
+    defaults: { _controller: AutoUsedBundle:Ajax:count }

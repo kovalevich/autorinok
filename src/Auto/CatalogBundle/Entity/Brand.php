@@ -307,4 +307,9 @@ class Brand
     {
         return $this->filling ? $this->filling : 0;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

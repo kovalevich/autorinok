@@ -8,13 +8,46 @@ class AppFilters extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('price', array($this, 'priceFilter')),
             new \Twig_SimpleFilter('number', array($this, 'numberFilter')),
+            new \Twig_SimpleFilter('photo', array($this, 'photoFilter')),
+            new \Twig_SimpleFilter('options', array($this, 'optionsFilter')),
             new \Twig_SimpleFilter('memorySize', array($this, 'memorySizeFilter')),
         );
     }
 
-    public function priceFilter($number, $decimals = 0, $decPoint = '.', $thousandsSep = ',')
+    public function optionsFilter($ad, $type)
     {
-        $postfix = $number <= 1000000 ? ' $' : ' руб.';
+        switch ($type){
+            case 'short':
+                $options = array();
+                if($ad->getYear()) {
+                    $options[] = $ad->getYear() . ' г.в.';
+                }
+                $engine = '';
+                if($ad->getEngine()) {
+                    $engine .= $ad->getEngine();
+                }
+                if($ad->getVolume()) {
+                    $engine .= ' ' . round($ad->getVolume() / 1000, 1) . ' л';
+                }
+                if($engine) $options[] = $engine;
+
+                return implode(', ', $options);
+                break;
+            case 'long': break;
+            default: return '';
+        }
+    }
+
+
+    public function priceFilter($number, $decimals = 0, $decPoint = '.', $thousandsSep = ' ')
+    {
+        if($number <= 1000000) {
+            $postfix = ' $';
+        }
+        else {
+            $postfix = ' млн.руб.';
+            $number = round($number / 1000000, 2);
+        }
 
         $price = number_format($number, $decimals, $decPoint, $thousandsSep);
         $price = $price . $postfix;
@@ -25,6 +58,14 @@ class AppFilters extends \Twig_Extension
     public function numberFilter($number, $decimals = 0, $decPoint = '.', $thousandsSep = ',')
     {
         return number_format($number, $decimals, $decPoint, $thousandsSep);
+    }
+
+    public function photoFilter($photos, $number, $size = 'min')
+    {
+        if(count($photos) > $number){
+            return str_replace('photo', 'photo-size-' . $size, $photos[$number]);
+        }
+        else return '';
     }
 
     public function memorySizeFilter($size)

@@ -83,9 +83,9 @@ class ParserManager
 
                 $img = new \Imagick($image);
 
-                $this->cropImage($img, $_dir.'/'.$newFilename, 800, 600);
-                $this->cropImage($img, $_dir.'/'.$newFilename, 200, 150);
-                $this->cropImage($img, $_dir.'/'.$newFilename, 80, 80);
+                $img = $this->cropImage($img, $_dir.'/'.$newFilename, 800, 600, 'max', true);
+                $this->cropImage($img, $_dir.'/'.$newFilename, 200, 150, 'medium');
+                $this->cropImage($img, $_dir.'/'.$newFilename, 80, 80, 'min');
 
                 $ret_images[] = $_dir.'/'.$newFilename;
                 if($i > 8) break;
@@ -95,11 +95,17 @@ class ParserManager
         return $ret_images;
     }
 
-    private function cropImage(\Imagick $image, $new_name, $w, $h)
+    private function cropImage(\Imagick $image, $new_name, $w, $h, $size_name, $print_water_mark = false)
     {
         $image->cropThumbnailImage($w, $h);
-        $name = str_replace('photo-', 'photo-' . $w . '-' . $h . '-', $new_name);
+        $name = str_replace('photo-', 'photo-size-' . $size_name . '-', $new_name);
+
+        if($print_water_mark){
+            $watermark = new \Imagick('bundles/app/img/water-logo.png');
+            $image->compositeImage($watermark, \Imagick::COMPOSITE_OVER, $image->getImageWidth() - $watermark->getimagewidth(), $image->getimageheight() - $watermark->getimageheight());
+        }
         $image->writeImage($name);
+        return $image;
     }
 
     public function generateId() {

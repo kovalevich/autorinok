@@ -8,6 +8,8 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AutoUsedBundle:Default:index.html.twig');
+        return $this->render('AutoUsedBundle:Default:index.html.twig', array(
+            'big_side_bar'  => true
+        ));
     }
 }

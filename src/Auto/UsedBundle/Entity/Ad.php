@@ -68,6 +68,13 @@ class Ad
     private $price;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="currency", type="string", length=255, nullable=true)
+     */
+    private $currency;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="price_view", type="integer")
@@ -442,11 +449,17 @@ class Ad
      * Set price
      *
      * @param integer $price
+     * @param integer $course
+     * @param string $currency
      * @return Ad
      */
-    public function setPrice($price)
+    public function setPrice($price, $currency = '$', $course = 14800)
     {
-        $this->price = $price;
+        if($currency == '$')
+            $this->price = $price;
+        else {
+            $this->price = $price / $course; # курс доллара
+        }
         $this->setPriceView($price);
 
         return $this;
@@ -608,7 +621,18 @@ class Ad
      */
     public function setEngine($engine)
     {
-        $this->engine = $engine;
+        $synonyms = array(
+            1 =>    'газ',
+            2 =>    'енз',
+            3 =>    'изел',
+            4 =>    'ибр',
+            5 =>    'лек',
+            6 =>    'рбодиз'
+        );
+        foreach($synonyms as $i => $synonym)
+        {
+            if(strstr($engine, $synonym)) $this->engine = $i;
+        }
 
         return $this;
     }
@@ -631,7 +655,15 @@ class Ad
      */
     public function setTransmission($transmission)
     {
-        $this->transmission = $transmission;
+        $synonyms = array(
+            1 =>    'еха', # mechanic
+            2 =>    'вто', # automatic
+            3 =>    'ари'
+        );
+        foreach($synonyms as $i => $synonym)
+        {
+            if(strstr($transmission, $synonym)) $this->transmission = $i;
+        }
 
         return $this;
     }
@@ -654,6 +686,7 @@ class Ad
      */
     public function setVolume($volume)
     {
+        if($volume < 500) $volume *= 1000;
         $this->volume = $volume;
 
         return $this;
@@ -677,7 +710,15 @@ class Ad
      */
     public function setRoad($road)
     {
-        $this->road = $road;
+        $synonyms = array(
+            1 =>    'адн',
+            2 =>    'еред',
+            3 =>    'олн'
+        );
+        foreach($synonyms as $i => $synonym)
+        {
+            if(strstr($road, $synonym)) $this->road = $i;
+        }
 
         return $this;
     }
@@ -723,7 +764,23 @@ class Ad
      */
     public function setBody($body)
     {
-        $this->body = $body;
+        $synonyms = array(
+            1 =>    'еда',
+            2 =>    'нивер',
+            3 =>    'бэк',
+            4 =>    'минив',
+            5 =>    'упе',
+            6 =>    'внед',
+            7 =>    'крос',
+            8 =>    'кабр',
+            9 =>    'пик',
+            10=>    'лим',
+            11 =>   'автобу'
+        );
+        foreach($synonyms as $i => $synonym)
+        {
+            if(strstr($body, $synonym)) $this->body = $i;
+        }
 
         return $this;
     }
@@ -1587,5 +1644,29 @@ class Ad
     public function getCity()
     {
         return $this->city;
+    }
+
+
+    /**
+     * Set currency
+     *
+     * @param string $currency
+     * @return Ad
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return string 
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 }

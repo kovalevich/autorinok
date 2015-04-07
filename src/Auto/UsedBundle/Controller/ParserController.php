@@ -42,7 +42,7 @@ class ParserController extends Controller
 
             foreach($list as $item)
             {
-                if($repo->findOneByParseKey(md5('tut'.$item))) break;
+                if($repo->findOneByParseKey(md5('tut'.$item))) continue;
 
                 $most_parsed = new MostParsed();
                 $most_parsed->setSite('a.tut.by');

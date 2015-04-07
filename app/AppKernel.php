@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new Files\ImagesBundle\FilesImagesBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new LocationBundle\LocationBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

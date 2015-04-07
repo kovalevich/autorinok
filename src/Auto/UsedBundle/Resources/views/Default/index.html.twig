@@ -4,30 +4,8 @@
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-sm-8">
-            <div class="widget">
-                <div class="widget-header">
-                    <h3 id="count-indicator"></h3>
-                    <div class="btn-group widget-header-toolbar" id="control">
-                        <div class="control-inline toolbar-item-group" style="line-height: 24px; margin-right: 0;">
-                            <a href="#" id="add-subsc" class="label label-warning add-subscription" data-type="ad" data-brand-name="<?= $this->brand ?>" data-model-name="<?= $this->model ?>" data-brand="<?= $this->brand_id?>" data-model="<?= $this->model_id ?>" data-year="<?= $this->getparams('year')?>" data-price="<?= $this->getparams('price')?>"><i class="fa fa-clock-o"></i> добавить в ленту</a>
-                        </div>
-                    </div>
-                    <div class="btn-group widget-header-toolbar">
-                        <div class="control-inline toolbar-item-group"  style="line-height: 24px; margin-right: 0;">
+        <div class="col-sm-8" id="search-results">
 
-                        </div>
-                    </div>
-                </div>
-                <div class="widget-content">
-                    <div class="row" id="search-result">
-
-                    </div>
-                </div>
-                <div class="widget-footer text-center">
-                    paginator
-                </div>
-            </div>
         </div>
         <div class="col-sm-4">
 

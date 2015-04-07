@@ -11,7 +11,7 @@
             {% if(item.engine) %}
             , {{ ('car.option.engine.' ~ item.engine)|trans }}
                 {% if(item.volume) %}
-                 {{ item.volume }} л.
+                 {{ item.volume / 1000 }} л.
                 {% endif %}
             {% endif %}
         </span>

@@ -3,7 +3,6 @@
 namespace Auto\UsedBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * AdRepository
@@ -14,7 +13,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class AdRepository extends EntityRepository
 {
 
-    public function getPage($page = 1, $limit = 50, $request = null)
+    public function findAdsByParams($request = null)
     {
         $where = array();
         $params = array();
@@ -38,7 +37,7 @@ class AdRepository extends EntityRepository
                             $params['engine_' . $k] = $eng;
                         }
                     }
-                    $where[] = "($temp)";
+                    $where[] = $temp;
                 }
             }
             if($body = $request->get('body')){
@@ -51,7 +50,7 @@ class AdRepository extends EntityRepository
                             $params['body_' . $k] = $bod;
                         }
                     }
-                    $where[] = "($temp)";
+                    $where[] = $temp;
                 }
             }
             if($transmission = $request->get('transmission')){
@@ -64,7 +63,7 @@ class AdRepository extends EntityRepository
                             $params['transmission_' . $k] = $value;
                         }
                     }
-                    $where[] = "($temp)";
+                    $where[] = $temp;
                 }
             }
             if($price = $request->get('price')) {
@@ -111,15 +110,11 @@ class AdRepository extends EntityRepository
                 ' . $where_string . '
                 ORDER BY a.upped DESC'
             );
-            //->setMaxResults($limit)
-            //->setFirstResult(($page - 1) * $limit);
 
         foreach($params as $key => $value)
         {
             $query->setParameter($key, $value);
         }
-
-        return $query;
 
         try {
             return $query->getResult();
@@ -128,17 +123,11 @@ class AdRepository extends EntityRepository
         }
     }
 
-    public function findAdsByParams($request = null)
-    {
-
-    }
-
     public function getCount($request = null)
     {
         $where = array();
         $params = array();
 
-        //$page=1
         if($request) {
             if($brand = $request->get('brand')) {
                 $where[] = 'b.alias = :brand';
@@ -220,15 +209,12 @@ class AdRepository extends EntityRepository
                     $params['volume_to'] = $volume[1]*1000;
                 }
             }
-            $page = $request->get('page') ? $request->get('page') : 1;
         }
         $where_string = count($where) ? 'WHERE ' . implode(' AND ', $where) : '';
 
         $query = $this->getEntityManager()
             ->createQuery(
                 'SELECT COUNT(a.id) FROM AutoUsedBundle:Ad a
-                JOIN a.brand b
-                JOIN a.model m
                 ' . $where_string
             );
 
@@ -238,7 +224,7 @@ class AdRepository extends EntityRepository
         }
 
         try {
-            return $query->getSingleScalarResult();
+            return $query->getOneOrNullResult();
         } catch (\Doctrine\ORM\NoResultException $e) {
             return null;
         }

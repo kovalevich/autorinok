@@ -20,10 +20,12 @@ class ParserManager
         foreach($brands as $entry){
             $synonyms = explode(';', $entry->getSynonyms());
             foreach($synonyms as $synonym) {
-                if(strstr($name, $synonym) && ($temp_obj === null || strlen($synonym) > strlen($temp_obj->getName()))){
+                if(strstr($name, $synonym)){
                     $temp_obj = $entry;
+                    break;
                 }
             }
+            if ($temp_obj) break;
         }
 
         return $temp_obj;

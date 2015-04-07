@@ -1,3 +1,2 @@
 parameters:
     parser.parse_tyt_by: true
-    ads.count_on_page: 2

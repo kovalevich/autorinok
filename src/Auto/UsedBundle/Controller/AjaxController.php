@@ -9,22 +9,33 @@ use Symfony\Component\HttpFoundation\Request;
 class AjaxController extends Controller
 {
 
-    public function adsAction(Request $request)
+    public function adsAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('AutoUsedBundle:Ad');
 
-        return $this->render('AutoUsedBundle:Ajax:ads.html.twig', array('items' => $repo->findAdsByParams($request->query)));
+        return $this->render('AutoUsedBundle:Ajax:ads.html.twig', array('items' => $repo->findAdsByParams($request->query, $page)));
     }
 
-    public function countAction(Request $request)
+    public function refreshAdsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $limit = $this->container->getParameter('ads.count_on_page');
+        $page = $request->get('page');
 
-        $count = $em->getRepository('AutoUsedBundle:Ad')->getCount($request->query);
+        if(!is_numeric($page) || $page < 1) $page = 1;
 
-        return new JsonResponse(array(
-            'count' => $count
+        $query = $em->getRepository('AutoUsedBundle:Ad')->getPage($page, $limit, $request->query);
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $page,
+            $limit
+        );
+
+        return $this->render('AutoUsedBundle:Ajax:page.html.twig', array(
+            'pagination' => $pagination
         ));
     }
 }

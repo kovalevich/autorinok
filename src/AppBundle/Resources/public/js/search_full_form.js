@@ -1,16 +1,57 @@
 $(document).ready(function() {
 
     var form = new Form('search-full');
-
     form.slide();
+    form.populate();
     form.loadBrands();
-    form.update();
+    form.update(false);
 
     $('input.control').change(function(){
         form.checkInput(this);
     });
     $('.select').change(function(){
         form.checkInput(this);
+    });
+
+    $('#search-results').on('click', '.pagination a',function(e){
+        var url = this.attributes.href.value;
+        var hash = url.substring(url.indexOf('?'));
+        window.location.hash = '#' + hash;
+        form.update(false);
+        return false;
+    });
+
+    $('#clear-engine').click(function(e){
+        $('input:checkbox[name="engine[]"]').prop('checked', false);
+        var slider = form.volume.data("ionRangeSlider");
+        slider.update({
+            from: 1,
+            to: 5
+        });
+        form.update();
+        return false;
+    });
+    $('#clear-price').click(function(e){
+        $('input:checkbox[name="exchange"]').prop('checked', false);
+        $('input:checkbox[name="auction"]').prop('checked', false);
+        var slider = form.price.data("ionRangeSlider");
+        slider.update({
+            max: 100000,
+            from: 500,
+            to: 85000
+        });
+        form.update();
+        return false;
+    });
+    $('#clear-body').click(function(e){
+        $('input:checkbox[name="body[]"]').prop('checked', false);
+        form.update();
+        return false;
+    });
+    $('#clear-transmission').click(function(e){
+        $('input:checkbox[name="transmission[]"]').prop('checked', false);
+        form.update();
+        return false;
     });
 });
 
@@ -43,13 +84,11 @@ var Form = function(form_id)
 
 Form.prototype.populate = function()
 {
-    if(this.params.brand != null)
-    {
-        this.loadModels(this.params.brand);
-    }
-    if(this.params.price != null) {
-        values = this.params.price.split(';');
+    console.log(getParameter('engine[]'));
+    if(getParameter('price')) {
+        values = getParameter('price').split(';');
         max = values[1] > 50000 ? parseInt(values[1]) + 10000 : 50000;
+
         var slider = this.price.data("ionRangeSlider");
         slider.update({
             from: values[0],
@@ -57,34 +96,36 @@ Form.prototype.populate = function()
             max: max
         });
     }
-    if(this.params.year != null) {
-        values = this.params.year.split(';');
+    if(getParameter('year')) {
+        values = getParameter('year').split(';');
         var slider = this.year.data("ionRangeSlider");
         slider.update({
             from: values[0],
             to: values[1]
         });
     }
-    if(this.params.volume != null) {
-        values = this.params.volume.split(';');
+    if(getParameter('volume')) {
+        values = getParameter('volume').split(';');
         var slider = this.volume.data("ionRangeSlider");
         slider.update({
             from: values[0],
             to: values[1]
         });
     }
-    if(this.params.engine != null)
+    if(getParameter('engine[]') != null)
     {
-        var eng = this.params.engine;
+        var eng = getParameter('engine[]');
+        eng = eng.split(';');
         while(eng.length){
             var last = eng.shift();
             $('#engine_' + last).prop('checked', true);
 
         }
     }
-    if(this.params.transmission != null)
+    if(getParameter('transmission[]'))
     {
-        var trans = this.params.transmission;
+        var trans = getParameter('transmission[]');
+        trans = trans.split(';');
         while(trans.length){
             var last = trans.shift();
             $('#transmission_' + last).prop('checked', true);
@@ -92,9 +133,10 @@ Form.prototype.populate = function()
         }
     }
 
-    if(this.params.body != null)
+    if(getParameter('body[]') != null)
     {
-        var body = this.params.body;
+        var body = getParameter('body[]');
+        body = body.split(';');
         while(body.length){
             var last = body.shift();
             $('#body_' + last).prop('checked', true);
@@ -102,9 +144,10 @@ Form.prototype.populate = function()
         }
     }
 
-    if(this.params.options != null)
+    if(getParameter('options[]') != null)
     {
-        var option = this.params.options;
+        var option = getParameter('options[]');
+        option = option.split(';');
         while(option.length){
             var last = option.shift();
             $('#option_' + last).prop('checked', true);
@@ -112,7 +155,6 @@ Form.prototype.populate = function()
         }
     }
 };
-
 
 Form.prototype.checkInput = function (element)
 {
@@ -129,64 +171,25 @@ Form.prototype.checkInput = function (element)
             break;
         }
     }
-    this.update();
+    this.update(true);
 };
 
-Form.prototype.update = function()
+Form.prototype.update = function(go_to_start_page)
 {
-    this.updateList();
-    this.updateCounter();
+    this.updateList(go_to_start_page);
 }
 
-Form.prototype.updateCounter = function()
+Form.prototype.updateList = function(go_to_start_page)
 {
     var href = [];
-    if(this.brand.find('option:selected').val() != -1) {
-        href.push('brand=' + this.brand.find('option:selected').val());
-    }
-    if(this.model.find('option:selected').val() != -1) {
-        href.push('model=' + this.model.find('option:selected').val());
-    }
-    if(this.price.val() != -1) {
-        href.push('price=' + this.price.val());
-    }
-    if(this.year.val() != -1) {
-        href.push('year=' + this.year.val());
-    }
-    if(this.volume.val() != -1) {
-        href.push('volume=' + this.volume.val());
-    }
-    if(get_checked('engine[]') !== '') href.push(get_checked('engine[]'));
-    if(get_checked('transmission[]') !== '') href.push(get_checked('transmission[]'));
-    if(get_checked('body[]') !== '') href.push(get_checked('body[]'));
-    if(get_checked('options[]') !== '') href.push(get_checked('options[]'));
+    $brand = getParameter('brand') !== undefined ? getParameter('brand') : this.brand.find('option:selected').val();
 
-
-
-    content = '<a href="' + this.a.attr('href') + '">Показать</a> <span id="counter"></span>';
-    $(".fixed-container").attr('data-content', content);
-    $(".fixed-container").popover('show');
-    $('.arrow').attr('style', '');
-
-    $.ajax({
-        type: 'get',
-        dataType: 'json',
-        url: auto_used_ajax_count + '?' + href.join('&'),
-        beforeSend: function() {
-            $('#count-indicator').html('<span class="fa fa-cog fa-spin"></span>');
-        },
-        success: function(data) {
-            $('#count-indicator').html('Найдено ' + data.count['1'] + ' авто');
-        }
-    });
-}
-
-Form.prototype.updateList = function()
-{
-    var href = [];
-    if(this.brand.find('option:selected').val() && this.brand.find('option:selected').val() != -1) {
-        href.push('brand=' + this.brand.find('option:selected').val());
+    if(getParameter('brand') && this.brand.find('option:selected').val() && getParameter('brand') !== this.brand.find('option:selected').val())
+        $brand = this.brand.find('option:selected').val();
+    if($brand && $brand != -1) {
+        href.push('brand=' + $brand);
     }
+
     if(this.model.find('option:selected').val() && this.model.find('option:selected').val() != -1) {
         href.push('model=' + this.model.find('option:selected').val());
     }
@@ -202,8 +205,9 @@ Form.prototype.updateList = function()
     }
     if(get_checked('transmission[]') !== '') href.push(get_checked('transmission[]'));
     if(get_checked('body[]') !== '') href.push(get_checked('body[]'));
+    if(getParameter('page') && go_to_start_page === false) href.push('page=' + getParameter('page'));
 
-    window.location.href = '#' + href.join('&');
+    window.location.hash = '#' + href.join('&');
 
     $.ajax({
         type: 'get',
@@ -213,7 +217,7 @@ Form.prototype.updateList = function()
 
         },
         success: function(data) {
-            $('#search-result').html(data);
+            $('#search-results').html(data);
         }
     })
 }
@@ -231,7 +235,7 @@ Form.prototype.loadBrands = function()
         success: function(data) {
             options = '';
             for (var i = 0; i < data.length; i++) {
-                sel = '';
+                sel = getParameter('brand') == data[i]['alias'] ? 'selected' : '';
                 options += '<option value="' + data[i]['alias'] + '" ' + sel + ' id="' + data[i]['id'] + '" data-picture="' + data[i]['picture'] + '">' + data[i]['name'] + '</option>';
             }
             form.brand.html(
@@ -242,6 +246,8 @@ Form.prototype.loadBrands = function()
                 formatResult: formatResult,
                 language: 'ru'
             });
+            if(getParameter('brand') && getParameter('brand') != -1)
+                form.loadModels(getParameter('brand'));
             form.brand.prop('disabled', false);
         }
     });
@@ -260,12 +266,12 @@ Form.prototype.loadModels = function(brand)
         success: function(data) {
             var options = '';
             for (var i in data) {
-                sel = '';
+                sel = getParameter('model') == data[i]['alias'] ? 'selected' : '';
                 if(Object.keys(data[i]['models']).length > 0) {
                     options += '<option value="' + data[i]['alias'] + '"' + sel + '>' + data[i]['name'] + '</option>';
                     for (var j in data[i]['models'])
                     {
-                        sel = '';
+                        sel = getParameter('model') == data[i]['models'][j]['alias'] ? 'selected' : '';;
                         options += '<option value="' + data[i]['models'][j]['alias'] + '" class="child-model"' + sel + '> &nbsp; &nbsp; &nbsp;' + data[i]['models'][j]['name'] + '</option>';
                     }
 
@@ -302,6 +308,7 @@ Form.prototype.slide = function()
         prefix: "Цена: ",
         decorate_both: false,
         grid: true,
+        force_edges: true,
         max_postfix: "+",
         onFinish: function (obj) {
             form.update();
@@ -328,6 +335,7 @@ Form.prototype.slide = function()
         grid: true,
         prefix: "год выпуска: ",
         decorate_both: false,
+        force_edges: true,
         onFinish: function (obj) {
             form.update();
         }
@@ -343,6 +351,7 @@ Form.prototype.slide = function()
         grid: true,
         prefix: "Объем: ",
         decorate_both: false,
+        force_edges: true,
         onFinish: function (obj) {
             form.update();
         }
@@ -358,3 +367,23 @@ get_checked = function(name)
     return listCheck.join('&');
 }
 
+getParameter = function(name)
+{
+    var vars = [], hash;
+    var hashes = window.location.hash.slice(window.location.hash.indexOf('#') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        if(name == hash[0]) {
+            if(hash[0] in vars){
+                vars[hash[0]] += ';' + hash[1];
+            }
+            else {
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+        }
+    }
+
+    return vars[name];
+}

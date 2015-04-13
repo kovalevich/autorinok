@@ -14,6 +14,25 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class AdRepository extends EntityRepository
 {
 
+    public function findJoinedAd($id)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT a, b, m FROM AutoUsedBundle:Ad a
+                JOIN a.brand b
+                JOIN a.model m
+                WHERE a.id = :id
+                ORDER BY a.upped DESC'
+            )
+        ->setParameter('id', $id);
+
+        try {
+            return $query->getOneOrNullResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
     public function getPage($page = 1, $limit = 50, $request = null)
     {
         $where = array();

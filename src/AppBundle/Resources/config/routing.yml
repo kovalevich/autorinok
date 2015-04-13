@@ -10,6 +10,10 @@ ajax_publications:
     path:     /ajax/get/publications
     defaults: { _controller: AppBundle:Ajax:publications }
 
+convert_phone:
+    path:     /phone-convert/{phone}/{country_code}
+    defaults: { _controller: AppBundle:Ajax:phone }
+
 ajax_themes:
     path:     /ajax/get/themes
     defaults: { _controller: AppBundle:Ajax:themes }

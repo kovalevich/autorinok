@@ -1,0 +1,164 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% block title %}
+    Купить автомобиль {{ ad.brand }} {{ ad.model }} {{ ad.year }} г.в. | {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <i class="fa fa-home"></i>
+                <li>
+                    <a id="breadcrumbs-home" title="На главную страницу" href="/">Онлайн авторынок</a>
+                </li>
+                <li><a title="Все объявления о продаже {{ ad.brand }}" href="{{ path('auto_used_index') }}#brand={{ ad.brand.alias }}">{{ ad.brand }}</a></li>
+                <li><a id="breadcrumbs-cars" title="Все объявления {{ ad.brand }} {{ ad.model }}" href="{{ path('auto_used_index') }}#brand={{ ad.brand.alias }}&model={{ ad.model.alias }}">{{ ad.model }}</a></li>
+                <li>Продам {{ ad.title }} {{ ad.year }} г.в.</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 style="margin-top: 0px;">Купить автомобиль {{ ad.brand }} {{ ad.model }} <small>{{ ad.year }} года выпуска</small></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <div class="fotorama" data-maxheight="500px" data-nav="thumbs">
+                {% if ad.images|length > 0 %}
+                    {% for i in 0..ad.images|length %}
+                        0<a href="/{{ ad.images|photo(i, 'max') }}"><img src="/{{ ad.images|photo(i, 'min') }}"></a>
+                    {% endfor %}
+                {%  endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-right" style="font-size: 1.6em;">
+                <span class="label label-danger">
+                    <strong>{{ ad.priceView|price(1) }}</strong>
+                </span>
+            </div>
+
+            <div class="box" style="margin-top: 10px;">
+                <div class="box-header">
+                    <!-- tools box -->
+                    <div class="pull-right box-tools">
+
+                    </div><!-- /. tools -->
+
+                    <i class="fa fa-user"></i>
+                    <h3 class="box-title">Контакты</h3>
+                </div>
+                <div class="box-body">
+                    {{ ad.seller }}, {{ ad.city }}
+                    <br/>
+                    {% if ad.phones|length %}
+                        {% for phone in ad.phones %}
+                            <img src="{{ path('convert_phone', {phone: phone.number, country_code: phone.code}) }}">
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-sm-12" style="margin-top: 10px;">
+            <div class="box box-info">
+                <div class="box-header">
+                    <!-- tools box -->
+                    <div class="pull-right box-tools">
+
+                    </div><!-- /. tools -->
+
+                    <i class="fa fa-info"></i>
+                    <h3 class="box-title">Продам {{ ad.brand }} {{ ad.model }} {{ ad.year }} г.в.</h3>
+                </div>
+                <div class="box-body">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td><b>Год выпуска</b></td>
+                            <td>{{ ad.year }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Пробег</b></td>
+                            <td>{{ ad.millage|number }} км.</td>
+                        </tr>
+                        {% if ad.engine %}
+                        <tr>
+                            <td><b>Тип двигателя</b></td>
+                            <td>{{ ('car.option.engine.' ~ ad.engine) | trans }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if ad.volume %}
+                            <tr>
+                                <td><b>Объем двигателя</b></td>
+                                <td>{{ ad.volume }} л.</td>
+                            </tr>
+                        {% endif %}
+                        {% if ad.transmission %}
+                            <tr>
+                                <td><b>КПП</b></td>
+                                <td>{{ ('car.option.transmission.' ~ ad.transmission) | trans }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if ad.road %}
+                            <tr>
+                                <td><b>Привод</b></td>
+                                <td>{{ ('car.option.road.' ~ ad.road) | trans }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if ad.body %}
+                            <tr>
+                                <td><b>Тип кузова</b></td>
+                                <td>{{ ('car.option.body.' ~ ad.body) | trans }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr class="success" style="font-size: 1.3em;">
+                            <td><b>Цена</b></td>
+                            <td>{{ ad.priceView|price }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% if ad.options | length %}
+                    <p>
+                        <h3>Опции</h3>
+                        <div class="row">
+                            {% for option in ad.options %}
+                                <div class="col-sm-6">
+                                    <span class="fa fa-thumbs-up"></span> {{ ('car.options.' ~ option) | trans }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </p>
+                    {% endif %}
+                    <p>
+                        {{ ad.description|raw }}
+                    </p>
+                    <h3>Контакты</h3>
+                    {{ ad.seller }}, {{ ad.city }}
+                    <br/>
+                    {% if ad.phones|length %}
+                        {% for phone in ad.phones %}
+                            <img src="{{ path('convert_phone', {phone: phone.number, country_code: phone.code}) }}">
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar_top %}
+    {{ parent() }}
+
+{% endblock sidebar_top %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.5.1/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.5.1/fotorama.js"></script>
+{% endblock %}

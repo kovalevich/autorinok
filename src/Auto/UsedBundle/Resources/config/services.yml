@@ -3,6 +3,10 @@ services:
         class: Auto\UsedBundle\Parser\TutParserManager
         arguments: ["url"]
 
+    used.parser.onliner:
+            class: Auto\UsedBundle\Parser\OnlinerParserManager
+            arguments: ["url"]
+
     used.parser:
             class: Auto\UsedBundle\Parser\ParserManager
             arguments: [ @doctrine.orm.entity_manager ]

@@ -49,6 +49,9 @@ class TutParserManager
         $ad['description'] = $crawler->filter('div.user_text')->text();
 
         $info = $crawler->filter('div.main_text > h2')->text();
+        $loc = $crawler->filter('div.main_text > p')->text();
+
+        $ad['location'] = $loc;
 
         if(preg_match('/(\d+) год/', $info, $matches))
             $ad['year'] = $matches[1];

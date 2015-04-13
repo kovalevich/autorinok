@@ -1,3 +1,4 @@
 parameters:
     parser.parse_tyt_by: true
-    ads.count_on_page: 2
+    parser.parse_onliner_by: true
+    ads.count_on_page: 50

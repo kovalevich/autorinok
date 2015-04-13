@@ -17,3 +17,7 @@ auto_used_ajax_ads:
 auto_used_ajax_count:
     path: /auto/used/ajax/count
     defaults: { _controller: AutoUsedBundle:Ajax:count }
+
+auto_used_default_car:
+    path: /automobili/{id}
+    defaults: { _controller: AutoUsedBundle:Default:car }

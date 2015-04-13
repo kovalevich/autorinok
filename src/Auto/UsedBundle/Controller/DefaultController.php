@@ -12,4 +12,19 @@ class DefaultController extends Controller
             'big_side_bar'  => true
         ));
     }
+
+    public function carAction($id)
+    {
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AutoUsedBundle:Ad');
+
+        $ad = $repo->findJoinedAd($id);
+
+        return $this->render('AutoUsedBundle:Default:car.html.twig', array(
+            'big_side_bar'  => true,
+            'ad'            => $ad
+        ));
+    }
+
 }

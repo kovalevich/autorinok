@@ -153,4 +153,54 @@ class AjaxController extends Controller
 
         return new JsonResponse($arr);
     }
+
+    public function PhoneAction($phone, $country_code)
+    {
+        $text = $country_code . $phone;
+
+        if($country_code == '+375')
+        {
+            $code = substr($phone, 0, 2);
+            if(strlen(substr($phone, 2)) == 7 && ($code == '29' || $code == '33' || $code == '44' || $code == '25'))
+            {
+                $text = $country_code . ' (' . $code . ') ' . substr($phone, 2, 3) . '-' . substr($phone, 5, 2) . '-' . substr($phone, 7);
+            }
+        }
+        /* Create Imagick objects */
+        $image = new \Imagick();
+        $draw = new \ImagickDraw();
+        $color = new \ImagickPixel('gray');
+        $background = new \ImagickPixel('none'); // Transparent
+
+        /* Font properties */
+        $fonts = array(
+            'Times',
+            //'Times New Roman',
+            'Arial',
+            'Helvetica',
+            'Courier',
+            'Verdana',
+        );
+        $draw->setFont($fonts[array_rand($fonts, 1)]);
+        $draw->setFontSize(15);
+        $draw->setFillColor($color);
+        $draw->setStrokeAntialias(true);
+        $draw->setTextAntialias(true);
+
+        /* Get font metrics */
+        $metrics = $image->queryFontMetrics($draw, $text);
+
+        /* Create text */
+        $draw->annotation(0, $metrics['ascender'], $text);
+
+        /* Create image */
+        $image->newImage($metrics['textWidth']+5, $metrics['textHeight'], $background);
+        $image->setImageFormat('png');
+        $image->drawImage($draw);
+
+        $headers = array(
+            'Content-Type'     => 'image/png',
+        );
+        return new Response($image, 200, $headers);
+    }
 }

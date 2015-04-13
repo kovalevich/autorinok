@@ -699,7 +699,7 @@ class Ad
      */
     public function getVolume()
     {
-        return $this->volume;
+        return $this->volume > 10 ? round($this->volume / 1000, 1) : $this->volume;
     }
 
     /**
@@ -898,6 +898,16 @@ class Ad
         $this->option1 = $option1;
 
         return $this;
+    }
+
+    public function getOptions()
+    {
+        $arr = array();
+        for ($i = 1; $i <= 20; $i++){
+            $method = 'getOption'.$i;
+            if($this->$method()) $arr[] = $i;
+        }
+        return $arr;
     }
 
     /**

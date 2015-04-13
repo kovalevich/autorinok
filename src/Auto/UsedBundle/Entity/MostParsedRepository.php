@@ -20,6 +20,6 @@ class MostParsedRepository extends EntityRepository
             ->setMaxResults(1)
             ->where('p.isParsed = 0')
             ->orderBy('p.id', 'desc');
-        return $query->getQuery()->getSingleResult();
+        return $query->getQuery()->getOneOrNullResult();
     }
 }

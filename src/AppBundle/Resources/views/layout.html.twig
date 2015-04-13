@@ -67,9 +67,11 @@
                         {% block sidebar_top %}
                         {% endblock sidebar_top %}
 
+                        {% if not big_side_bar is defined %}
                         <div class="sidebar-minified js-toggle-minified">
                             <i class="fa fa-angle-left"></i>
                         </div>
+                        {% endif %}
 
                         <!-- sidebar content -->
                         <div class="sidebar-content">
@@ -102,7 +104,7 @@
 
     <!-- FOOTER -->
     <footer class="footer">
-        &copy; 2015 100auto.by
+        &copy; 2015 autorinok.by
     </footer>
     <!-- END FOOTER -->
 

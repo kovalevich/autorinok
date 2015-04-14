@@ -2,6 +2,13 @@
 {% block title %}
     Купить автомобиль {{ ad.brand }} {{ ad.model }} {{ ad.year }} г.в. | {{ parent() }}
 {% endblock %}
+{% block sidebar_bottom %}
+    {{ parent() }}
+    {% if ads|length > 0 %}
+        <h4>Похожие объявления</h4>
+        {{ include('AutoUsedBundle::mini-icons.html.twig', {items: ads}) }}
+    {% endif %}
+{% endblock sidebar_bottom %}
 {% block content %}
     <div class="row">
         <div class="col-lg-12">
@@ -22,7 +29,6 @@
             <h1 style="margin-top: 0px;">Купить автомобиль {{ ad.brand }} {{ ad.model }} <small>{{ ad.year }} года выпуска</small></h1>
         </div>
     </div>
-
     <div class="row">
         <div class="col-sm-12 col-md-8">
             <div class="fotorama" data-maxheight="500px" data-nav="thumbs">
@@ -148,10 +154,6 @@
     </div>
 {% endblock %}
 
-{% block sidebar_top %}
-    {{ parent() }}
-
-{% endblock sidebar_top %}
 
 {% block stylesheets %}
     {{ parent() }}

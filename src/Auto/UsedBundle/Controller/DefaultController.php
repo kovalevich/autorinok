@@ -23,7 +23,8 @@ class DefaultController extends Controller
 
         return $this->render('AutoUsedBundle:Default:car.html.twig', array(
             'big_side_bar'  => true,
-            'ad'            => $ad
+            'ad'            => $ad,
+            'ads'           => $repo->findLikeAds($ad)
         ));
     }
 

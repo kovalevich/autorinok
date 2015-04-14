@@ -84,7 +84,6 @@ var Form = function(form_id)
 
 Form.prototype.populate = function()
 {
-    console.log(getParameter('engine[]'));
     if(getParameter('price')) {
         values = getParameter('price').split(';');
         max = values[1] > 50000 ? parseInt(values[1]) + 10000 : 50000;
@@ -190,9 +189,14 @@ Form.prototype.updateList = function(go_to_start_page)
         href.push('brand=' + $brand);
     }
 
-    if(this.model.find('option:selected').val() && this.model.find('option:selected').val() != -1) {
-        href.push('model=' + this.model.find('option:selected').val());
+    $model = getParameter('model') !== undefined ? getParameter('model') : this.model.find('option:selected').val();
+    if(this.model.find('option:selected').val() != -1 && getParameter('model') && this.model.find('option:selected').val() && getParameter('model') !== this.model.find('option:selected').val())
+        $model = this.model.find('option:selected').val();
+
+    if($model && $model != -1) {
+        href.push('model=' + $model);
     }
+
     if(get_checked('engine[]') !== '') href.push(get_checked('engine[]'));
     if(this.price.val() != -1) {
         href.push('price=' + this.price.val());
@@ -247,13 +251,13 @@ Form.prototype.loadBrands = function()
                 language: 'ru'
             });
             if(getParameter('brand') && getParameter('brand') != -1)
-                form.loadModels(getParameter('brand'));
+                form.loadModels(getParameter('brand'), getParameter('model'));
             form.brand.prop('disabled', false);
         }
     });
 };
 
-Form.prototype.loadModels = function(brand)
+Form.prototype.loadModels = function(brand, checked_model)
 {
     var form = this;
     $.ajax({
@@ -266,12 +270,13 @@ Form.prototype.loadModels = function(brand)
         success: function(data) {
             var options = '';
             for (var i in data) {
+
                 sel = getParameter('model') == data[i]['alias'] ? 'selected' : '';
                 if(Object.keys(data[i]['models']).length > 0) {
-                    options += '<option value="' + data[i]['alias'] + '"' + sel + '>' + data[i]['name'] + '</option>';
+                    options += '<option value="' + data[i]['alias'] + '" ' + sel + '>' + data[i]['name'] + '</option>';
                     for (var j in data[i]['models'])
                     {
-                        sel = getParameter('model') == data[i]['models'][j]['alias'] ? 'selected' : '';;
+                        sel = getParameter('model') == data[i]['models'][j]['alias'] ? 'selected' : '';
                         options += '<option value="' + data[i]['models'][j]['alias'] + '" class="child-model"' + sel + '> &nbsp; &nbsp; &nbsp;' + data[i]['models'][j]['name'] + '</option>';
                     }
 
@@ -283,6 +288,9 @@ Form.prototype.loadModels = function(brand)
                 '<option value="-1">любая</option>' +
                     options
             );
+            form.model.select2({
+                language: 'ru'
+            });
             form.model.prop('disabled', false);
         }
     });

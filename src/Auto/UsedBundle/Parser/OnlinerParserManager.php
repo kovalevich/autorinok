@@ -54,7 +54,7 @@ class OnlinerParserManager
         $ad['engine'] = $info;
         $ad['road'] = $info;
 
-        $ad['description'] = $info = $crawler->filter('div.autoba-msglongcont > p')->eq(4)->valid() ? $info = $crawler->filter('div.autoba-msglongcont > p')->eq(1)->text() : '';
+        $ad['description'] = $crawler->filter('div.autoba-msglongcont > p')->eq(4)->html();
 
         # достаем опции
         $params = $crawler->filter('div.autoba-viewoptions > ul > li')->each(function (Crawler $node, $i) {

@@ -174,12 +174,12 @@ class AjaxController extends Controller
 
         /* Font properties */
         $fonts = array(
-            'Times',
+            //'Times',
             //'Times New Roman',
-            'Arial',
+            //'Arial',
             'Helvetica',
             'Courier',
-            'Verdana',
+            //'Verdana',
         );
         $draw->setFont($fonts[array_rand($fonts, 1)]);
         $draw->setFontSize(15);

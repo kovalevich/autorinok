@@ -33,6 +33,34 @@ class AdRepository extends EntityRepository
         }
     }
 
+    public function findLikeAds($ad)
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT a, b, m FROM AutoUsedBundle:Ad a
+                JOIN a.brand b
+                JOIN a.model m
+                WHERE a.id NOT LIKE :id
+                AND a.brand = :br
+                AND a.model = :mod
+                AND ( a.year >= :start_year
+                OR a.year <= :fin_year)
+                ORDER BY a.upped DESC'
+            )
+            ->setMaxResults(10)
+            ->setParameter('id', $ad->getId())
+            ->setParameter('br', $ad->getBrand()->getId())
+            ->setParameter('mod', $ad->getModel()->getId())
+            ->setParameter('start_year', $ad->getYear() - 1)
+            ->setParameter('fin_year', $ad->getYear() + 1);
+
+        try {
+            return $query->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
     public function getPage($page = 1, $limit = 50, $request = null)
     {
         $where = array();

@@ -13,6 +13,13 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:default:index.html.twig', array('name' => 'user'));
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AutoUsedBundle:Ad');
+
+        return $this->render('AppBundle:default:index.html.twig', array(
+            'count_new_ads' => $repo->getCountNew(),
+            'count_ads' => $repo->getCount(),
+            'new_ads' => $repo->findBy(array(),array('created' => 'DESC'), 7)
+        ));
     }
 }

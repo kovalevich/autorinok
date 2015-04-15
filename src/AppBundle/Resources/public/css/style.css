@@ -1589,3 +1589,17 @@ a.tag:hover {
     padding: 10px;
 }
 
+.portlet {
+    padding: 10px;
+    position: relative;
+    color: #fff;
+}
+
+.portlet.portlet-blue {
+    background-color: #1d92af;
+}
+
+.portlet.portlet-orange {
+    background-color: #ce7b11;
+}
+

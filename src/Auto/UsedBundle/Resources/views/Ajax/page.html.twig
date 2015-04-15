@@ -1,35 +1,34 @@
-<div class="widget">
-    <div class="widget-header">
-        <h3 id="count-indicator">Всего найдено {{ pagination.getTotalItemCount }} авто</h3>
-    </div>
-    <div class="widget-content">
-        <div class="row">
-            {% if pagination|length > 0 %}
-                {% for item in pagination %}
-                    <div class="col-sm-4 col-xs-6 col-md-3" style="min-height: 166px;">
-                        <span class="label label-danger price"><strong>{{ item.priceView|price(1) }}</strong></span>
-                        <a href="{{ path('auto_used_default_car', {'id': item.id}) }}" title="Просмотреть объявление о продаже {{ item.brand }} {{ item.model }}" class="load-car-frame">
-                            <img src="/{{ item.images|photo(0, 'medium') }}"  class="img-responsive" alt="Фото {{ item.brand }} {{ item.model }}"/>
-                        </a>
-                        <a href="{{ path('auto_used_default_car', {'id': item.id}) }}" class="load-car-frame" title="Просмотреть объявление о продаже {{ item.brand }} {{ item.model }}"><strong>{{ item.brand }} {{ item.model }}</strong></a><br/>
-                        <span class="detail">
-                            {{ item.year }} г.в.,
-                            {% if(item.transmission) %}
-                            {{ ('car.option.transmission.' ~ item.transmission)|trans }},
-                            {% endif %}
-                            {% if(item.engine) %}
-                                {{ ('car.option.engine.' ~ item.engine)|trans }}
-                                {% if(item.volume) %}
-                                    {{ item.volume }} л.
-                                {% endif %}
-                            {% endif %}
-                        </span>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="widget-footer text-center">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+<div class="main-header">
+    <h2>Поиск объявлений</h2>
+    {% set count_ads = pagination.getTotalItemCount %}
+    <em>по запросу
+        {% transchoice count_ads %}
+        {0} не найдено объявлений|найдено %count_ads% объявление|найдено %count_ads% объявления|найдено %count_ads% объявлений
+        {% endtranschoice %}
+    </em>
 </div>
+<div class="row">
+    {% if pagination|length > 0 %}
+        {% for item in pagination %}
+            <div class="col-sm-4 col-xs-6 col-md-3" style="padding: 1px">
+                <span class="label label-danger price"><strong>{{ item.priceView|price(1) }}</strong></span>
+                <a href="{{ path('auto_used_default_car', {'id': item.id}) }}" title="Просмотреть объявление о продаже {{ item.brand }} {{ item.model }}" class="load-car-frame">
+                    <img src="/{{ item.images|photo(0, 'medium') }}"  class="img-responsive" alt="Фото {{ item.brand }} {{ item.model }}"/>
+                </a>
+                <a href="{{ path('auto_used_default_car', {'id': item.id}) }}" class="load-car-frame" title="Просмотреть объявление о продаже {{ item.brand }} {{ item.model }}"><strong>{{ item.brand }} {{ item.model }}</strong></a><br/>
+                <span class="detail">
+                    {{ item.year }} г.в.,
+
+                    {% if(item.engine) %}
+                        {{ ('car.option.engine.' ~ item.engine)|trans }}
+                        {% if(item.volume) %}
+                            {{ item.volume }} л.
+                        {% endif %}
+                    {% endif %}
+                </span>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+    {{ knp_pagination_render(pagination) }}

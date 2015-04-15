@@ -38,4 +38,13 @@ class AjaxController extends Controller
             'pagination' => $pagination
         ));
     }
+
+    public function countNewAdsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AutoUsedBundle:Ad');
+        return new JsonResponse(array(
+            'count' => $repo->getCountNew()
+        ));
+    }
 }

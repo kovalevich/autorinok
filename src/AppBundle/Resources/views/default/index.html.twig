@@ -1,15 +1,27 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
+    <div class="main-header">
+        <h2>Онлайн авторынок Беларуси</h2>
+        <em>сейчас на рынке
+            {% transchoice count_ads %}
+            {0} нет объявлений|%count_ads% объявление|%count_ads% объявления|%count_ads% объявлений
+            {% endtranschoice %}
+        </em>
+    </div>
     <div class="row">
-        <div class="col-sm-12">
-
-        </div>
         <div class="col-sm-8">
-
+            {{ include('AutoUsedBundle::icons-on-home.html.twig', {items: new_ads}) }}
+            <div class="col-md-3" style="padding: 1px; min-height: 120px;">
+                <div class="text-center">
+                    <span class="big-number">+ {{ count_new_ads }}</span>
+                    <p>новых объявлений</p>
+                    <a class="btn btn-sm btn-info" href="#">Смотреть</a>
+                </div>
+            </div>
         </div>
         <div class="col-sm-4">
-
+            {{ include('AutoUsedBundle::search-form.html.twig') }}
         </div>
     </div>
 {% endblock %}
@@ -21,4 +33,24 @@
     { 'popular': true }
     )) }}
 {% endblock sidebar_top %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/ion.rangeSlider.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/ion.rangeSlider.skinNice.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/slider.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/search_form.js') }}"></script>
+    <script type="text/javascript">
+        var auto_catalog_ajax_brands = '{{ path('auto_catalog_ajax_brands') }}';
+        var auto_catalog_ajax_models = '{{ path('auto_catalog_ajax_models', {brand: ''}) }}';
+        var auto_used = '{{ path('auto_used_index') }}';
+
+    </script>
+{% endblock %}
 

@@ -33,6 +33,22 @@ class AdRepository extends EntityRepository
         }
     }
 
+    public function getCountNew()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT COUNT(a.id) FROM AutoUsedBundle:Ad a
+                WHERE a.created BETWEEN :start_time AND :fin_time'
+            )->setParameter('start_time', new \DateTime('-30 hours'))
+            ->setParameter('fin_time', new \DateTime('now'));
+
+        try {
+            return $query->getSingleScalarResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
     public function findLikeAds($ad)
     {
         $query = $this->getEntityManager()
@@ -44,7 +60,7 @@ class AdRepository extends EntityRepository
                 AND a.brand = :br
                 AND a.model = :mod
                 AND ( a.year >= :start_year
-                OR a.year <= :fin_year)
+                AND a.year <= :fin_year)
                 ORDER BY a.upped DESC'
             )
             ->setMaxResults(10)
@@ -274,8 +290,6 @@ class AdRepository extends EntityRepository
         $query = $this->getEntityManager()
             ->createQuery(
                 'SELECT COUNT(a.id) FROM AutoUsedBundle:Ad a
-                JOIN a.brand b
-                JOIN a.model m
                 ' . $where_string
             );
 

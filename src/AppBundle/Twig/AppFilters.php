@@ -65,7 +65,7 @@ class AppFilters extends \Twig_Extension
         if(count($photos) > $number){
             return str_replace('photo', 'photo-size-' . $size, $photos[$number]);
         }
-        else return '';
+        else return 'bundles/autoused/images/no-img-auto.png';
     }
 
     public function memorySizeFilter($size)

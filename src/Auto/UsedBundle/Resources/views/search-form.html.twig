@@ -1,0 +1,44 @@
+<div class="box box-primary">
+    <div class="box-header">
+        <i class="fa fa-search"></i>
+        <h3 class="box-title">Поиск объявлений</h3>
+    </div>
+    <div class="box-body" id="search">
+        <div class="row form-group">
+            <div class="col-md-6" id="brands">
+                <label for="brand">Марка</label>
+                <select id="brand" name="brand" class="">
+
+                </select>
+            </div>
+            <div class="col-md-6" id="models">
+                <label for="model">Модель</label>
+                <select id="model" name="model" class="" disabled>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12" id="slider-price">
+                <input type="text" id="price" name="price" value="" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12" id="slider-year">
+                <input type="text" id="year" name="year" value="" />
+            </div>
+        </div>
+    </div>
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{ path('auto_used_index') }}" class="box-button"><span class="fa fa-cogs"></span> расширенный поиск</a>
+            </div>
+            <div class="text-right col-md-6">
+                <a href="" id="go_search" class="btn btn-success" style="float: right;">Показать</a>
+            </div>
+        </div>
+    </div>
+</div>

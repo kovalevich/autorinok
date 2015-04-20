@@ -22,7 +22,7 @@
         "knplabs/knp-menu": "~2.0",
         "knplabs/knp-menu-bundle": "~2.0",
 
-        "gedmo/doctrine-extensions":      "dev-master",
+        "gedmo/doctrine-extensions":      "~2.3.1",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "friendsofsymfony/comment-bundle": "~2.0@dev",
         "symfony/dom-crawler": "3.0.*@dev",

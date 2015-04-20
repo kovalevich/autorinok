@@ -13,3 +13,7 @@ auto_catalog_ajax_brands:
 auto_catalog_ajax_models:
     path: /auto/catalog/ajax/models/{brand}
     defaults: { _controller: AutoCatalogBundle:Ajax:models, brand: '' }
+
+auto_catalog_item:
+    path: /catalog/{brand_alias}/{model_alias}/{generation_id}
+    defaults: { _controller: AutoCatalogBundle:Default:catalogItem, brand_alias: ~, model_alias: ~, generation_id: ~ }

@@ -49,6 +49,13 @@ class Model
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="alias", type="string", length=255)
      */
     private $alias;
@@ -315,7 +322,7 @@ class Model
     public function setText($text)
     {
         $this->text = urldecode($text);
-
+        $this->setFilling(strlen(strip_tags($this->text)) / 2000 * 100);
         return $this;
     }
 
@@ -329,4 +336,32 @@ class Model
         return $this->text;
     }
 
+
+    /**
+     * Set filling
+     *
+     * @param integer $filling
+     * @return Model
+     */
+    public function setFilling($filling)
+    {
+        $this->filling = $filling <= 100 ? $filling : 100;
+
+        return $this;
+    }
+
+    /**
+     * Get filling
+     *
+     * @return integer 
+     */
+    public function getFilling()
+    {
+        return $this->filling;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

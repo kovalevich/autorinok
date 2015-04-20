@@ -212,7 +212,6 @@ class ParserController extends Controller
 
                 $new_ad->setParseSite($ad['parse_site']);
                 $new_ad->setParseId($ad['parse_id']);
-                if(isset($ad['volume'])) $new_ad->setVolume($ad['volume']);
 
                 $most_parsed->setIsParsed(true);
                 $em->persist($most_parsed);

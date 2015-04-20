@@ -33,7 +33,7 @@
         <div class="col-sm-12 col-md-8">
             <div class="fotorama" data-maxheight="500px" data-nav="thumbs">
                 {% if ad.images|length > 0 %}
-                    {% for i in 0..ad.images|length %}
+                    {% for i in 0..ad.images|length - 1 %}
                         0<a href="/{{ ad.images|photo(i, 'max') }}"><img src="/{{ ad.images|photo(i, 'min') }}"></a>
                     {% endfor %}
                 {%  endif %}

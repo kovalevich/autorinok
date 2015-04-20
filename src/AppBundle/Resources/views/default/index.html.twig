@@ -1,5 +1,7 @@
 {% extends 'AppBundle::layout.html.twig' %}
-
+{% block title %}
+    Онлайн авторынок Беларуси | {{ parent() }}
+{% endblock %}
 {% block content %}
     <div class="main-header">
         <h2>Онлайн авторынок Беларуси</h2>
@@ -16,7 +18,7 @@
                 <div class="text-center">
                     <span class="big-number">+ {{ count_new_ads }}</span>
                     <p>новых объявлений</p>
-                    <a class="btn btn-sm btn-info" href="#">Смотреть</a>
+                    <a class="btn btn-sm btn-info" href="{{ path('auto_used_index') }}">Смотреть</a>
                 </div>
             </div>
         </div>

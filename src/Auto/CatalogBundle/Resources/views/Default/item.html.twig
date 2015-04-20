@@ -1,0 +1,59 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+    {{ brand }} {{ model }} {{ generation }} на онлайн авторынке Беларуси | {{ parent() }}
+{% endblock %}
+
+{% block sidebar_top %}
+    {% if generation %}
+        <a href="{{ path('auto_catalog_item', {brand_alias: brand.alias, model_alias: model.alias}) }}" class="btn btn-block btn-info" style="text-align: left;"><span class="fa fa-arrow-left"></span> {{ brand }} {{ model }}</a>
+    {% elseif model %}
+        <a href="{{ path('auto_catalog_item', {brand_alias: brand.alias}) }}" class="btn btn-block btn-info" style="text-align: left;"><span class="fa fa-arrow-left"></span> {{ brand }}</a>
+        {{ include('AutoCatalogBundle:Block:generations.html.twig', {items: model.generations}) }}
+    {% else %}
+        <a href="{{ path('auto_catalog_index') }}" class="btn btn-block btn-info" style="text-align: left;"><span class="fa fa-arrow-left"></span> Каталог</a>
+        {{ include('AutoCatalogBundle:Block:models.html.twig', {items: brand.models}) }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="main-header">
+        <h2>{% if brand.logo.image %}<img src="{{ brand.logo.image.path }}" title="Логотип {{ brand.name }}"> {% endif %}{{ brand }} {{ model }} {{ generation }}</h2>
+        <em>{% if generation %}
+                {{ generation.title }}
+            {% elseif model %}
+                {{ model.title }}
+            {% else %}
+                {{ brand.title }}
+            {% endif %}
+        </em>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            {% if count_ads > 0 %}
+                {{ include('AutoUsedBundle::icons-on-home.html.twig', {items: ads}) }}
+                <div class="row">
+                    <div class="col-md-3" style="padding: 1px; min-height: 120px;">
+                        <div class="text-center">
+                            <span class="big-number">+ {{ count_ads }}</span>
+                            <p>объявлений {{ brand }} {{ model }}</p>
+                            <a class="btn btn-sm btn-info" href="{{ path('auto_used_index') }}#brand={{ brand.alias }}{% if model %}&model={{ model.alias }}{% endif %}{% if generation %}&generation={{ generation.id }}{% endif %}">
+                                Смотреть
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                Пока на онлайн авторынке нет объявлений о продаже <b>{{ brand }} {{ model }} {{ generation }}</b>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-12">
+                    {{ brand.text|raw }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+
+        </div>
+    </div>
+{% endblock %}

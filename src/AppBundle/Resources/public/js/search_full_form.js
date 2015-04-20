@@ -308,8 +308,8 @@ Form.prototype.slide = function()
     this.price.ionRangeSlider({
         min: 500,
         max: 60000,
-        from: 5000,
-        to: 15000,
+        from: 1000,
+        to: 49000,
         type: 'double',
         step: 500,
         postfix: " $",
@@ -336,7 +336,7 @@ Form.prototype.slide = function()
         min: 1969,
         max: 2015,
         from: 1985,
-        to: 2009,
+        to: 2015,
         type: 'double',
         step: 1,
         postfix: " г.",
@@ -351,7 +351,7 @@ Form.prototype.slide = function()
     this.volume.ionRangeSlider({
         min: 0.8,
         max: 7,
-        from: 1.5,
+        from: 1.0,
         to: 5.0,
         type: 'double',
         step: 0.1,

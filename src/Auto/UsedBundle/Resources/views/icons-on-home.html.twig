@@ -6,7 +6,7 @@
             <a href="{{ path('auto_used_default_car', {'id': item.id}) }}" title="Просмотреть объявление о продаже {{ item }}" class="load-car-frame">
                 <img src="/{{ item.images|photo(0, 'medium') }}"  class="img-responsive" alt="Фото {{ item }} "/>
             </a>
-            <a href="{{ path('auto_used_default_car', {'id': item.id}) }}" class="load-car-frame" title="Просмотреть объявление о продаже {{ item }}"><strong>{{ item }}</strong></a><br/>
+            <a href="{{ path('auto_used_default_car', {'id': item.id}) }}" class="load-car-frame" title="Просмотреть объявление о продаже {{ item }}"><strong>{{ item.brand }} {{ item.model }}</strong></a><br/>
                         <span class="detail">
                             {{ item.year }} г.в.,
 

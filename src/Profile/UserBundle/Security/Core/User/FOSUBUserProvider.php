@@ -60,7 +60,7 @@ class FOSUBUserProvider extends BaseClass
             $user->setEmail($response->getEmail() ? $response->getEmail() : $response->getUsername());
             $user->addRole('ROLE_USER');
             $user->setPicture($response->getProfilePicture());
-            $user->addRole('ROLE_ADMIN');
+            #$user->addRole('ROLE_ADMIN');
             $user->setPassword($username);
             $user->setEnabled(true);
             $this->userManager->updateUser($user);

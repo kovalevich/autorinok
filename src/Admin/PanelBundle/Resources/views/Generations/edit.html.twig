@@ -33,11 +33,11 @@
             <h3>
                 Название: <a href="#" id="name" data-type="text" class="editable editable-title" data-pk="{{ generation.id }}" data-title="Введите название поколения">{{ generation.name }}</a>
             </h3>
-            Страница поколения на сайте: <a href="{{ path('pages_automobile', {
+            Страница поколения на сайте: <a href="{{ path('auto_catalog_item', {
             'brand_alias': generation.model.brand.alias,
             'model_alias': generation.model.alias,
             'generation_id': generation.id
-            }) }}" target="_blank">http://autorinok.by{{ path('pages_automobile', {
+            }) }}" target="_blank">http://autorinok.by{{ path('auto_catalog_item', {
                 'brand_alias': generation.model.brand.alias,
                 'model_alias': generation.model.alias,
                 'generation_id': generation.id
@@ -81,6 +81,11 @@
                                         <a href="#" id="firstYear" data-type="select" class="editable-year" data-pk="{{ generation.id }}" data-title="Введите первый год поколения">{{ generation.firstYear }}</a> -
                                         <a href="#" id="lastYear" data-type="select" class="editable-year" data-pk="{{ generation.id }}" data-title="Введите последний год поколения">{{ generation.lastYear }}</a>
                                     </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Заголовок:</td>
+                                    <td><a href="#" id="title" data-type="text" class="editable" data-pk="{{ generation.id }}" data-title="Введите заголовок поколения">{{ generation.title }}</a></td>
                                 </tr>
                                 </tbody>
                             </table>

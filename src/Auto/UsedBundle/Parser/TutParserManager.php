@@ -63,7 +63,7 @@ class TutParserManager
             $ad['millage'] = str_replace(' ', '', $matches[1]);
 
         if(preg_match('/(\d{1,}\.\d{1,})\sл/', $info, $matches))
-            $ad['volume'] = $matches[1] * 1000;
+            $ad['volume'] = $matches[1];
 
         if(preg_match('/(механика|автомат|вариатор)/', $info, $matches))
             $ad['transmission'] = $matches[1];

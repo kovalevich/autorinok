@@ -35,7 +35,7 @@ class AjaxController extends Controller
         );
 
         return $this->render('AutoUsedBundle:Ajax:page.html.twig', array(
-            'pagination' => $pagination
+            'pagination'    => $pagination
         ));
     }
 

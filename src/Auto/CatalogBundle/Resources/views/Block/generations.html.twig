@@ -1,0 +1,11 @@
+<ul class="brands-menu">
+    {% if items|length > 0 %}
+        {% for item in items %}
+            <li>
+                <a href="{{ path('auto_catalog_item', {brand_alias: item.model.brand.alias, model_alias: item.model.alias, generation_id: item.id}) }}">
+                    <span class="text">{{ item.name }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>

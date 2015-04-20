@@ -31,6 +31,13 @@ class Generation
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -175,7 +182,7 @@ class Generation
     public function setText($text)
     {
         $this->text = urldecode($text);
-
+        $this->setFilling(strlen(strip_tags($this->text)) / 2000 * 100);
         return $this;
     }
 
@@ -189,4 +196,32 @@ class Generation
         return $this->text;
     }
 
+
+    /**
+     * Set filling
+     *
+     * @param integer $filling
+     * @return Generation
+     */
+    public function setFilling($filling)
+    {
+        $this->filling = $filling <= 100 ? $filling : 100;
+
+        return $this;
+    }
+
+    /**
+     * Get filling
+     *
+     * @return integer 
+     */
+    public function getFilling()
+    {
+        return $this->filling;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -32,6 +32,13 @@ class Brand
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="alias", type="string", length=255)
      */
     private $alias;
@@ -311,5 +318,28 @@ class Brand
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Brand
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

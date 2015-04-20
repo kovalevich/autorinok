@@ -133,9 +133,9 @@ class Ad
     private $transmission;
 
     /**
-     * @var integer
+     * @var float
      *
-     * @ORM\Column(name="volume", type="integer", nullable=true)
+     * @ORM\Column(name="volume", type="decimal", precision=2, scale=1, nullable=true)
      */
     private $volume;
 
@@ -681,25 +681,25 @@ class Ad
     /**
      * Set volume
      *
-     * @param integer $volume
+     * @param float $volume
      * @return Ad
      */
     public function setVolume($volume)
     {
-        if($volume < 500) $volume *= 1000;
+        var_dump($volume);
         $this->volume = $volume;
-
+        var_dump($this->getVolume());
         return $this;
     }
 
     /**
      * Get volume
      *
-     * @return integer 
+     * @return float
      */
     public function getVolume()
     {
-        return $this->volume > 10 ? round($this->volume / 1000, 1) : $this->volume;
+        return $this->volume;
     }
 
     /**

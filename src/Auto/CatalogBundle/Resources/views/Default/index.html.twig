@@ -1,5 +1,11 @@
+{% set hide_sidebar = true %}
+
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
+    <div class="main-header">
+        <h2>Каталог онлайн авторынка Беларуси</h2>
+        <em>у нас вы найдете любую марку и мдель автомобиля</em>
+    </div>
     {{ include('AutoCatalogBundle::brands-list.html.twig', {items: brands}) }}
 {% endblock %}

@@ -33,6 +33,30 @@ class AdRepository extends EntityRepository
         }
     }
 
+    public function getCountByParams($params)
+    {
+        $where = array();
+        if(isset($params['brand']))
+            $where[] = 'a.brand = :brand';
+        if(isset($params['model']))
+            $where[] = 'a.model = :model';
+        if(isset($params['generation']))
+            $where[] = 'a.generation = :generation';
+
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT COUNT(a.id) FROM AutoUsedBundle:Ad a
+                WHERE ' . implode(' AND ', $where)
+            );
+        $query->setParameters($params);
+
+        try {
+            return $query->getSingleScalarResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+
     public function getCountNew()
     {
         $query = $this->getEntityManager()
@@ -156,11 +180,11 @@ class AdRepository extends EntityRepository
                 $volume = explode(';', $volume);
                 if($volume[0] > 0) {
                     $where[] = 'a.volume >= :volume_from';
-                    $params['volume_from'] = $volume[0]*1000;
+                    $params['volume_from'] = $volume[0];
                 }
                 if($volume[1] > 0){
                     $where[] = 'a.volume <= :volume_to';
-                    $params['volume_to'] = $volume[1]*1000;
+                    $params['volume_to'] = $volume[1];
                 }
             }
         }

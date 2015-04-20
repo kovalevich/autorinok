@@ -5,7 +5,7 @@
 <!--<![endif]-->
 
 <head>
-    <title>{% block title %}авторынок Беларуси{% endblock %}</title>
+    <title>{% block title %}autorinok.by{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -61,17 +61,12 @@
         <div class="bottom">
             <div class="container">
                 <div class="row">
+                    {% if not hide_sidebar is defined %}
                     <!-- left sidebar -->
                     <div class="col-md-{% if big_side_bar is defined %}3{% else %}2{% endif %} left-sidebar">
 
                         {% block sidebar_top %}
                         {% endblock sidebar_top %}
-
-                        {% if not big_side_bar is defined %}
-                        <div class="sidebar-minified js-toggle-minified">
-                            <i class="fa fa-angle-left"></i>
-                        </div>
-                        {% endif %}
 
                         <!-- sidebar content -->
                         <div class="sidebar-content">
@@ -81,14 +76,14 @@
                         <!-- end sidebar content -->
                     </div>
                     <!-- end left sidebar -->
-
+                    {% endif %}
                     <!-- top general alert -->
 
                     <div id="dyn-alert"></div>
                     <!-- end top general alert -->
 
                     <!-- content-wrapper -->
-                    <div class="col-md-{% if big_side_bar is defined %}9{% else %}10{% endif %} content-wrapper">
+                    <div class="col-md-{% if hide_sidebar is defined %}12{% elseif big_side_bar is defined %}9{% else %}10{% endif %} content-wrapper">
                         {% block content %}{% endblock %}
                     </div>
                     <!-- /content-wrapper -->

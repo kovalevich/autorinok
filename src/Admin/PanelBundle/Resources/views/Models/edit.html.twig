@@ -30,10 +30,10 @@
             <h3>
                 Название: <a href="#" id="name" data-type="text" class="editable editable-title" data-pk="{{ model.id }}" data-title="Введите название модели">{{ model.name }}</a>
             </h3>
-            Страница модели на сайте: <a href="{{ path('pages_automobile', {
+            Страница модели на сайте: <a href="{{ path('auto_catalog_item', {
                 'brand_alias': model.brand.alias,
                 'model_alias': model.alias
-            }) }}" target="_blank">http://autorinok.by{{ path('pages_automobile', {
+            }) }}" target="_blank">http://autorinok.by{{ path('auto_catalog_item', {
                 'brand_alias': model.brand.alias,
                 'model_alias': model.alias
                 }) }}</a>
@@ -73,6 +73,10 @@
                                 <tr>
                                     <td>Алиас:</td>
                                     <td><a href="#" id="alias" data-type="text" class="editable editable-alias" data-pk="{{ model.id }}" data-title="Введите алиас модели">{{ model.alias }}</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Заголовок:</td>
+                                    <td><a href="#" id="title" data-type="text" class="editable" data-pk="{{ model.id }}" data-title="Введите заголовок модели">{{ model.title }}</a></td>
                                 </tr>
                                 <tr>
                                     <td>Синонимы:</td>

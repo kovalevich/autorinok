@@ -48,7 +48,7 @@ class OnlinerParserManager
 
         $info = $crawler->filter('div.autoba-msglongcont > p')->eq(1)->text();
 
-        $ad['volume'] = preg_replace('/\D/', '', $info) * 100;
+        $ad['volume'] = preg_match('/[0-9]+(?:\.[0-9]*)?/', $info, $matches) ? $matches[0] : 0;
         $ad['body'] = $info;
         $ad['transmission'] = $info;
         $ad['engine'] = $info;

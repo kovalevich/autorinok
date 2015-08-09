@@ -20,7 +20,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/app/css/ion.rangeSlider.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/app/css/ion.rangeSlider.skinNice.css') }}" rel="stylesheet" />
 {% endblock %}
@@ -29,6 +29,7 @@
     {{ parent() }}
     <script src="{{ asset('bundles/app/js/slider.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/plugins/select2/i18n/ru.js') }}"></script>
     <script src="{{ asset('bundles/app/js/search_full_form.js') }}"></script>
     <script type="text/javascript">
         var auto_catalog_ajax_brands = '{{ path('auto_catalog_ajax_brands') }}';

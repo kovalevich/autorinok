@@ -1,5 +1,22 @@
-{% extends '::base_light.html.twig' %}
+{% set hide_sidebar = true %}
+{% extends 'AppBundle::layout.html.twig' %}
 
+{% block title %}
+    Войти в мой кабинет
+{% endblock %}
+{% block stylesheets %}
+    {{ parent () }}
+    <link href="{{ asset('bundles/app/css/bootstrap-social.css') }}" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
+{% block alert %}
+    {% if error %}
+            <div class="alert alert-danger top-general-alert">
+                {{ error.messageKey|trans(error.messageData, 'security') }}        
+                <button type="button" class="close">&times;</button>
+            </div>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -40,68 +57,54 @@
         }
     </script>
 
-    <div class="wrapper full-page-wrapper page-login text-center">
-    <div class="inner-page">
-        <div class="logo">
-            <a href="{{ path('home') }}">logo
-            </a>
-        </div>
-        <div class="social_auth">
-            {% for owner in hwi_oauth_resource_owners() %}
-                {% if owner == 'facebook' %}
-                    <a href="#" onclick="fb_login();" class="btn btn-social btn-{{ owner }}"><i class="fa fa-{% if owner == 'vkontakte' %}vk{% else %}{{ owner }}{% endif %}"></i> {{ owner | trans({}, 'HWIOAuthBundle') }}</span></a>
-                {% else %}
-                <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-social btn-{{ owner }}"><i class="fa fa-{% if owner == 'vkontakte' %}vk{% else %}{{ owner }}{% endif %}"></i> {{ owner | trans({}, 'HWIOAuthBundle') }}</span></a>
-                {% endif %}
-            {% endfor %}
-        </div>
+    <div class="row" style="margin-top: 10%">
+    <div class="col-sm-offset-4 col-sm-4">
+                <div class="box box-danger">
+            <div class="box-header">
+                <h2 class="box-title">Войти <small>и влавствовать</small></h2>
+            </div><!-- /.box-header -->
+            <!-- form start -->
+                <form role="form" method="post" action="{{ path("fos_user_security_check") }}">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="username" class="control-label required">E-mail</label>
 
-        <div class="separator">
-            <span>ИЛИ</span>
-        </div>
+                            <input type="text" name="_username" id="username" value="" placeholder="Ivan@tut.by" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="control-label required">Пароль</label>
+                            <input type="password" name="_password" id="password" value="" placeholder="Пароль" class="form-control">
+                        </div>                    
+                        <label class="fancy-checkbox parsley-success">
+                            <input type="checkbox" name="_remember_me" value="1">
+                            <span><i></i>Запомнить меня на этом компьютере</span>
+                        </label>
+                    </div><!-- /.box-body -->
 
-        <div class="login-box center-block">
-            {% if error %}
-                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-            <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" role="form" method="post">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                <p class="title">Use your username</p>
-                <div class="form-group">
-                    <label for="username" class="control-label sr-only">Username</label>
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <input type="text" placeholder="username" name="_username" id="username" class="form-control">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-sm btn-success">Войти</button>
+                        <div style="float: right;">
+                        {% for owner in hwi_oauth_resource_owners() %}
+                            {% if owner == 'facebook' %}
+                                <a href="#" onclick="fb_login();" title="Войти с помощью {{ owner | trans({}, 'HWIOAuthBundle') }}">
+                                    <img src="{{ asset('bundles/app/images/' ~ owner ~ '.png') }}" height="30px;">
+                                </a>
+                            {% else %}
+                            <a href="{{ hwi_oauth_login_url(owner) }}" title="Войти с помощью {{ owner | trans({}, 'HWIOAuthBundle') }}">
+                                <img src="{{ asset('bundles/app/images/' ~ owner ~ '.png') }}" height="30px;">
+                            </a>
+                            {% endif %}
+                        {% endfor %}
                         </div>
                     </div>
-                </div>
-                <label for="password" class="control-label sr-only">Password</label>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <input type="password" placeholder="password" name="_password" id="password" class="form-control">
-                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <label class="fancy-checkbox">
-                    <input type="checkbox" name="_remember_me">
-                    <span>Запомнить меня</span>
-                </label>
-                <button class="btn btn-custom-primary btn-lg btn-block btn-login"><i class="fa fa-arrow-circle-o-right"></i> Войти</button>
-            </form>
-
-            <div class="links">
-                <p>
-                    <a href="{{ path('fos_user_change_password') }}">Забыли пароль?</a>
-                </p>
-                <p>
-                    <a href="{{ path('fos_user_registration_register') }}">Зарегистрироваться</a>
-                </p>
+                </form>
             </div>
+
+
+            <a href="{{ path('fos_user_change_password') }}">Забыли пароль?</a> | <a href="{{ path('fos_user_registration_register') }}">Регистрация</a>
         </div>
     </div>
-    <div class="push-sticky-footer"></div>
-</div>
+
+
 {% endblock content %}

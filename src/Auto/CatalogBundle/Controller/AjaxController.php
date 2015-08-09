@@ -14,8 +14,10 @@ class AjaxController extends Controller
 
         $brands = $repo->findAll();
         $return_arr = array();
+        $i = 0;
         foreach($brands as $brand)
         {
+            if($i++ > 10) break;
             $return_arr[] = array(
                 'id'        => $brand->getId(),
                 'alias'        => $brand->getAlias(),

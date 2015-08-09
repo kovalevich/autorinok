@@ -54,6 +54,8 @@ class DefaultController extends Controller
             'brand'         => isset($brand) ? $brand : null,
             'model'         => isset($model) ? $model : null,
             'generation'    => isset($generation) ? $generation : null,
+            'description'   => isset($generation) && strlen($generation->getText()) ? $generation->getText() :
+                                    isset($model) && strlen($model->getText()) ? $model->getText() : $brand->getText(),
             'ads'           => $repo_ads->findBy($by, array('created' => 'DESC'), 7),
             'count_ads'     => $repo_ads->getCountByParams($by)
         ));

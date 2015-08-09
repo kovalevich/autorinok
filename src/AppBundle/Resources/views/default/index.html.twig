@@ -38,7 +38,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('bundles/app/css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/app/css/ion.rangeSlider.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/app/css/ion.rangeSlider.skinNice.css') }}" rel="stylesheet" />
 {% endblock %}

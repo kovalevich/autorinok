@@ -1,8 +1,8 @@
-set :application, "set your application name here"
-set :domain,      "88.208.26.26"
-set :user,        "evgen"
+set :application, "autorinok.by"
+set :domain,      "188.166.83.204"
+set :user,        "root"
 set :use_sudo,    false
-set :deploy_to,   "/home/evgen/autorinok.by"
+set :deploy_to,   "/home/admin/web/autorinok.by"
 set :app_path,    "app"
 
 set :repository,  "file:///home/evgen/sites/auto/auto"

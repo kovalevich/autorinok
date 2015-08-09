@@ -2,6 +2,10 @@ auto_used_index:
     path:     /automobili
     defaults: { _controller: AutoUsedBundle:Default:index }
 
+auto_used_add:
+    path:     /automobili/novoe-objavlenie
+    defaults: { _controller: AutoUsedBundle:Default:add }
+
 auto_used_parser_parse_list:
     path: /parser/get-parse-list
     defaults: { _controller: AutoUsedBundle:Parser:parselist }
@@ -21,6 +25,8 @@ auto_used_ajax_count:
 auto_used_default_car:
     path: /automobili/{id}
     defaults: { _controller: AutoUsedBundle:Default:car }
+    requirements:
+        id:  \d+
 
 auto_used_count_new_ads:
     path: /auto/used/ajax/count-new-ads

@@ -1,5 +1,16 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% set hide_sidebar = true %}
+{% extends 'AppBundle::layout.html.twig' %}
 
-{% block hwi_oauth_content %}
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
-{% endblock hwi_oauth_content %}
+{% block title %}
+    Быстрая регистрация на онлайн авторынке
+{% endblock %}
+{% block stylesheets %}
+    {{ parent () }}
+    <link href="{{ asset('bundles/app/css/bootstrap-social.css') }}" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
+{% block content %}
+
+	{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+
+{% endblock content %}

@@ -28,4 +28,11 @@ class DefaultController extends Controller
         ));
     }
 
+    public function addAction()
+    {
+        return $this->render('AutoUsedBundle:Default:add.html.twig', array(
+
+        ));
+    }
+
 }

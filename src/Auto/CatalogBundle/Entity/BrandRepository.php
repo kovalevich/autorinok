@@ -25,6 +25,19 @@ class BrandRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findLikeName($name = null)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT b, l FROM AutoCatalogBundle:Brand b
+                JOIN b.logo l
+                WHERE b.name LIKE :name
+                ORDER BY b.name ASC'
+            )
+            ->setParameter('name', '%' . $name . '%')
+            ->getResult();
+    }
+
     public function getUnpopularBrands()
     {
         return $this->getEntityManager()

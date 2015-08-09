@@ -5,9 +5,6 @@ $(document).ready(function() {
 
     var add_form = new AddForm('add');
     add_form.loadBrands();
-    add_form.slide();
-    add_form.populate();
-    setTimeout(function (){add_form.updatePreview()}, 1500);
 
     $('.select').change(function(){
         add_form.checkInput(this);
@@ -136,7 +133,7 @@ var AddForm = function(form_id)
     this.city = $('#' + this.id  + ' #city');
     this.phone = $('#' + this.id  + ' #phone');
     this.color = $('#' + this.id  + ' #color');
-    this.models = null; // здесь будем хранить список моделей
+
     this.generation = $('#' + this.id  + ' #generation');
     this.engine = $('#' + this.id  + ' #engine');
     this.transmission = $('#' + this.id  + ' #transmission');
@@ -152,7 +149,7 @@ var AddForm = function(form_id)
     this.exchange = $('#input-exchange');
     this.notice = $('#notice');
     this.millage = $('#millage');
-    this.params = populate;
+    //this.params = populate;
 
     var form = this;
     $('.form-button').unbind().click(function(){
@@ -172,34 +169,11 @@ var AddForm = function(form_id)
         $('#' + form.id).submit();
     });
 
-    $('.text-control').unbind().keyup(function(){
-        form.updatePreview();
+    this.disableModels();
+    this.model.select2({
+        language: 'ru'
     });
-    var options = '';
-    for(var i in ini_options['colors']){
-        options += '<option value="' + i + '">' + ini_options['colors'][i] + '</option>';
-    }
-    this.color.html(
-        '<option value="-1">--</option>' +
-            options
-    );
-    options = '';
-    for(var i in ini_options['body']){
-        options += '<option value="' + i + '">' + ini_options['body'][i] + '</option>';
-    }
-    this.body.html(
-        '<option value="-1">--</option>' +
-            options
-    );
-
-    options = '';
-    for(var i in ini_options['road']){
-        options += '<option value="' + i + '">' + ini_options['road'][i] + '</option>';
-    }
-    this.road.html(
-        '<option value="-1">--</option>' +
-            options
-    );
+    
 };
 
 AddForm.prototype.populate = function()
@@ -242,7 +216,6 @@ AddForm.prototype.populate = function()
     if(this.params.auction == '1') $('#auction').click();
     if(this.params.exchange == '1') $('#exchange').click();
 
-    //setTimeout(this.updatePreview(), 4000);
 };
 
 AddForm.prototype.checkInput = function (element)
@@ -268,7 +241,6 @@ AddForm.prototype.checkInput = function (element)
             break;
         }
     }
-    this.updatePreview();
 };
 
 AddForm.prototype.option = function(option)
@@ -277,114 +249,15 @@ AddForm.prototype.option = function(option)
     return $('#option_' + option).prop("checked");
 };
 
-AddForm.prototype.updatePreview = function()
-{
-    this.preview.hide();
-    var brand = this.brand.find('option:selected').val() > -1 ? this.brand.find('option:selected').html() : '';
-    var model = this.model.find('option:selected').val() > -1 ? this.model.find('option:selected').html() : '';
-    model = model.replace(/(&nbsp;)+/g, '');
-    var price = this.price.val();
-    var year = this.year.val();
-    var vin = this.vin.val();
-    var description = this.description.val();
-    var phone = this.phone.val();
-    var name = this.name.val();
-    var country = this.country.val();
-    var city = this.city.val();
-    var auction = this.auction.val() == 1 ? '<span class="label label-success">торг</span> ' : '';
-    var exchange = this.exchange.val() == 1 ? '<span class="label label-warning">обмен</span>' : '';
-    var millage = this.millage.val();
-    var array = [];
-    array.push(year + ' г.в.');
-    array.push(millage + ' км');
-
-    if(empty(brand) || empty(model) || empty(phone) || phone.length < 9) this.submit.attr('disabled', true);
-    else this.submit.attr('disabled', false);
-
-    if(this.color.find('option:selected').val() != -1) {
-        array.push(this.color.find('option:selected').html());
+function formatResult(item) {
+    if(!item.id) {
+        // return `text` for optgroup
+        return item.text;
     }
-    engine = '';
-    if(this.engine.find('option:selected').val() != -1) {
-        engine += this.engine.find('option:selected').html() + ' ';
-    }
-    engine += this.volume.val() + ' л.';
-    array.push(engine);
-    if(this.transmission.find('option:selected').val() != -1) {
-        array.push(this.transmission.find('option:selected').html());
-    }
-    if(this.body.find('option:selected').val() != -1) {
-        array.push(this.body.find('option:selected').html());
-    }
-    if(this.road.find('option:selected').val() != -1) {
-        array.push(this.road.find('option:selected').html() + ' привод');
-    }
-    var information = array.join(', ');
-
-    var preview =
-        '<div class="row ad-title">' +
-            '<div class="col-md-8">' +
-                '<h2>' + brand + ' ' + model + ' <small>\'' + year + '</small></h2>' +
-                '<p class="sm">Объявление о продаже автомобиля ' + brand + ' ' + model + ' ' + year + ' года выпуска</p>' +
-            '</div>' +
-            '<div class="col-md-4">' +
-                '<span class="label label-danger">$' + price + '</span> ' +
-                auction + exchange +
-            '</div>' +
-        '</div>' +
-        '<div class="row">' +
-            '<div class="col-sm-8">' +
-
-            '</div>' +
-            '<div class="col-md-4">' +
-                '<h3>' + brand + ' ' + model + '</h3>' +
-                information + (vin ? '<br/>VIN код: ' + vin.stripTags() : '') +
-
-                '<ul class="options">';
-
-    for (var i in ini_options['option'])
-    {
-        if (this.option(i)) {
-            preview +=
-                '<li><span class="glyphicon-thumbs-up glyphicon"></span> ' +
-                    ini_options['option'][i];
-                '</li>';
-        }
-    }
-
-    preview +=
-                '</ul>' +
-                '<address>' +
-                    '<span class="glyphicon glyphicon-user"></span> <strong>Данные о продавце</strong><br>' +
-                    (country ? country.stripTags() + ' ' : '') +
-                    (city ? city.stripTags() + ' ' : '') +
-                    (name ? '<br/>' + name.stripTags() : '') +
-                    (phone ? '<br/>+375 ' + phone.stripTags() : '') +
-                '</address>' +
-            '</div>' +
-        '</div>' +
-    '<div class="row">' +
-        '<hr>' +
-        '<p><em>' + (description ? description.stripTags() : '') + '</em></p>' +
-    '</div>';
-
-    if (brand && model) {
-        this.preview.html(
-            preview
-        );
-        this.preview.show();
-    }
-
-    if(!brand || !model) {
-        this.notice.html(
-            'Выберите марку и модель автомобиля!'
-        )
-    }
-    else {
-        this.notice.html(
-            'Заполните как можно больше информации о вашем автомобиле и на ваше объявление будут обращать внимание!'
-        )
-    }
+    var picture = item.element[0].getAttribute('data-picture') !== 'null' ?
+        '<img src="' + item.element[0].getAttribute('data-picture') + '" width="25px"/> ' : '';
+    // return item template
+    return '<span>' + picture + item.text + '</span>';
 }
 
 AddForm.prototype.loadBrands = function()
@@ -393,71 +266,74 @@ AddForm.prototype.loadBrands = function()
     $.ajax({
         type: 'get',
         dataType: 'json',
-        url: '/ajax/api/brands',
+        url: auto_catalog_ajax_brands,
         beforeSend: function() {
             form.brand.prop('disabled', true);
         },
         success: function(data) {
-            popular = data['popular'];
-            all = data['unpopular'];
-            options = '<optgroup label="популярные">';
-            for (var i = 0; i < popular.length; i++) {
-                sel = form.params.id_brand == popular[i]['id'] ? ' selected' : '';
-                options += '<option value="' + popular[i]['id'] + '"' + sel + '>' + popular[i]['name'] + '</option>';
+            options = '';
+            for (var i = 0; i < data.length; i++) {
+                sel = false ? 'selected' : '';
+                options += '<option value="' + data[i]['alias'] + '" ' + sel + ' id="' + data[i]['id'] + '" data-picture="' + data[i]['picture'] + '">' + data[i]['name'] + '</option>';
             }
-            options += '</optgroup>';
-            options += '<optgroup label="все">';
-            for (var i = 0; i < all.length; i++) {
-                sel = form.params.id_brand == all[i]['id'] ? ' selected' : '';
-                options += '<option value="' + all[i]['id'] + '"' + sel + '>' + all[i]['name'] + '</option>';
-            }
-            options += '</optgroup>';
             form.brand.html(
-                '<option value="">выберите марку</option>' +
+                '<option value="-1" data-picture="null">любая</option>' +
                     options
             );
+            form.brand.select2({
+                formatResult: formatResult,
+                language: 'ru'
+            });
             form.brand.prop('disabled', false);
-            form.params.brand = false;
         }
     });
 };
 
-AddForm.prototype.loadModels = function(brand_id)
+AddForm.prototype.loadModels = function(brand, checked_model)
 {
     var form = this;
     $.ajax({
         type: 'get',
         dataType: 'json',
-        url: '/ajax/api/models/id/' + brand_id,
+        url: auto_catalog_ajax_models + '/' + brand,
         beforeSend: function() {
             form.model.prop('disabled', true);
         },
         success: function(data) {
-            form.models = data;
             var options = '';
             for (var i in data) {
-                sel = form.params.id_model == data[i]['id'] ? ' selected' : '';
-                if(Object.keys(data[i]['submodels']).length > 0) {
-                    options += '<option value="' + data[i]['id'] + '"' + sel + '>' + data[i]['name'] + '</option>';
-                    for (var j in data[i]['submodels'])
+
+                sel = getParameter('model') == data[i]['alias'] ? 'selected' : '';
+                if(Object.keys(data[i]['models']).length > 0) {
+                    options += '<option value="' + data[i]['alias'] + '" ' + sel + '>' + data[i]['name'] + '</option>';
+                    for (var j in data[i]['models'])
                     {
-                        sel = form.params.id_model == data[i]['submodels'][j]['id'] ? ' selected' : '';
-                        options += '<option value="' + data[i]['submodels'][j]['id'] + '" class="child-model"' + sel + '> &nbsp; &nbsp; &nbsp;' + data[i]['submodels'][j]['name'] + '</option>';
+                        sel = getParameter('model') == data[i]['models'][j]['alias'] ? 'selected' : '';
+                        options += '<option value="' + data[i]['models'][j]['alias'] + '" class="child-model"' + sel + '> &nbsp; &nbsp; &nbsp;' + data[i]['models'][j]['name'] + '</option>';
                     }
 
                 }
                 else
-                    options += '<option value="' + data[i]['id'] + '"' + sel +'>' + data[i]['name'] + '</option>';
+                    options += '<option value="' + data[i]['alias'] + '"' + sel +'>' + data[i]['name'] + '</option>';
             }
             form.model.html(
-                '<option value="">выберите модель</option>' +
+                '<option value="-1">любая</option>' +
                     options
             );
+            form.model.select2({
+                language: 'ru'
+            });
             form.model.prop('disabled', false);
-            form.params.model = false;
         }
     });
 };
+
+getParameter = function(key){
+    if(popolate_params[key] !== undefined)
+        return popolate_params[key];
+    else 
+        return null;
+}
 
 AddForm.prototype.loadGenerations = function(model_id)
 {
@@ -495,11 +371,6 @@ AddForm.prototype.disableModels = function()
 {
     this.model.html('<option value="">выберите модель</option>');
     this.model.prop('disabled', true);
-};
-
-AddForm.prototype.slide = function()
-{
-    var form = this;
 };
 
 AddForm.prototype.updateYear = function()

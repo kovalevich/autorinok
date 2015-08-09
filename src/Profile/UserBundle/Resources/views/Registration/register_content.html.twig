@@ -1,32 +1,77 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="wrapper full-page-wrapper page-register text-center">
-    <div class="inner-page">
-        <div class="logo">
-            <a href="{{ path('home') }}">logo
-            </a>
-        </div>
-        <button type="button" class="btn btn-register-facebook"><span>Connect using Facebook</span></button>
+<div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId      : '{{ facebook_client_id }}',                        // App ID from the app dashboard
+                status     : true,                                 // Check Facebook Login status
+                xfbml      : true                                  // Look for social plugins on the page
+            });
+        };
 
-        <div class="separator">
-            <span>OR</span>
-        </div>
+        // Load the SDK asynchronously
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
-        <div class="register-box center-block">
-            <form action="{{ path('fos_user_registration_register') }}" method="POST">
-                <p class="title">Create Your Account</p>
-                <input type="email" placeholder="email" class="form-control">
-                <input type="password" placeholder="password" class="form-control">
-                <input type="password" placeholder="repeat password" class="form-control">
-                <label class="fancy-checkbox">
-                    <input type="checkbox">
-						<span>I accept the
-							<a href="#">Terms &amp; Agreements</a>
-						</span>
-                </label>
-                <button class="btn btn-custom-primary btn-lg btn-block btn-register"><i class="fa fa-check-circle"></i> Create Account</button>
-            </form>
+        function fb_login() {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                } else {
+                    // not_authorized
+                    FB.login(function(response) {
+                        if (response.authResponse) {
+                            document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                        } else {
+                        }
+                    }, {scope: 'email'});
+                }
+            });
+        }
+    </script>
+    <div class="row" style="margin-top: 10%">
+    <div class="col-sm-offset-4 col-sm-4">
+                <div class="box box-danger">
+            <div class="box-header">
+                <h2 class="box-title">Зарегистрироваться на авторынке <small>за 30 секунд</small></h2>
+            </div><!-- /.box-header -->
+            <!-- form start -->
+                <form role="form" method="post" action="{{ path('fos_user_registration_register') }}">
+                    <div class="box-body">
+                        {{ form_widget(form) }}
+                        <label class="fancy-checkbox parsley-success">
+                            <input type="checkbox" value="1">
+                            <span><i></i>Я согласен с <a href="">Условиями использования авторынка</a></span>
+                        </label>
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-sm btn-success">Зарегистрироваться</button>
+                        <div style="float: right;">
+                        {% for owner in hwi_oauth_resource_owners() %}
+                            {% if owner == 'facebook' %}
+                                <a href="#" onclick="fb_login();" title="Войти с помощью {{ owner | trans({}, 'HWIOAuthBundle') }}">
+                                    <img src="{{ asset('bundles/app/images/' ~ owner ~ '.png') }}" height="30px;">
+                                </a>
+                            {% else %}
+                            <a href="{{ hwi_oauth_login_url(owner) }}" title="Войти с помощью {{ owner | trans({}, 'HWIOAuthBundle') }}">
+                                <img src="{{ asset('bundles/app/images/' ~ owner ~ '.png') }}" height="30px;">
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <a href="{{ path('fos_user_security_login') }}">Вход в кабинет</a>
         </div>
     </div>
-    <div class="push-sticky-footer"></div>
-</div>

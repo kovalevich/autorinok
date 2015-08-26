@@ -1,0 +1,36 @@
+<em>
+    <small>
+        * этот шаг можно пропустить
+    </small>
+</em>
+
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Опции</h3>
+    </div>
+    <div class="col-sm-4">
+        {% for option in car.option %}
+            <label class="fancy-checkbox parsley-success">
+                <input type="checkbox" name="options[]" value="{{ loop.index }}">
+                <span><i></i>{{option}}</span>
+            </label>
+        {% endfor %}
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+</div>
+
+<hr class="inner-separator"/>
+
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Дополнительная информация</h3>
+    </div>
+    <div class="col-sm-8">
+        <div class="form-group">
+            <label for="description">Дополнительная информация</label>
+            <textarea class="input-sm form-control" name="description" id="description" rows="5" placeholder="Введите текст"></textarea>
+        </div>
+    </div>
+</div>

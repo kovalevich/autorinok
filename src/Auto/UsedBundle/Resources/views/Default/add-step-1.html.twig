@@ -1,0 +1,151 @@
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Марка и модель</h3>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group" id="brands">
+            <label for="brand">Марка</label>
+            <select class="input-sm form-control select" id="brand" style="width: 100%">
+            </select>
+        </div>
+        <div class="form-group" id="models">
+            <label for="model">Модель</label>
+            <select class="model select" id="model" name="id_model">
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="year">Год выпуска</label>
+            <select id="year" name="year" class="input-sm form-control select" required="">
+                <option value="">выберите год выпуска</option>
+                {% for y in 2015..1965 %}
+                    <option value="{{ y }}">{{ y }}</option>';
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+
+<hr class="inner-separator"/>
+
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Двигатель</h3>
+    </div>
+    <div class="col-sm-4">
+        {% for engine in car.engine %}
+            <label class="fancy-radio parsley-success">
+                <input type="radio" name="engine" value="{{ loop.index }}" required data-parsley-multiple="engine" data-parsley-errors-container="#engine-error">
+                <span><i></i>{{engine}}</span>
+            </label>
+        {% endfor %}
+        <div id="engine-error"><ul class="parsley-errors-list" id="parsley-id-multiple-volume"></ul></div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="volume">Объем (л)</label>
+            <input class="input-sm form-control" name="volume" id="volume" placeholder="1.8">
+        </div>
+        <div class="form-group">
+            <label for="power">Мощность (л.с)</label>
+            <input class="input-sm form-control" name="power" id="power" placeholder="110">
+        </div>
+    </div>
+</div>
+
+<hr class="inner-separator"/>
+
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Кузов</h3>
+    </div>
+    <div class="col-sm-4">
+        {% for body in car.body %}
+            <label class="fancy-radio parsley-success">
+                <input type="radio" name="body" value="{{ loop.index }}" required data-parsley-multiple="body" data-parsley-errors-container="#body-error">
+                <span><i></i>{{body}}</span>
+            </label>
+        {% endfor %}
+        <div id="body-error"></div>
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+</div>
+
+<hr class="inner-separator"/>
+
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Трансмиссия</h3>
+    </div>
+    <div class="col-sm-4">
+        {% for transmission in car.transmission %}
+            <label class="fancy-radio parsley-success">
+                <input type="radio" name="transmission" value="{{ loop.index }}" required data-parsley-multiple="transmission" data-parsley-errors-container="#transmission-error">
+                <span><i></i>{{transmission}}</span>
+            </label>
+        {% endfor %}
+        <div id="transmission-error"></div>
+    </div>
+    <div class="col-sm-4">
+        {% for road in car.road %}
+            <label class="fancy-radio parsley-success">
+                <input type="radio" name="road" value="{{ loop.index }}" required data-parsley-multiple="road" data-parsley-errors-container="#road-error">
+                <span><i></i>{{road}}</span>
+            </label>
+        {% endfor %}
+        <div id="road-error"></div>
+    </div>
+</div>
+
+<hr class="inner-separator"/>
+
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Состояние</h3>
+    </div>
+    <div class="col-sm-4">
+        <label class="fancy-radio parsley-success">
+            <input type="radio" name="condition" value="0" required data-parsley-multiple="condition" data-parsley-errors-container="#condition-error">
+            <span><i></i>новый</span>
+        </label>
+        <label class="fancy-radio parsley-success">
+            <input type="radio" name="condition" value="1" checked required data-parsley-multiple="condition" data-parsley-errors-container="#condition-error">
+            <span><i></i>б/у</span>
+        </label>
+        <label class="fancy-radio parsley-success">
+            <input type="radio" name="condition" value="2" required data-parsley-multiple="condition" data-parsley-errors-container="#condition-error">
+            <span><i></i>аварийный</span>
+        </label>
+        <div id="condition-error"></div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="millage">Пробег</label>
+            <input class="input-sm form-control" name="millage" id="millage" placeholder="58000">
+        </div>
+    </div>
+</div>
+
+<hr class="inner-separator"/>
+
+<h3>Цена</h3>
+<div class="row">
+    <div class="col-sm-4">
+        <input type="text" name="price_view" id="price" class="input-lg form-control" required>
+        <br/>
+        <label class="fancy-checkbox control-inline parsley-success">
+            <input type="checkbox" name="auction" value="1">
+            <span><i></i>торг</span>
+        </label>
+        <label class="fancy-checkbox control-inline parsley-success">
+            <input type="checkbox" name="exchange" value="1">
+            <span><i></i>обмен</span>
+        </label>
+    </div>
+    <div class="col-sm-8">
+        Укажите цену вашего автомобиля в бел. рублях или долларах. Мы сами переведем цену по текущему курсу для корректного отображения вашего объявления на сайте!
+    </div>
+</div>

@@ -28,6 +28,8 @@ parameters:
     facebook_client_id:     ~
     facebook_client_secret: ~
 
+    cource: ~
+
     car:
         engine:
             1: газ-бензин

@@ -159,7 +159,7 @@ class ParserController extends Controller
                     ));
 
                 $new_ad->setPhones($ad['phones']);
-                $new_ad->setPrice($ad['price'], $ad['currency'], 14800); # нужно отхаркордить курс доллара
+                $new_ad->setPrice($ad['price'], $ad['currency'], $this->container->getParameter('cource'));
                 $new_ad->setCurrency($ad['currency']);
                 $new_ad->setImages($parser->uploadImages($ad['images']));
                 $new_ad->setYear($ad['year']);

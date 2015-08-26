@@ -1,8 +1,8 @@
 set :application, "autorinok.by"
-set :domain,      "188.166.83.204"
+set :domain,      "46.101.211.197"
 set :user,        "root"
 set :use_sudo,    false
-set :deploy_to,   "/home/admin/web/autorinok.by"
+set :deploy_to,   "/home/admin/web/autorinok.by/public_html"
 set :app_path,    "app"
 
 set :repository,  "file:///home/evgen/sites/auto/auto"

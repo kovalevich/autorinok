@@ -37,6 +37,7 @@ twig:
     globals:
         facebook_client_id: "%facebook_client_id%"
         car: "%car%"
+        cource: "%cource%"
 
 # Assetic Configuration
 assetic:

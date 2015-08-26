@@ -20,9 +20,9 @@ class TutParserManager
 
         $crawler = new Crawler($html);
         $ad['name'] = preg_replace('/([\d]{4,})(?!.+\d{4}.+).+$/', '', $crawler->filter('#title_h1')->text());
-        $ad['price'] = preg_replace('/\D/', '', $crawler->filter('div.b-info > div.price')->text());
-        #$ad['currency'] = $crawler->filter('div.b-info > div.price > meta[itemprop="priceCurrency"]')->attr('content');
-        $ad['currency'] = 'б.р.';
+        //$ad['price'] = preg_replace('/\D/', '', $crawler->filter('div.b-info > div.price')->text());
+        $ad['price'] = $crawler->filter('div.b-info > span[itemprop="priceSpecification"] > meta[itemprop="price"]')->attr('content');
+        $ad['currency'] = $crawler->filter('div.b-info > span[itemprop="priceSpecification"] > meta[itemprop="priceCurrency"]')->attr('content');
         $ad['phones'] = array();
 
         $phones_codes = $crawler->filter('span.phone-code');

@@ -77,13 +77,6 @@ class Ad
     /**
      * @var integer
      *
-     * @ORM\Column(name="price_view", type="integer")
-     */
-    private $priceView;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="year", type="integer")
      */
     private $year;
@@ -453,14 +446,13 @@ class Ad
      * @param string $currency
      * @return Ad
      */
-    public function setPrice($price, $currency = '$', $course = 14800)
+    public function setPrice($price, $currency = 'USD', $course = '18000')
     {
-        if($currency == '$')
+        if($currency == 'USD')
             $this->price = $price;
         else {
-            $this->price = $price / $course; # курс доллара
+            $this->price = $price / $course;
         }
-        $this->setPriceView($price);
 
         return $this;
     }
@@ -473,29 +465,6 @@ class Ad
     public function getPrice()
     {
         return $this->price;
-    }
-
-    /**
-     * Set priceView
-     *
-     * @param integer $priceView
-     * @return Ad
-     */
-    public function setPriceView($priceView)
-    {
-        $this->priceView = $priceView;
-
-        return $this;
-    }
-
-    /**
-     * Get priceView
-     *
-     * @return integer 
-     */
-    public function getPriceView()
-    {
-        return $this->priceView;
     }
 
     /**

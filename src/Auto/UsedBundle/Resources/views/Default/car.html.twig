@@ -42,7 +42,7 @@
         <div class="col-md-4">
             <div class="text-right" style="font-size: 1.6em;">
                 <span class="label label-danger">
-                    <strong>{{ ad.priceView|price(1) }}</strong>
+                    <strong>{{ (ad.price * cource)|price(1) }}</strong>
                 </span>
             </div>
 
@@ -121,7 +121,7 @@
                         {% endif %}
                         <tr class="success" style="font-size: 1.3em;">
                             <td><b>Цена</b></td>
-                            <td>{{ ad.priceView|price }}</td>
+                            <td>{{ (ad.price * cource)|price }}</td>
                         </tr>
                         </tbody>
                     </table>

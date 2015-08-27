@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    var form = new Form('search-full');
+    var form = new Form('search');
     form.slide();
     form.loadBrands();
     form.update(false);
@@ -10,17 +10,6 @@ $(document).ready(function() {
     });
     $('.select').change(function(){
         form.checkInput(this);
-    });
-
-    $('#clear-price').click(function(e){
-        var slider = form.price.data("ionRangeSlider");
-        slider.update({
-            max: 100000,
-            from: 500,
-            to: 85000
-        });
-        form.update();
-        return false;
     });
 
 });
@@ -77,16 +66,17 @@ Form.prototype.update = function()
 Form.prototype.updateCount = function()
 {
     var href = [];
-    $brand = getParameter('brand') !== undefined ? getParameter('brand') : this.brand.find('option:selected').val();
 
-    if(getParameter('brand') && this.brand.find('option:selected').val() && getParameter('brand') !== this.brand.find('option:selected').val())
+    $brand = -1;
+    $model = -1;
+
+    if(this.brand.find('option:selected').val())
         $brand = this.brand.find('option:selected').val();
     if($brand && $brand != -1) {
         href.push('brand=' + $brand);
     }
 
-    $model = getParameter('model') !== undefined ? getParameter('model') : this.model.find('option:selected').val();
-    if(this.model.find('option:selected').val() != -1 && getParameter('model') && this.model.find('option:selected').val() && getParameter('model') !== this.model.find('option:selected').val())
+    if(this.model.find('option:selected').val() != -1)
         $model = this.model.find('option:selected').val();
 
     if($model && $model != -1) {

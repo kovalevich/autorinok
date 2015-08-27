@@ -1,0 +1,86 @@
+body { padding-top: 30px; margin-bottom: 60px;}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: auto;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.fixed-icon {
+  position: relative;
+  right: 30px;
+  color: #777;
+}
+
+.train_type {
+  display: inline-block;
+  vertical-align: top;
+  width: 16px;
+  height: 16px;
+  background: url(../images/sprt.png) -1px -76px no-repeat;
+}
+
+.train_type.interregional_economy {
+  background-position: -69px -76px;
+}
+
+.b-pic {
+  position: relative;
+  float: left;
+  margin: 3px 0 0 -41px;
+  display: inline-block;
+  vertical-align: top;
+  width: 16px;
+  height: 16px;
+  background: url(../images/sprt.png) 16px 16px no-repeat;
+}
+
+.description {
+  color: #777;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.train-name {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.started {
+  display: none;
+  opacity: 0.5;
+}
+
+.keyboard {
+  display: none;
+  height: auto;
+  padding: 15px;
+}
+
+.keyboard-on-off {
+  position: relative;
+  top: -18px;
+  float: right;
+  z-index: 1000;
+}
+
+.keyboard button {
+  margin: 5px;
+}

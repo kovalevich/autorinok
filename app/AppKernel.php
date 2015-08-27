@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new LocationBundle\LocationBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new RaspBundle\RaspBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

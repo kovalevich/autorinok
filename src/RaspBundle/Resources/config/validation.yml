@@ -1,0 +1,5 @@
+Blog\PublicationsBundle\Entity\Category:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [slug]
+            message: 'Такой алиас занят'

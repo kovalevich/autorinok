@@ -1,0 +1,30 @@
+{% extends 'RaspBundle::layout.html.twig' %}
+
+{% block content %}
+	<div class="jumbotron">
+	    <h1>Расписание движения поездов</h1>
+	    <form class="form-inline" id="search-form">
+			<div class="form-group">
+				<label class="sr-only" for="from">Откуда</label>
+				<input type="text" name="from" class="form-control input-lg" id="from" placeholder="Откуда" required>
+				<input type="hidden" class="from_exp" id="main_search_from_exp" name="from_exp" value="">
+				<input type="hidden" class="from_esr" id="main_search_from_esr" name="from_esr" value="">
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="to">Куда</label>
+				<input type="text" name="to" class="form-control input-lg" id="to" placeholder="Куда" required>
+				<input type="hidden" class="to_exp" id="main_search_to_exp" name="to_exp" value="">
+				<input type="hidden" class="to_esr" id="main_search_to_esr" name="to_esr" value="">
+			</div>
+			<div class="form-group">
+				<input class="form-control input-lg" id="date_input" type="text" placeholder="Когда"/>
+				<span class="fa fa-calendar fixed-icon"></span>
+				<input name="date" id="main_search_date" type="hidden" class="orig_date" value="{{ "now"|date("Y-m-d") }}" />
+			</div>
+			<button type="submit" class="btn btn-info btn-xl" id="search">НАЙТИ</button>
+		</form>
+	</div>
+
+	<div id="search-result"></div>
+
+{% endblock %}

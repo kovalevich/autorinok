@@ -17,7 +17,7 @@ class AjaxController extends Controller
         $i = 0;
         foreach($brands as $brand)
         {
-            //if($i++ > 10) break;
+            // if($i++ > 10) break;
             $return_arr[] = array(
                 'id'        => $brand->getId(),
                 'alias'        => $brand->getAlias(),

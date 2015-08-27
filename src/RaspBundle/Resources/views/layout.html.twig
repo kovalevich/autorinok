@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Расписание движения поездов</title>
+
+        {% block stylesheets %}
+            <!-- Bootstrap -->
+            <link href="{{ asset('bundles/rasp/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/rasp/css/bootstrap-theme.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/rasp/css/style.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/rasp/css/jquery-ui-1.10.4.custom.min.css') }}" rel="stylesheet">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        {% endblock %}
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+       
+        <div class="container theme-showcase">
+            {% block content %}{% endblock %}
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <button class="btn keyboard-on-off"><span class="fa fa-keyboard-o"></span></button>
+
+                        <div class="keyboard">
+            <div class="container">
+            <button class="btn btn-default btn-lg">Й</button>
+            <button class="btn btn-default btn-lg">Ц</button>
+            <button class="btn btn-default btn-lg">У</button>
+            <button class="btn btn-default btn-lg">К</button>
+            <button class="btn btn-default btn-lg">Е</button>
+            <button class="btn btn-default btn-lg">Н</button>
+            <button class="btn btn-default btn-lg">Г</button>
+            <button class="btn btn-default btn-lg">Ш</button>
+            <button class="btn btn-default btn-lg">Щ</button>
+            <button class="btn btn-default btn-lg">З</button>
+            <button class="btn btn-default btn-lg">Х</button>
+            <button class="btn btn-default btn-lg">Ъ</button>
+            <button class="btn btn-default btn-lg" id="delete">&nbsp;&nbsp;Стереть&nbsp;&nbsp;</button>
+
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-default btn-lg">Ф</button>
+            <button class="btn btn-default btn-lg">Ы</button>
+            <button class="btn btn-default btn-lg">В</button>
+            <button class="btn btn-default btn-lg">А</button>
+            <button class="btn btn-default btn-lg">П</button>
+            <button class="btn btn-default btn-lg">Р</button>
+            <button class="btn btn-default btn-lg">О</button>
+            <button class="btn btn-default btn-lg">Л</button>
+            <button class="btn btn-default btn-lg">Д</button>
+            <button class="btn btn-default btn-lg">Ж</button>
+            <button class="btn btn-default btn-lg">Э</button>
+            <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-default btn-lg">Я</button>
+            <button class="btn btn-default btn-lg">Ч</button>
+            <button class="btn btn-default btn-lg">С</button>
+            <button class="btn btn-default btn-lg">М</button>
+            <button class="btn btn-default btn-lg">И</button>
+            <button class="btn btn-default btn-lg">Т</button>
+            <button class="btn btn-default btn-lg">Ь</button>
+            <button class="btn btn-default btn-lg">Б</button>
+            <button class="btn btn-default btn-lg">Ю</button>
+            <div class="row">
+                <div class="col-sm-offset-2">
+                    <button class="btn btn-default btn-lg col-sm-4" id="space">Пробел</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+                <p class="text-muted">Разработка: Евгений Ковалевич evgen.kovalevich@gmail.com</p>
+            </div>
+        </footer>
+    
+        {% block javascripts %}
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="{{ asset('bundles/rasp/js/jquery-ui-1.10.4.custom.min.js') }}"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="{{ asset('bundles/rasp/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/rasp/js/i18n_ru.js') }}"></script>
+            <script src="{{ asset('bundles/rasp/js/script.js') }}"></script>
+            <script type="text/javascript">
+                var root_ajax = "{{ path('rasp_ajax') }}?url=";
+                var route = "{{ path('rasp_route') }}";
+            </script>
+        {% endblock %}
+
+        {% if app.environment == 'prod' %}
+            {{ include('raspBundle::metrika.html.twig') }}
+        {% endif %}
+    </body>
+</html>

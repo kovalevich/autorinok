@@ -1,0 +1,37 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="2">Поезд</th>
+            <th>Отправление</th>
+            <th>Прибытие</th>
+            <th>Время в пути</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if items|length > 0 %}
+        {% for item in items %}
+            <tr {% if item.started %}class="started"{% endif %} >
+                <td>{{ item.id }}</td>
+                <td>
+                    <span class="train-name">{{ item.name }}</span> 
+                    <div class="description">{{ item.train_description }}</div>
+                </td>
+                <td>
+                    {{ item.train_start_time }}
+                </td>
+                <td>
+                    {{ item.train_end_time }}
+                </td>
+                <td>
+                    {{ item.train_time_total }}
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4">По вашему запросу нет поездов</td>
+        </tr>
+    {% endif %}
+
+    </tbody>
+</table>

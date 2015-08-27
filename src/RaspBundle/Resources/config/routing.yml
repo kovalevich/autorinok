@@ -1,0 +1,11 @@
+rasp_home:
+    path: /
+    defaults: { _controller: RaspBundle:Default:index }
+
+rasp_ajax:
+    path: /ajax
+    defaults: { _controller: RaspBundle:Default:ajax }
+
+rasp_route:
+    path: /route
+    defaults: { _controller: RaspBundle:Default:route }

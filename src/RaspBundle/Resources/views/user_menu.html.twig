@@ -1,0 +1,33 @@
+<!-- logged user and the menu -->
+<div style="float: right">
+    <div class="menu">
+        <a class="toggleMenu" href="#">Меню пользователя</a>
+        <ul class="nav">
+            {% if not is_granted('ROLE_USER') %}
+            <li>
+                <a href="{{ path('fos_user_security_login') }}">Войти</a>
+            </li>
+            <li>
+                <a href="{{ path('profile_user_registration') }}">Регистрация</a>
+            </li>
+            {% else %}
+            <li><a href="#">{{ app.user.username }}</a>
+                <ul style="width: 230px;">
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_panel_homepage') }}">
+                            <i class="fa fa-cogs"></i>
+                            <span class="text">Панель администратора</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Профиль</a></li>
+                    <li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-cog"></i> Настройки</a></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}">Выход</a></li>
+                </ul>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+<!-- end logged user and the menu -->

@@ -2,6 +2,10 @@ auto_used_index:
     path:     /automobili
     defaults: { _controller: AutoUsedBundle:Default:index }
 
+auto_used_html:
+    path:     /automobili?_escaped_fragment_=
+    defaults: { _controller: AutoUsedBundle:Default:html }
+
 auto_used_add:
     path:     /automobili/novoe-objavlenie
     defaults: { _controller: AutoUsedBundle:Default:add }

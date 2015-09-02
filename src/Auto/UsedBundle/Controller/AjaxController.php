@@ -34,9 +34,27 @@ class AjaxController extends Controller
             $limit
         );
 
-        return $this->render('AutoUsedBundle:Ajax:page.html.twig', array(
-            'pagination'    => $pagination
-        ));
+        if($brand = $request->get('brand')) {
+            $brand = $em->getRepository('AutoCatalogBundle:Brand')->findOneByAlias($brand);
+        }
+        if($model = $request->get('model')) {
+            $model = $em->getRepository('AutoCatalogBundle:Model')->findOneByAlias($model);   
+        }
+
+        if($request->get('view') == 'html') {
+            return $this->render('AutoUsedBundle:Ajax:page_html.html.twig', array(
+                'pagination'    => $pagination,
+                'brand'         => $brand,
+                'model'         => $model,
+                'year'          => str_replace(';', '-', $request->get('year'))
+            ));
+        }
+        else
+            return $this->render('AutoUsedBundle:Ajax:page.html.twig', array(
+                'pagination'    => $pagination,
+                'brand'         => $brand,
+                'model'         => $model
+            ));
     }
 
     public function countNewAdsAction()

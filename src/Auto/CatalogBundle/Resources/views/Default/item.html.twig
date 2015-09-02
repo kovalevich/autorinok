@@ -37,7 +37,7 @@
                         <div class="text-center">
                             <span class="big-number">+ {{ count_ads }}</span>
                             <p>объявлений {{ brand }} {{ model }}</p>
-                            <a class="btn btn-sm btn-info" href="{{ path('auto_used_index') }}#brand={{ brand.alias }}{% if model %}&model={{ model.alias }}{% endif %}{% if generation %}&generation={{ generation.id }}{% endif %}">
+                            <a class="btn btn-sm btn-info" href="{{ path('auto_used_index') }}#!brand={{ brand.alias }}{% if model %}&model={{ model.alias }}{% endif %}{% if generation %}&generation={{ generation.id }}{% endif %}">
                                 Смотреть
                             </a>
                         </div>

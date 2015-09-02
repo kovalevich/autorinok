@@ -16,7 +16,7 @@ $(document).ready(function() {
     $('#search-results').on('click', '.pagination a',function(e){
         var url = this.attributes.href.value;
         var hash = url.substring(url.indexOf('?'));
-        window.location.hash = '#' + hash;
+        window.location.hash = '#!' + hash;
         form.update(false);
         return false;
     });
@@ -211,7 +211,7 @@ Form.prototype.updateList = function(go_to_start_page)
     if(get_checked('body[]') !== '') href.push(get_checked('body[]'));
     if(getParameter('page') && go_to_start_page === false) href.push('page=' + getParameter('page'));
 
-    window.location.hash = '#' + href.join('&');
+    window.location.hash = '#!' + href.join('&');
 
     $.ajax({
         type: 'get',
@@ -378,7 +378,7 @@ get_checked = function(name)
 getParameter = function(name)
 {
     var vars = [], hash;
-    var hashes = window.location.hash.slice(window.location.hash.indexOf('#') + 1).split('&');
+    var hashes = window.location.hash.slice(window.location.hash.indexOf('#') + 2).split('&');
     for(var i = 0; i < hashes.length; i++)
     {
         hash = hashes[i].split('=');

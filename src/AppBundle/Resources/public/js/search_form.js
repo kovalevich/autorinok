@@ -90,7 +90,7 @@ Form.prototype.updateCount = function()
         href.push('year=' + this.year.val());
     }
 
-    $('#go_search').attr('href', auto_used + '#' + href.join('&'));
+    $('#go_search').attr('href', auto_used + '#!' + href.join('&'));
 }
 
 Form.prototype.loadBrands = function()

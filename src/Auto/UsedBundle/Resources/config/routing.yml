@@ -31,3 +31,7 @@ auto_used_default_car:
 auto_used_count_new_ads:
     path: /auto/used/ajax/count-new-ads
     defaults: { _controller: AutoUsedBundle:Ajax:countNewAds }
+
+auto_used_delete:
+    path: /auto/used/delete
+    defaults: { _controller: AutoUsedBundle:Default:delete }

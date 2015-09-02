@@ -88,7 +88,7 @@ class ParserManager
                 $this->cropImage($img, $_dir.'/'.$newFilename, 80, 80, 'min');
 
                 $ret_images[] = $_dir.'/'.$newFilename;
-                if($i > 8) break;
+                if($i > 5) break;
             }
         }
 

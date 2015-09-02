@@ -14,6 +14,22 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class AdRepository extends EntityRepository
 {
 
+    public function findOldAd()
+    {
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT a FROM AutoUsedBundle:Ad a
+                ORDER BY a.upped ASC'
+            )
+        ->setMaxResults(1);
+
+        try {
+            return $query->getOneOrNullResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }        
+    }
+
     public function findJoinedAd($id)
     {
         $query = $this->getEntityManager()

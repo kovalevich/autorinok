@@ -14,6 +14,12 @@ html {
   background-color: #f5f5f5;
 }
 
+#search-result {
+  overflow-y:auto;
+  max-height: 340px;
+  margin-bottom: 45px;
+}
+
 
 /* Custom page CSS
 -------------------------------------------------- */

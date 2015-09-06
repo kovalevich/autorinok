@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>http://autorinok.by</loc>
+      <lastmod>{{ "now"|date("Y-m-d") }}</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+   </url>
+   {% if brands|length > 0 %}
+      {% for item in brands %}
+   <url>
+      <loc>http://autorinok.by{{ path('auto_used_index') }}#!brand={{ item.alias }}</loc>
+      <changefreq>weekly</changefreq>
+   </url>
+      {% endfor %}
+   {% endif %}
+</urlset>

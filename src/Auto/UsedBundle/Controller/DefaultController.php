@@ -57,7 +57,7 @@ class DefaultController extends Controller
         $count = 0;
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('AutoUsedBundle:Ad');
-        while (true || disk_free_space($_SERVER['DOCUMENT_ROOT']) / 1000000000 < 1) {
+        while (disk_free_space($_SERVER['DOCUMENT_ROOT']) / 1000000000 < 1) {
             
             $ad = $repo->findOldAd();
 

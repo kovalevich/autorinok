@@ -17,8 +17,8 @@
                 <li>
                     <a id="breadcrumbs-home" title="На главную страницу" href="/">Онлайн авторынок</a>
                 </li>
-                <li><a title="Все объявления о продаже {{ ad.brand }}" href="{{ path('auto_used_index') }}#brand={{ ad.brand.alias }}">{{ ad.brand }}</a></li>
-                <li><a id="breadcrumbs-cars" title="Все объявления {{ ad.brand }} {{ ad.model }}" href="{{ path('auto_used_index') }}#brand={{ ad.brand.alias }}&model={{ ad.model.alias }}">{{ ad.model }}</a></li>
+                <li><a title="Все объявления о продаже {{ ad.brand }}" href="{{ path('auto_used_index') }}#!brand={{ ad.brand.alias }}">{{ ad.brand }}</a></li>
+                <li><a id="breadcrumbs-cars" title="Все объявления {{ ad.brand }} {{ ad.model }}" href="{{ path('auto_used_index') }}#!brand={{ ad.brand.alias }}&model={{ ad.model.alias }}">{{ ad.model }}</a></li>
                 <li>Продам {{ ad.title }} {{ ad.year }} г.в.</li>
             </ol>
         </div>
